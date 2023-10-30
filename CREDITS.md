@@ -7,6 +7,9 @@ This file is a best effort credits section to credit all creators whose work we 
 # Assets
 
 [House model + textures](https://elbolilloduro.itch.io/house) - CC0
+TODO: credit the above author for his other assets (not confirmed that we're using them just experimenting)
+mixamo animaitons (license is cool? check this and add info later)
+Low poly human? if we use that
 
 # Godot
 
