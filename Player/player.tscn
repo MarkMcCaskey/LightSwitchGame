@@ -7,6 +7,7 @@ radius = 0.125119
 height = 1.05178
 
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 3
 floor_stop_on_slope = false
 floor_max_angle = 1.22173
 script = ExtResource("1_2f8j2")
@@ -17,7 +18,7 @@ shape = SubResource("CapsuleShape3D_3rsb5")
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.069, 0.0271068)
-fov = 80.0
+fov = 37.8493
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="Camera"]
 remote_path = NodePath("../../DirectionalLight3D")

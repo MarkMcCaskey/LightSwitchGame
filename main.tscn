@@ -4,8 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Player/player.tscn" id="2_jgtl2"]
 [ext_resource type="Script" path="res://Node3D.gd" id="3_yh8v8"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a7mnx"]
+sky_top_color = Color(0, 0, 0.0313726, 1)
+sky_horizon_color = Color(0.231373, 0.309804, 0.403922, 1)
+sun_angle_max = 0.0
+
+[sub_resource type="Sky" id="Sky_ixxuj"]
+sky_material = SubResource("ProceduralSkyMaterial_a7mnx")
+
 [sub_resource type="Environment" id="Environment_sfked"]
+background_mode = 2
+sky = SubResource("Sky_ixxuj")
+sky_rotation = Vector3(3.48787e-16, 3.48787e-16, 3.48787e-16)
+ssao_enabled = true
 fog_enabled = true
+fog_density = 0.001
+fog_height_density = -0.01
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_27gda"]
 
