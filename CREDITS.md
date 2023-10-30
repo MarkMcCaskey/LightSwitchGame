@@ -6,6 +6,8 @@ This file is a best effort credits section to credit all creators whose work we 
 
 # Assets
 
+[House model + textures](https://elbolilloduro.itch.io/house) - CC0
+
 # Godot
 
 [Simple First Person Controller Template](https://github.com/rbarongr/GodotFirstPersonController) - CC0
