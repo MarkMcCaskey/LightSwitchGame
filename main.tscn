@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjuxd0kryxd45"]
+[gd_scene load_steps=4 format=3 uid="uid://bjuxd0kryxd45"]
 
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="2_j6vmr"]
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Player/player.tscn" id="2_jgtl2"]
+
+[sub_resource type="Environment" id="Environment_sfked"]
+fog_enabled = true
 
 [node name="Main" type="Node3D"]
 
@@ -12,3 +15,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68758, 12.0027)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.92846, -2.77128)
 
 [node name="House" parent="." instance=ExtResource("2_j6vmr")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sfked")
