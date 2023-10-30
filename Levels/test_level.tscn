@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://4dk7h2y66wee"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4pudn"]
+size = Vector3(15.9562, 4.51282, 14.6627)
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="Area3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -4.0564, 2.08165e-12)
+shape = SubResource("BoxShape3D_4pudn")
