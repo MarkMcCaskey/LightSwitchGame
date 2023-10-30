@@ -6,3 +6,6 @@ got to tree_06 and I had started counting from 001. All tree nodes may need to b
 
 ## Plates have wrong texture applied
 I didn't realize there was a plate texture, redo those
+
+## Ceiling texture
+I missed this and applied white plaster to it. Need to find and update all these
