@@ -24,3 +24,5 @@ remote_path = NodePath("../../DirectionalLight3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.069, 0.0271068)
+light_energy = 0.05
+light_indirect_energy = 0.05

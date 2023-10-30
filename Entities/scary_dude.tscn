@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvmf4cnb3hdft"]
+
+[ext_resource type="PackedScene" uid="uid://4q08ks1c3knn" path="res://creature_1.tscn" id="1_sp4ao"]
+
+[node name="ScaryDude" type="Node3D"]
+
+[node name="W" parent="." instance=ExtResource("1_sp4ao")]
