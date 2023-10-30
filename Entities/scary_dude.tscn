@@ -1,7 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvmf4cnb3hdft"]
+[gd_scene load_steps=4 format=3 uid="uid://b4hwasni6qla7"]
 
-[ext_resource type="PackedScene" uid="uid://4q08ks1c3knn" path="res://creature_1.tscn" id="1_sp4ao"]
+[ext_resource type="Script" path="res://Entities/scary_dude.gd" id="1_ohpp7"]
+[ext_resource type="PackedScene" uid="uid://4q08ks1c3knn" path="res://creature_1.tscn" id="2_2x3m7"]
 
-[node name="ScaryDude" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aat8h"]
+radius = 0.308607
+height = 1.52683
 
-[node name="W" parent="." instance=ExtResource("1_sp4ao")]
+[node name="ScaryDude" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.35, 2.08165e-12)
+motion_mode = 1
+script = ExtResource("1_ohpp7")
+
+[node name="W" parent="." instance=ExtResource("2_2x3m7")]
+transform = Transform3D(40, 0, 0, 0, -1.74846e-06, 40, 0, -40, -1.74846e-06, 2.08165e-12, 1.01488, 2.08165e-12)
+
+[node name="RedStain" type="SpotLight3D" parent="."]
+transform = Transform3D(0.0666323, 0.364813, -0.928693, 0.0556605, 0.927953, 0.368516, 0.996224, -0.0762466, 0.0415259, 0.459336, 1.74844, -0.045881)
+light_color = Color(1, 0, 0, 1)
+light_energy = 5.0
+spot_range = 15.0
+spot_angle = 35.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.42048, 0)
+shape = SubResource("CapsuleShape3D_aat8h")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+debug_enabled = true

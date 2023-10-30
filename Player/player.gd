@@ -20,8 +20,13 @@ var grav_vel: Vector3 # Gravity velocity
 var jump_vel: Vector3 # Jumping velocity
 
 @onready var camera: Camera3D = $Camera
+@onready var ray: RayCast3D = $Camera/RayCast3D
+@onready var interact_label: Label = $Camera/CenterContainer/InteractLabel
+
+var current_interactable: Interactable
 
 func _ready() -> void:
+	interact_label.hide()
 	capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -30,10 +35,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("jump"): jumping = true
 	if Input.is_action_just_pressed("exit"): get_tree().quit()
+	if Input.is_action_just_pressed("interact") && current_interactable: current_interactable.interact()
 
 func _physics_process(delta: float) -> void:
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
+	var c = ray.get_collider()
+	if c && c is Interactable:
+		if c != current_interactable:
+			interact_label.text = c.interact_text
+			interact_label.show()
+			current_interactable = c
+	else:
+		interact_label.hide()
+		current_interactable = null
 	move_and_slide()
 
 func capture_mouse() -> void:
