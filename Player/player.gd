@@ -20,6 +20,7 @@ var grav_vel: Vector3 # Gravity velocity
 var jump_vel: Vector3 # Jumping velocity
 
 @onready var camera: Camera3D = $Camera
+@onready var collider: CollisionShape3D = $CShape
 
 func _ready() -> void:
 	capture_mouse()
@@ -73,3 +74,23 @@ func _jump(delta: float) -> Vector3:
 		return jump_vel
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
+	
+func _input(event):
+	if event is InputEventKey and event.keycode == KEY_E:
+		# assuming mouse is centered
+		var center = get_viewport().get_mouse_position()
+		
+		# ray cast query
+		var p0 = camera.project_ray_origin(center)
+		var p1 = p0 + camera.project_ray_normal(center) * 1.5
+		var query = PhysicsRayQueryParameters3D.create(p0, p1)
+		query.collision_mask = 1 << 2; # only layer 3
+		
+		# check ray cast
+		var cast = get_world_3d().direct_space_state.intersect_ray(query)
+		
+		# call interact method of root
+		if cast.has("collider"):
+			cast["collider"].get_parent()._interact()
+		
+	pass
