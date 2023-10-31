@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	var c = interact_ray.get_collider()
 	if c && c is Interactable:
 		if c != current_interactable:
-			interact_label.text = c.interact_text
+			interact_label.text = "Press E to " + c.interact_text
 			interact_label.show()
 			current_interactable = c
 	else:
