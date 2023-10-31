@@ -10,6 +10,7 @@ This file is a best effort credits section to credit all creators whose work we 
 TODO: credit the above author for his other assets (not confirmed that we're using them just experimenting)
 mixamo animaitons (license is cool? check this and add info later)
 Low poly human? if we use that
+[Halloween assets + textures](https://elbolilloduro.itch.io/halloween)
 
 # Godot
 
