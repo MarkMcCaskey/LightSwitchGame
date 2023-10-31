@@ -34,4 +34,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.92846, -2.77128)
 environment = SubResource("Environment_sfked")
 
 [node name="ScaryDude" parent="." instance=ExtResource("3_20vsw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, 1.78981, 28.8695)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, 0.342934, 28.8695)

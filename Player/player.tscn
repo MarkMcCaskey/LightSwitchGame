@@ -6,7 +6,7 @@
 radius = 0.125119
 height = 1.05178
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 collision_layer = 3
 floor_stop_on_slope = false
 floor_max_angle = 1.22173
@@ -21,7 +21,7 @@ shape = SubResource("CapsuleShape3D_3rsb5")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01306, 0)
 fov = 45.0
 
-[node name="RayCast3D" type="RayCast3D" parent="Camera"]
+[node name="InteractRayCast" type="RayCast3D" parent="Camera"]
 target_position = Vector3(2.08165e-12, 2.08165e-12, -1)
 collision_mask = 4
 collide_with_areas = true
@@ -44,3 +44,10 @@ grow_vertical = 0
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Press E to Interact"
+
+[node name="LookingAtMonsterRay" type="RayCast3D" parent="Camera"]
+target_position = Vector3(2.08165e-12, 2.08165e-12, -100)
+collision_mask = 9
+collide_with_areas = true
+collide_with_bodies = false
+debug_shape_custom_color = Color(1, 0, 0.0823529, 1)

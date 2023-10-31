@@ -20,10 +20,12 @@ var grav_vel: Vector3 # Gravity velocity
 var jump_vel: Vector3 # Jumping velocity
 
 @onready var camera: Camera3D = $Camera
-@onready var ray: RayCast3D = $Camera/RayCast3D
+@onready var interact_ray: RayCast3D = $Camera/InteractRayCast
 @onready var interact_label: Label = $Camera/CenterContainer/InteractLabel
+@onready var monster_visible_ray: RayCast3D = $Camera/LookingAtMonsterRay
 
 var current_interactable: Interactable
+var last_seen_monster: ScaryDude
 
 func _ready() -> void:
 	interact_label.hide()
@@ -40,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
-	var c = ray.get_collider()
+	var c = interact_ray.get_collider()
 	if c && c is Interactable:
 		if c != current_interactable:
 			interact_label.text = c.interact_text
@@ -49,6 +51,19 @@ func _physics_process(delta: float) -> void:
 	else:
 		interact_label.hide()
 		current_interactable = null
+	
+	# using a ray here is a bit of a hack, we want either a vision cone or like
+	# multiple rays that follow the camera FoV
+	var mc = monster_visible_ray.get_collider()
+	if mc && mc.name == "VisibleAura":
+		if mc != last_seen_monster:
+			var monster: ScaryDude = mc.get_parent()
+			last_seen_monster = monster
+			monster.seen_by_player()
+	else:
+		if last_seen_monster && is_instance_valid(last_seen_monster):
+			last_seen_monster.end_seen_by_player()
+		last_seen_monster = null
 	move_and_slide()
 
 func capture_mouse() -> void:

@@ -4,7 +4,7 @@ enum State { Hunting, Creeping, Idle }
 
 @export var state: State = State.Idle
 
-@export var speed: float = 5.
+@export var speed: float = 1.
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @export var target_location: Vector3 = Vector3(0.,0.,0.):
@@ -16,6 +16,7 @@ enum State { Hunting, Creeping, Idle }
 			navigation_agent.target_position = value
 
 var direction: Vector3 = Vector3(0,0,0)
+var player_target: Player
 
 func _ready():
 	#animation_tree.active = true
@@ -33,9 +34,14 @@ func actor_setup():
 
 	navigation_agent.velocity_computed.connect(_on_nav_velocity_computed)
 	navigation_agent.max_speed = speed
-	target_location = Vector3(0.,0.,0.)
+	player_target = get_tree().get_nodes_in_group("Player")[0]
+	look_at(player_target.global_position)
+	target_location = player_target.global_position
 
 func _physics_process(_delta: float) -> void:
+	if player_target:
+		look_at(player_target.global_position)
+		target_location = player_target.global_position
 	if !navigation_agent.is_navigation_finished():
 		var current_agent_position: Vector3 = collision_shape.global_transform.origin
 		var next_path_position: Vector3 = navigation_agent.get_next_path_position()
@@ -73,3 +79,9 @@ func _physics_process(_delta: float) -> void:
 func _on_nav_velocity_computed(safe_velocity: Vector3) -> void:
 	#print(str(velocity) + " -> " + str(safe_velocity) + "; ")
 	velocity = safe_velocity * speed
+
+func seen_by_player() -> void:
+	speed = 0.5
+
+func end_seen_by_player() -> void:
+	speed = 10.0

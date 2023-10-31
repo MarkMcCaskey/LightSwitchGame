@@ -79,6 +79,13 @@ interact={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="GeneralCollision"
+3d_physics/layer_2="GeneralTriggers"
+3d_physics/layer_3="InteractCollision"
+3d_physics/layer_4="MonsterVisibleCollision"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
