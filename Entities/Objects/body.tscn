@@ -1,6 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cd3b88n387wyd"]
 
 [ext_resource type="Texture2D" uid="uid://b2p6spugrkfwm" path="res://Assets/halloween/Textures/Body.png" id="1_6af42"]
+[ext_resource type="Script" path="res://Util/Distraction.gd" id="1_vblsd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rdd1"]
 resource_name = "Body"
@@ -42,20 +43,12 @@ shadow_mesh = SubResource("ArrayMesh_bcci8")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ly08m"]
 albedo_texture = ExtResource("1_6af42")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cgrhk"]
-radius = 0.001
-height = 0.002
-
 [node name="Body" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_vblsd")
 
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(53.8, 0, 0, 0, 53.8, 0, 0, 0, 53.8, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("ArrayMesh_2g5j5")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_ly08m")
-
-[node name="Area3D" type="Area3D" parent="BodyMesh"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="BodyMesh/Area3D"]
-shape = SubResource("CapsuleShape3D_cgrhk")
