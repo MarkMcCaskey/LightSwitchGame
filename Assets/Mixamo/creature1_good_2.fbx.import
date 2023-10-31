@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://5lcydw4isnf6"
-path="res://.godot/imported/Zombie Walk.dae-2a411e0e8f4a0374c237e98b4223f6e1.scn"
+uid="uid://df4lggc0ffwwi"
+path="res://.godot/imported/creature1_good_2.fbx-c5c30864280168121682a32b7f49ce28.scn"
 
 [deps]
 
-source_file="res://Assets/Mixamo/Humanoid/Zombie Walk.dae"
-dest_files=["res://.godot/imported/Zombie Walk.dae-2a411e0e8f4a0374c237e98b4223f6e1.scn"]
+source_file="res://Assets/Mixamo/creature1_good_2.fbx"
+dest_files=["res://.godot/imported/creature1_good_2.fbx-c5c30864280168121682a32b7f49ce28.scn"]
 
 [params]
 

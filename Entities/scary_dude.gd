@@ -7,6 +7,7 @@ enum State { Hunting, Creeping, Idle }
 @export var speed: float = 1.
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
+@onready var animated_creature: AnimatedCreature1 = $AnimatedCreature1
 @export var target_location: Vector3 = Vector3(0.,0.,0.):
 	get:
 		return target_location
@@ -51,6 +52,7 @@ func _physics_process(_delta: float) -> void:
 		direction = new_velocity.normalized()
 	else:
 		direction = Vector3(0., 0., 0.)
+		animated_creature.breakdance()
 	
 	var next_velocity: Vector3 = velocity
 	if direction.x != 0: #&& state_machine.can_move():
@@ -84,4 +86,5 @@ func seen_by_player() -> void:
 	speed = 0.5
 
 func end_seen_by_player() -> void:
+	animated_creature.crouch()
 	speed = 10.0
