@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dukkknlttn3je"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_455ds"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0)
+roughness = 0.0
+
+[resource]
+next_pass = SubResource("StandardMaterial3D_455ds")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.62)
+metallic_specular = 0.0
