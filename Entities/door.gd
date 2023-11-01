@@ -1,5 +1,5 @@
-@tool
-class_name Door extends Interactable
+#@tool
+class_name Door extends Node3D
 
 @export var closed: bool = true:
 	get: return closed
@@ -29,9 +29,6 @@ func _process(delta):
 	t = clampf(t, 0., 1.)
 	animation_tree["parameters/Open/blend_position"] = t
 
-func interact() -> void:
-	dt = -dt
-
 func _load_door_mesh() -> void:
 	match door_type:
 		DoorType.Outer:
@@ -42,3 +39,7 @@ func _load_door_mesh() -> void:
 			door_mesh.mesh = load("res://Entities/Objects/Resources/inner_door.tres")
 			var material = load("res://Entities/Objects/Resources/inner_door_texture.tres")
 			door_mesh.set_surface_override_material(0, material)
+
+
+func _on_door_interactable_on_interact() -> void:
+	dt = -dt

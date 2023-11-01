@@ -1,14 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjlc3twswnw8f"]
+[gd_scene load_steps=17 format=3 uid="uid://cjlc3twswnw8f"]
 
 [ext_resource type="Script" path="res://Entities/door.gd" id="1_jh4ui"]
 [ext_resource type="ArrayMesh" uid="uid://ccv701qyd33wf" path="res://Entities/Objects/Resources/inner_door.tres" id="2_sdpwu"]
 [ext_resource type="Material" uid="uid://6o76q16h4ntq" path="res://Entities/Objects/Resources/inner_door_texture.tres" id="3_d06fj"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_y8bat"]
-size = Vector3(0.0482436, 2.49693, 0.951587)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1a15q"]
-size = Vector3(0.0964778, 2.47326, 0.908942)
+[ext_resource type="Script" path="res://Util/Interactable.gd" id="4_p1twn"]
 
 [sub_resource type="Animation" id="Animation_4xosn"]
 resource_name = "Closed"
@@ -16,7 +11,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RotationNode:rotation")
+tracks/0/path = NodePath("..:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -25,18 +20,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/path = NodePath("CollisionShape3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-4.62004e-28, -1.45024e-12, -1.37561e-26)]
-}
 
 [sub_resource type="Animation" id="Animation_ujkap"]
 resource_name = "OpenBackward"
@@ -44,35 +27,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RotationNode:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(3.48787e-16, -1.5708, 3.48787e-16)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/path = NodePath("CollisionShape3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(3.48787e-16, -1.5708, 3.48787e-16)]
-}
-
-[sub_resource type="Animation" id="Animation_3pnqk"]
-resource_name = "OpenForward"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RotationNode:rotation")
+tracks/0/path = NodePath("..:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -81,13 +36,17 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(3.48787e-16, 1.5708, 3.48787e-16)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = false
-tracks/1/path = NodePath("CollisionShape3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
+
+[sub_resource type="Animation" id="Animation_3pnqk"]
+resource_name = "OpenForward"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -126,14 +85,28 @@ states/Open/node = SubResource("AnimationNodeBlendSpace1D_rwxa6")
 states/Open/position = Vector2(387, 98.5)
 transitions = ["Start", "Open", SubResource("AnimationNodeStateMachineTransition_cmawu")]
 
-[node name="Door" type="Area3D"]
-transform = Transform3D(1, -2.00394e-19, 0.000903314, 2.00576e-19, 1, -2.00576e-19, -0.000903314, 2.00757e-19, 1, 0, 0, 0)
-collision_layer = 4
-collision_mask = 4
+[sub_resource type="BoxShape3D" id="BoxShape3D_y8bat"]
+size = Vector3(0.0482436, 2.49693, 0.951587)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1a15q"]
+size = Vector3(0.0964778, 2.47326, 0.908942)
+
+[node name="Door" type="Node3D"]
 script = ExtResource("1_jh4ui")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../RotationNode/DoorInteractable")
+libraries = {
+"": SubResource("AnimationLibrary_qs8g1")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_hlf70")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/Open/blend_position = 0.0
+
 [node name="RotationNode" type="Node3D" parent="."]
-transform = Transform3D(1, -2.00394e-19, 0.000903312, 2.00576e-19, 1, -2.00576e-19, -0.000903312, 2.00757e-19, 1, 0, 0, 0)
 
 [node name="DoorMesh" type="MeshInstance3D" parent="RotationNode"]
 transform = Transform3D(-0.090327, -99.9999, 4.37114e-06, 2.00772e-17, 4.37114e-06, 100, 99.9999, -0.090327, 3.94832e-09, 0, 0, 0)
@@ -148,22 +121,15 @@ transform = Transform3D(0.999999, 2.00575e-19, -0.000903314, -2.00395e-19, 1, 2.
 transform = Transform3D(1, 6.28168e-27, 2.76458e-11, -8.41912e-26, 1, -6.21402e-27, 2.76458e-11, -6.21402e-27, 1, 0.000417372, -9.27588e-20, -0.462046)
 shape = SubResource("BoxShape3D_y8bat")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="RotationNode"]
-transform = Transform3D(0.999999, 2.00576e-19, -0.000903314, -2.00394e-19, 1, 2.00757e-19, 0.000903313, -2.00575e-19, 0.999999, 0.000426729, -9.48382e-20, -0.472404)
-remote_path = NodePath("../../CollisionShape3D")
-update_scale = false
+[node name="DoorInteractable" type="Area3D" parent="RotationNode"]
+transform = Transform3D(0.999999, -2.00395e-19, 0.000903313, 2.00576e-19, 1, -2.00576e-19, -0.000903313, 2.00757e-19, 0.999999, 0, 0, 0)
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("4_p1twn")
+interact_text = "Toggle Door"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.99988, -2.00394e-19, 0.000903204, 2.00552e-19, 1, -2.00552e-19, -0.000903204, 2.00757e-19, 0.99988, 9.39099e-10, -1.41292e-26, -0.472404)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RotationNode/DoorInteractable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000853458, -1.89762e-19, -0.472404)
 shape = SubResource("BoxShape3D_1a15q")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_qs8g1")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_hlf70")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/Open/blend_position = 0.000575066
+[connection signal="on_interact" from="RotationNode/DoorInteractable" to="." method="_on_door_interactable_on_interact"]
