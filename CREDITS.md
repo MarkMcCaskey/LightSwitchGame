@@ -17,3 +17,9 @@ Low poly human? if we use that
 
 [Simple First Person Controller Template](https://github.com/rbarongr/GodotFirstPersonController) - CC0
 [Glass Material Reference](https://gitlab.com/zolno/godot-experiments/-/tree/glass) - MIT
+
+# Audio
+
+[Ghost breath](https://opengameart.org/content/ghost-breath) - CC0
+[Wind woosh loop](https://opengameart.org/content/wind-whoosh-loop) - CC0
+[Ghost noises](https://opengameart.org/content/ghost-monster-voice-moaning-growling) - CC0

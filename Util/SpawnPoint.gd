@@ -28,7 +28,8 @@ func spawn_object() -> void:
 	print("Object of type " + Distraction.DistractionType.keys()[distraction_type] + " spawned in room " + Room.RoomName.keys()[room])
 	add_child(object)
 
-func spawn_object_type(dt: Distraction.DistractionType) -> void:
+func spawn_object_type(dt: Distraction.DistractionType) -> bool:
 	if distraction_type != dt:
-		return
+		return false
 	spawn_object()
+	return true

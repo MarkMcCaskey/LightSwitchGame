@@ -1,6 +1,6 @@
 class_name Task extends Interactable
 
-const target_progress: int = 10
+const target_progress: int = 18
 var progress: int = 0
 
 @onready var light: OmniLight3D = $OmniLight3D
@@ -24,7 +24,7 @@ func interact() -> void:
 	if progress >= target_progress:
 		return
 	progress += 1
-	if (progress - last_update) >= 3:
+	if (progress - last_update) >= 2:
 		#call_deferred("_gen_distraction", 1)
 		last_update = progress
 		_gen_distraction(1)

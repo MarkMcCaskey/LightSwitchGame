@@ -4,19 +4,26 @@ var last_distraction: Distraction.DistractionType
 var last_room: Room.RoomName
 
 # difficulty between 1-3
-func generate_distraction(difficulty: int) -> void:
+func generate_distraction(difficulty: int) -> bool:
 	match difficulty:
 		1:
 			var dist = _get_random_new_distraction()
 			var room = _get_random_new_room()
 			var spawn_group = Room.room_name_to_spawn_group(room)
-			get_tree().call_group(spawn_group, "spawn_object_type", dist)
-			last_distraction = dist
-			last_room = room
+			var found: bool = false
+			for spawner in get_tree().get_nodes_in_group(spawn_group):
+				if spawner.spawn_object_type(dist):
+					found = true
+					break
+			if found:
+				last_distraction = dist
+				last_room = room
+			return found
 		2:
 			pass
 		_:
 			pass
+	return false
 
 func _get_random_room() -> Room.RoomName:
 	# None (idx 0) is not a valid room
