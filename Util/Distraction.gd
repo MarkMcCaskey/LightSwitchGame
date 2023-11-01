@@ -4,7 +4,9 @@ enum DistractionType { Unique, BodyBag, Scarecrow }
 
 @export var room: Room.RoomName
 @export var type: DistractionType
+@export var stare_at_player: bool = false
 
+var player: Player = null
 var timer: Timer
 # ligths on
 var is_on: bool = false
@@ -30,7 +32,18 @@ func _ready() -> void:
 
 	if is_on:
 		timer.start()
+	
+	if stare_at_player:
+		player = get_tree().get_first_node_in_group("Player")
 
+
+func _process(_delta: float) -> void:
+	if stare_at_player && player:
+		var old_x = rotation.x
+		var old_y = rotation.y
+		look_at(player.global_transform.origin + Vector3.RIGHT, Vector3.DOWN)
+		rotation.x = old_x
+		rotation.y = old_y
 
 func toggle_light(new_state: bool) -> void:
 	if new_state == is_on:

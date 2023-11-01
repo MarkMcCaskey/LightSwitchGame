@@ -44,8 +44,10 @@ albedo_texture = ExtResource("1_qkqfe")
 [node name="Scarecrow" type="Node3D"]
 script = ExtResource("1_4kyn2")
 type = 2
+stare_at_player = true
 
 [node name="Scarecrow" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
 mesh = SubResource("ArrayMesh_sue24")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_mutow")
