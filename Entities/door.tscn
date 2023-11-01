@@ -127,36 +127,39 @@ transitions = ["Start", "Open", SubResource("AnimationNodeStateMachineTransition
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8bat"]
 size = Vector3(0.0482436, 2.49693, 0.951587)
 
-[node name="Door" type="Area3D"]
+[node name="Door" type="Node3D"]
+transform = Transform3D(1, -2.00394e-19, 0.000903314, 2.00576e-19, 1, -2.00576e-19, -0.000903314, 2.00757e-19, 1, 0, 0, 0)
+
+[node name="Interactable" type="Area3D" parent="."]
 transform = Transform3D(1, -2.00394e-19, 0.000903314, 2.00576e-19, 1, -2.00576e-19, -0.000903314, 2.00757e-19, 1, 0, 0, 0)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_jh4ui")
-interact_text = "Toggle Door"
 
-[node name="DoorMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(4.37114e-06, -100, 4.37114e-06, 1.5246e-21, 4.37114e-06, 100, 100, 4.37114e-06, -1.91069e-13, 0, 0, 0)
+[node name="DoorMesh" type="MeshInstance3D" parent="Interactable"]
+transform = Transform3D(4.37349e-06, -100, 4.37114e-06, 1.52532e-21, 4.37114e-06, 100, 100, 4.37349e-06, -1.90958e-13, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_gwjef")
 mesh = SubResource("ArrayMesh_jh84l")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.472404)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 2.77679e-28, 0, 1.51461e-28, 1, -1.29247e-26, 0, 0, 1, -2.91038e-11, 6.46235e-27, -0.472404)
 shape = SubResource("BoxShape3D_1a15q")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interactable"]
 libraries = {
 "": SubResource("AnimationLibrary_qs8g1")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
+[node name="AnimationTree" type="AnimationTree" parent="Interactable"]
 tree_root = SubResource("AnimationNodeStateMachine_hlf70")
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Open/blend_position = 0.000575066
 
-[node name="RigidBody3D" type="StaticBody3D" parent="."]
+[node name="RigidBody3D" type="StaticBody3D" parent="Interactable"]
+transform = Transform3D(1, 2.77679e-28, 0, 1.51461e-28, 1, -1.29247e-26, 0, 0, 1, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable/RigidBody3D"]
 transform = Transform3D(1, 6.28168e-27, 2.76458e-11, -8.41912e-26, 1, -6.21402e-27, 2.76458e-11, -6.21402e-27, 1, 0.000417372, -9.27588e-20, -0.462046)
 shape = SubResource("BoxShape3D_y8bat")
