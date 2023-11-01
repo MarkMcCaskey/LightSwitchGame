@@ -11,6 +11,8 @@ func generate_distraction(difficulty: int) -> bool:
 			var room = _get_random_new_room()
 			var spawn_group = Room.room_name_to_spawn_group(room)
 			var found: bool = false
+			var light_group = Room.room_name_to_light_group(room)
+			get_tree().call_group(light_group, "toggle_light", false)
 			for spawner in get_tree().get_nodes_in_group(spawn_group):
 				if spawner.spawn_object_type(dist):
 					found = true
