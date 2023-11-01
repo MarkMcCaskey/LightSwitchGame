@@ -1,3 +1,4 @@
+@tool
 class_name Door extends Interactable
 
 @export var closed: bool = true:
@@ -10,12 +11,17 @@ class_name Door extends Interactable
 		else:
 			t = 1
 			dt = 1
+enum DoorType { Inner, Outer }
+@export var door_type: DoorType
+
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var door_mesh: MeshInstance3D = $RotationNode/DoorMesh
 
 var t: float = 0 # 0 = closed, 1 = opened
 var dt: float = -1 # -1 = closing, +1 = opening
 
 func _ready() -> void:
+	_load_door_mesh()
 	animation_tree.active = true
 
 func _process(delta):
@@ -25,3 +31,10 @@ func _process(delta):
 
 func interact() -> void:
 	dt = -dt
+
+func _load_door_mesh() -> void:
+	match door_type:
+		DoorType.Outer:
+			pass
+		_:
+			door_mesh.mesh = load("res://Entities/Objects/Resources/inner_door.tres")
