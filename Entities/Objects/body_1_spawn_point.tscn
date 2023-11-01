@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://clifrxwa470xw"]
+
+[ext_resource type="Script" path="res://Util/SpawnPoint.gd" id="1_hud66"]
+[ext_resource type="PackedScene" uid="uid://cd3b88n387wyd" path="res://Entities/Objects/body.tscn" id="2_knlxp"]
+
+[node name="Body1SpawnPoint" type="Node3D"]
+script = ExtResource("1_hud66")
+room = 5
+spawned_object = ExtResource("2_knlxp")

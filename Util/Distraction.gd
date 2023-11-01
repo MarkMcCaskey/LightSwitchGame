@@ -3,17 +3,18 @@ class_name Distraction extends Node3D
 @export var room: Room.RoomName
 
 var timer: Timer
-var lights_on: bool = false
+# ligths on
+var is_on: bool = false
 
 func _ready() -> void:
 	var room_name = Room.room_name_to_light_group(room)
-	lights_on = false
+	is_on = false
 	# TODO: might need get_tree().root here
 	for node in get_tree().get_nodes_in_group(room_name):
 		if node.is_on:
-			lights_on = true
+			is_on = true
 		else:
-			if lights_on:
+			if is_on:
 				push_warning("Lights do not all share a state in room/group " + room_name)
 	
 	timer = Timer.new()
@@ -24,15 +25,15 @@ func _ready() -> void:
 	add_child(timer)
 	add_to_group(room_name)
 
-	if lights_on:
+	if is_on:
 		timer.start()
 
 
 func toggle_light(new_state: bool) -> void:
-	if new_state == lights_on:
+	if new_state == is_on:
 		return
-	lights_on = new_state
-	if lights_on:
+	is_on = new_state
+	if is_on:
 		timer.start()
 	else:
 		timer.stop()

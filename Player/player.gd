@@ -38,6 +38,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("jump"): jumping = true
 	if Input.is_action_just_pressed("exit"): get_tree().quit()
 	if Input.is_action_just_pressed("interact") && current_interactable: current_interactable.interact()
+	if Input.is_action_just_pressed("debug_spawn_distractions"):
+		for room in Room.RoomName.values():
+			if room == Room.RoomName.None: continue
+			var spawn_group = Room.room_name_to_spawn_group(room)
+			for spawner in get_tree().get_nodes_in_group(spawn_group):
+				spawner.spawn_object()
 
 func _physics_process(delta: float) -> void:
 	if mouse_captured: _handle_joypad_camera_rotation(delta)

@@ -11,7 +11,6 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u0vct"]
 resource_name = "Pumpkin"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_orucw"]
@@ -52,7 +51,6 @@ albedo_texture = ExtResource("1_v15f4")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vyc1h"]
 resource_name = "Pumpkin_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4uod4"]
@@ -93,7 +91,6 @@ albedo_texture = ExtResource("2_68efb")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kii7"]
 resource_name = "Pumpkin_02"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_la552"]
@@ -134,7 +131,6 @@ albedo_texture = ExtResource("3_ttbwa")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48ie4"]
 resource_name = "Pumpkin_03"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_cpe0s"]
@@ -431,7 +427,6 @@ shadow_mesh = SubResource("ArrayMesh_ev73c")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n012m"]
 resource_name = "Stone_06"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ec2pi"]
@@ -467,7 +462,6 @@ shadow_mesh = SubResource("ArrayMesh_ec2pi")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7et5m"]
 resource_name = "Stone_05"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_snmsi"]
@@ -503,7 +497,6 @@ shadow_mesh = SubResource("ArrayMesh_snmsi")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_plgtm"]
 resource_name = "Stone_04"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_faa1u"]
@@ -541,7 +534,6 @@ shadow_mesh = SubResource("ArrayMesh_faa1u")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jvsjr"]
 resource_name = "Stone_03"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ml37s"]
@@ -577,7 +569,6 @@ shadow_mesh = SubResource("ArrayMesh_ml37s")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrrg5"]
 resource_name = "Stone_07"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_4vw74"]
@@ -613,7 +604,6 @@ shadow_mesh = SubResource("ArrayMesh_4vw74")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i5kgt"]
 resource_name = "Stone_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_t71vu"]
@@ -649,7 +639,6 @@ shadow_mesh = SubResource("ArrayMesh_t71vu")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra8xb"]
 resource_name = "Stone_02"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_857e3"]
@@ -685,7 +674,6 @@ shadow_mesh = SubResource("ArrayMesh_857e3")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7kpxq"]
 resource_name = "Stone"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_lkuxg"]
@@ -721,7 +709,6 @@ shadow_mesh = SubResource("ArrayMesh_lkuxg")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cfg3d"]
 resource_name = "Stone_08"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_osqee"]
@@ -757,7 +744,6 @@ shadow_mesh = SubResource("ArrayMesh_osqee")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hyc7f"]
 resource_name = "Body_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_6ktu2"]
@@ -798,7 +784,6 @@ albedo_texture = ExtResource("6_5ci8g")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7rdd1"]
 resource_name = "Body"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_1mr8p"]
@@ -874,7 +859,6 @@ albedo_texture = ExtResource("6_5ci8g")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ljgfb"]
 resource_name = "Candles"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 emission_enabled = true
 emission = Color(1, 1, 1, 1)
@@ -1002,7 +986,6 @@ shadow_mesh = SubResource("ArrayMesh_eouvw")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yyb80"]
 resource_name = "Coffin"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_wfm0w"]
@@ -1070,7 +1053,6 @@ shadow_mesh = SubResource("ArrayMesh_da1dc")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8cusg"]
 resource_name = "Scarecrow"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_p0gp0"]
@@ -1106,7 +1088,6 @@ shadow_mesh = SubResource("ArrayMesh_p0gp0")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3fuo7"]
 resource_name = "Scarecrow_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_6jpgs"]
@@ -1144,7 +1125,6 @@ shadow_mesh = SubResource("ArrayMesh_6jpgs")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oujbe"]
 resource_name = "Coffin_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ddsoj"]
@@ -1210,7 +1190,6 @@ shadow_mesh = SubResource("ArrayMesh_11hnu")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cugfd"]
 resource_name = "WoodPlanksOld"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_dlwbp"]
@@ -1516,13 +1495,11 @@ shadow_mesh = SubResource("ArrayMesh_65vwm")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5ycn"]
 resource_name = "Concrete"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cjb1k"]
 resource_name = "Metal"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_s7440"]
@@ -1846,7 +1823,6 @@ shadow_mesh = SubResource("ArrayMesh_4wfq4")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pin2"]
 resource_name = "BrickSmallBrown"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vvobi"]
@@ -2144,7 +2120,6 @@ shadow_mesh = SubResource("ArrayMesh_x1nmv")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r840o"]
 resource_name = "Shovel"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_75nwm"]
@@ -2182,7 +2157,6 @@ shadow_mesh = SubResource("ArrayMesh_75nwm")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fjrtk"]
 resource_name = "Farmland"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_7o7tk"]
@@ -2378,7 +2352,6 @@ shadow_mesh = SubResource("ArrayMesh_x16qi")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e52qg"]
 resource_name = "Sweets"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_tn2uk"]
@@ -2566,7 +2539,6 @@ shadow_mesh = SubResource("ArrayMesh_rorbu")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6ooa"]
 resource_name = "Sweets_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_kh7iy"]
@@ -3112,7 +3084,6 @@ shadow_mesh = SubResource("ArrayMesh_vj6p8")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahqxo"]
 resource_name = "Candy_Container"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_51me3"]
@@ -3180,7 +3151,6 @@ shadow_mesh = SubResource("ArrayMesh_ulr03")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g50ey"]
 resource_name = "Candy_Container_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_yjhgo"]
@@ -3248,7 +3218,6 @@ shadow_mesh = SubResource("ArrayMesh_c3n2k")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r0661"]
 resource_name = "Candy_Container_02"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_uayj1"]
@@ -3314,7 +3283,6 @@ shadow_mesh = SubResource("ArrayMesh_3hfow")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o70gd"]
 resource_name = "Candy_Bowl"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_vm0w7"]
@@ -3404,7 +3372,6 @@ shadow_mesh = SubResource("ArrayMesh_vvjkp")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lusmv"]
 resource_name = "Spiderweb"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_37xup"]
@@ -3530,7 +3497,6 @@ shadow_mesh = SubResource("ArrayMesh_8akfx")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lf6wf"]
 resource_name = "Straw"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_c4fxy"]
@@ -3598,13 +3564,11 @@ shadow_mesh = SubResource("ArrayMesh_m1v6n")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30swu"]
 resource_name = "BarkDecidious"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ttvqb"]
 resource_name = "Tree"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_liyyc"]
@@ -3660,7 +3624,6 @@ shadow_mesh = SubResource("ArrayMesh_liyyc")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y531l"]
 resource_name = "Tree_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_grlxa"]
@@ -3718,7 +3681,6 @@ shadow_mesh = SubResource("ArrayMesh_grlxa")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xe75w"]
 resource_name = "Tree_02"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_5omu7"]
@@ -3778,7 +3740,6 @@ shadow_mesh = SubResource("ArrayMesh_5omu7")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_edji4"]
 resource_name = "Tree_03"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_obkgo"]
@@ -3838,7 +3799,6 @@ shadow_mesh = SubResource("ArrayMesh_obkgo")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_346p6"]
 resource_name = "Tree_04"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_oa0f4"]
@@ -3896,7 +3856,6 @@ shadow_mesh = SubResource("ArrayMesh_oa0f4")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_12oet"]
 resource_name = "Body_parts"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_coupn"]
@@ -3998,7 +3957,6 @@ shadow_mesh = SubResource("ArrayMesh_bxi1v")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grdk4"]
 resource_name = "Body_parts_01"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 metallic = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ayeu8"]
