@@ -23,7 +23,7 @@ fog_height_density = -0.01
 [node name="Main" type="Node3D"]
 
 [node name="Player" parent="." instance=ExtResource("2_jgtl2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.34153, 1.68758, 14.5883)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.34153, -0.07411, 14.5883)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.92846, -2.77128)
