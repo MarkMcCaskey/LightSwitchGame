@@ -1,6 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cjlc3twswnw8f"]
+[gd_scene load_steps=16 format=3 uid="uid://cjlc3twswnw8f"]
 
 [ext_resource type="Script" path="res://Entities/door.gd" id="1_jh4ui"]
+[ext_resource type="ArrayMesh" uid="uid://ccv701qyd33wf" path="res://Entities/Objects/Resources/inner_door.tres" id="2_sdpwu"]
+[ext_resource type="Material" uid="uid://6o76q16h4ntq" path="res://Entities/Objects/Resources/inner_door_texture.tres" id="3_d06fj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8bat"]
 size = Vector3(0.0482436, 2.49693, 0.951587)
@@ -135,7 +137,9 @@ transform = Transform3D(1, -2.00394e-19, 0.000903312, 2.00576e-19, 1, -2.00576e-
 
 [node name="DoorMesh" type="MeshInstance3D" parent="RotationNode"]
 transform = Transform3D(-0.090327, -99.9999, 4.37114e-06, 2.00772e-17, 4.37114e-06, 100, 99.9999, -0.090327, 3.94832e-09, 0, 0, 0)
+mesh = ExtResource("2_sdpwu")
 skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_d06fj")
 
 [node name="RigidBody3D" type="StaticBody3D" parent="RotationNode"]
 transform = Transform3D(0.999999, 2.00575e-19, -0.000903314, -2.00395e-19, 1, 2.00757e-19, 0.000903314, -2.00576e-19, 0.999999, 0, 0, 0)
