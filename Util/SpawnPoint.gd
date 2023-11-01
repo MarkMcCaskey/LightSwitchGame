@@ -18,13 +18,17 @@ func room_active() -> bool:
 			return true
 	return false
 
+func _random_object() -> PackedScene:
+	return spawnable_objects[randi() % len(spawnable_objects)]
+
 func spawn_object() -> void:
-	var object = spawnable_objects[0].instantiate()
+	var object = _random_object().instantiate()
 	object.room = room
 	object.type = distraction_type
+	print("Object of type " + Distraction.DistractionType.keys()[distraction_type] + " spawned in room " + Room.RoomName.keys()[room])
 	add_child(object)
 
 func spawn_object_type(dt: Distraction.DistractionType) -> void:
 	if distraction_type != dt:
 		return
-	# TODO: do logic here
+	spawn_object()
