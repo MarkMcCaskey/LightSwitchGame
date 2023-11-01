@@ -1,6 +1,6 @@
 class_name Distraction extends Node3D
 
-enum DistractionType { Unique, BodyBag }
+enum DistractionType { Unique, BodyBag, Scarecrow }
 
 @export var room: Room.RoomName
 @export var type: DistractionType

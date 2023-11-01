@@ -8,3 +8,4 @@
 script = ExtResource("1_hud66")
 room = 5
 spawnable_objects = Array[PackedScene]([ExtResource("2_knlxp"), ExtResource("3_1ydkj")])
+distraction_type = 1

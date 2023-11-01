@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq2yrujpxie7n"]
+
+[ext_resource type="Script" path="res://Util/SpawnPoint.gd" id="1_i6drf"]
+[ext_resource type="PackedScene" uid="uid://bc4xh4dbrolf0" path="res://Entities/Objects/scarecrow.tscn" id="2_o3gjd"]
+[ext_resource type="PackedScene" uid="uid://gnac5y2sw35h" path="res://Entities/Objects/scarecrow2.tscn" id="3_s1krp"]
+
+[node name="ScarecrowSpawner" type="Node3D"]
+script = ExtResource("1_i6drf")
+spawnable_objects = Array[PackedScene]([ExtResource("2_o3gjd"), ExtResource("3_s1krp")])
+distraction_type = 2

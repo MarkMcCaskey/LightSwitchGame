@@ -7,3 +7,4 @@
 [node name="BodySittingSpawnPoint" type="Node3D"]
 script = ExtResource("1_tw7ho")
 spawnable_objects = Array[PackedScene]([ExtResource("2_46ruj"), ExtResource("3_eohl0")])
+distraction_type = 1
