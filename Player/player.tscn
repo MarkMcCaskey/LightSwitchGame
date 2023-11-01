@@ -22,11 +22,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01306, 0)
 fov = 45.0
 
 [node name="InteractRayCast" type="RayCast3D" parent="Camera"]
-target_position = Vector3(2.08165e-12, 2.08165e-12, -1)
+target_position = Vector3(2.08165e-12, 2.08165e-12, -2)
 collision_mask = 4
 collide_with_areas = true
 collide_with_bodies = false
 debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="Camera"]
 anchors_preset = 7
@@ -69,3 +70,4 @@ collision_mask = 9
 collide_with_areas = true
 collide_with_bodies = false
 debug_shape_custom_color = Color(1, 0, 0.0823529, 1)
+debug_shape_thickness = 1

@@ -1,10 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://cjlc3twswnw8f"]
+[gd_scene load_steps=14 format=3 uid="uid://cjlc3twswnw8f"]
 
 [ext_resource type="Script" path="res://Entities/door.gd" id="1_jh4ui"]
-[ext_resource type="Texture2D" uid="uid://m72n8nx2v7fy" path="res://Assets/House/Textures/Door_01.jpg" id="1_kjo7c"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwjef"]
-albedo_texture = ExtResource("1_kjo7c")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y8bat"]
 size = Vector3(0.0482436, 2.49693, 0.951587)
@@ -29,7 +25,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("CollisionShape3D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -57,7 +53,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("CollisionShape3D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -85,7 +81,7 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/imported = false
-tracks/1/enabled = true
+tracks/1/enabled = false
 tracks/1/path = NodePath("CollisionShape3D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
@@ -139,7 +135,6 @@ transform = Transform3D(1, -2.00394e-19, 0.000903312, 2.00576e-19, 1, -2.00576e-
 
 [node name="DoorMesh" type="MeshInstance3D" parent="RotationNode"]
 transform = Transform3D(-0.090327, -99.9999, 4.37114e-06, 2.00772e-17, 4.37114e-06, 100, 99.9999, -0.090327, 3.94832e-09, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_gwjef")
 skeleton = NodePath("")
 
 [node name="RigidBody3D" type="StaticBody3D" parent="RotationNode"]
@@ -149,8 +144,13 @@ transform = Transform3D(0.999999, 2.00575e-19, -0.000903314, -2.00395e-19, 1, 2.
 transform = Transform3D(1, 6.28168e-27, 2.76458e-11, -8.41912e-26, 1, -6.21402e-27, 2.76458e-11, -6.21402e-27, 1, 0.000417372, -9.27588e-20, -0.462046)
 shape = SubResource("BoxShape3D_y8bat")
 
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="RotationNode"]
+transform = Transform3D(0.999999, 2.00576e-19, -0.000903314, -2.00394e-19, 1, 2.00757e-19, 0.000903313, -2.00575e-19, 0.999999, 0.000426729, -9.48382e-20, -0.472404)
+remote_path = NodePath("../../CollisionShape3D")
+update_scale = false
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, -2.00394e-19, 0.000903311, 2.00575e-19, 1, -2.00575e-19, -0.000903311, 2.00757e-19, 1, -2.13275e-11, 5.25781e-27, -0.472404)
+transform = Transform3D(0.999887, -2.00394e-19, 0.000903209, 2.00553e-19, 1, -2.00553e-19, -0.000903209, 2.00757e-19, 0.999887, 9.39099e-10, -1.41292e-26, -0.472404)
 shape = SubResource("BoxShape3D_1a15q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

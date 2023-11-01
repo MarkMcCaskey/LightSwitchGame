@@ -35,6 +35,10 @@ func interact() -> void:
 func _load_door_mesh() -> void:
 	match door_type:
 		DoorType.Outer:
-			pass
+			door_mesh.mesh = load("res://Entities/Objects/Resources/outer_door.tres")
+			var material = load("res://Entities/Objects/Resources/outer_door_texture.tres")
+			door_mesh.set_surface_override_material(0, material)
 		_:
 			door_mesh.mesh = load("res://Entities/Objects/Resources/inner_door.tres")
+			var material = load("res://Entities/Objects/Resources/inner_door_texture.tres")
+			door_mesh.set_surface_override_material(0, material)
