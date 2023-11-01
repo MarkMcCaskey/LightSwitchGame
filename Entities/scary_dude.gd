@@ -8,6 +8,7 @@ enum State { Hunting, Creeping, Idle }
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var animated_creature: AnimatedCreature1 = $AnimatedCreature1
+@onready var monster_vision: Camera3D = $BoneAttachment3D/MonsterVision
 @export var target_location: Vector3 = Vector3(0.,0.,0.):
 	get:
 		return target_location
@@ -20,6 +21,7 @@ var direction: Vector3 = Vector3(0,0,0)
 var player_target: Player
 
 func _ready():
+	monster_vision.add_to_group("monster_vision")
 	#animation_tree.active = true
 
 	call_deferred("actor_setup")

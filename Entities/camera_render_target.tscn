@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://kefofxe1sc4x"]
+
+[ext_resource type="Script" path="res://Entities/camera_render_target.gd" id="1_eldhl"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kn5cl"]
+viewport_path = NodePath("Sprite3D/SubViewport")
+
+[node name="CameraRenderTarget" type="Node3D"]
+script = ExtResource("1_eldhl")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+texture = SubResource("ViewportTexture_kn5cl")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+handle_input_locally = false
+size = Vector2i(256, 256)
