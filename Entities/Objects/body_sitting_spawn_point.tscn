@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6gbg5j8rq5bn"]
+
+[ext_resource type="Script" path="res://Util/SpawnPoint.gd" id="1_tw7ho"]
+[ext_resource type="PackedScene" uid="uid://b7qnxyi78ks75" path="res://Entities/Objects/body_sitting.tscn" id="2_46ruj"]
+[ext_resource type="PackedScene" uid="uid://nrc073dd47xy" path="res://Entities/Objects/body2_sitting.tscn" id="3_eohl0"]
+
+[node name="BodySittingSpawnPoint" type="Node3D"]
+script = ExtResource("1_tw7ho")
+spawnable_objects = Array[PackedScene]([ExtResource("2_46ruj"), ExtResource("3_eohl0")])
