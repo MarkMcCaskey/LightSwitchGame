@@ -15,3 +15,4 @@ Low poly human? if we use that
 # Godot
 
 [Simple First Person Controller Template](https://github.com/rbarongr/GodotFirstPersonController) - CC0
+[Glass Material Reference](https://gitlab.com/zolno/godot-experiments/-/tree/glass) - MIT
