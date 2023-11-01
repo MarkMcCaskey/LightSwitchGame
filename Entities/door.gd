@@ -1,4 +1,4 @@
-#@tool
+@tool
 class_name Door extends Node3D
 
 @export var closed: bool = true:
