@@ -150,7 +150,7 @@ remote_path = NodePath("../../CollisionShape3D")
 update_scale = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.999887, -2.00394e-19, 0.000903209, 2.00553e-19, 1, -2.00553e-19, -0.000903209, 2.00757e-19, 0.999887, 9.39099e-10, -1.41292e-26, -0.472404)
+transform = Transform3D(0.99988, -2.00394e-19, 0.000903204, 2.00552e-19, 1, -2.00552e-19, -0.000903204, 2.00757e-19, 0.99988, 9.39099e-10, -1.41292e-26, -0.472404)
 shape = SubResource("BoxShape3D_1a15q")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

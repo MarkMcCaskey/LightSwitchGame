@@ -1,24 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bjuxd0kryxd45"]
+[gd_scene load_steps=5 format=3 uid="uid://bjuxd0kryxd45"]
 
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="2_j6vmr"]
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Player/player.tscn" id="2_jgtl2"]
 [ext_resource type="PackedScene" uid="uid://b4hwasni6qla7" path="res://Entities/scary_dude.tscn" id="3_20vsw"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a7mnx"]
-sky_top_color = Color(0, 0, 0.0313726, 1)
-sky_horizon_color = Color(0.231373, 0.309804, 0.403922, 1)
-sun_angle_max = 0.0
-
-[sub_resource type="Sky" id="Sky_ixxuj"]
-sky_material = SubResource("ProceduralSkyMaterial_a7mnx")
-
-[sub_resource type="Environment" id="Environment_sfked"]
-background_mode = 2
-sky = SubResource("Sky_ixxuj")
-sky_rotation = Vector3(3.48787e-16, 3.48787e-16, 3.48787e-16)
-fog_enabled = true
-fog_density = 0.001
-fog_height_density = -0.01
+[ext_resource type="Environment" uid="uid://cewjmndrwys8v" path="res://Materials/environment.tres" id="3_hc185"]
 
 [node name="Main" type="Node3D"]
 
@@ -31,7 +16,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.92846, -2.77128)
 [node name="House" parent="." instance=ExtResource("2_j6vmr")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_sfked")
+environment = ExtResource("3_hc185")
 
 [node name="ScaryDude" parent="." instance=ExtResource("3_20vsw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, -0.431932, 28.8695)
