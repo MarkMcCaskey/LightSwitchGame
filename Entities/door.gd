@@ -11,7 +11,7 @@ class_name Door extends Node3D
 	set(val):
 		flip_direction = val
 		_set_t_dt()
-enum DoorType { Inner, Outer, Closet, SmallCloset }
+enum DoorType { Inner, Outer, Closet, SmallCloset, LargeCloset }
 @export var door_type: DoorType:
 	get: 
 		return door_type
@@ -66,6 +66,10 @@ func _reload_door_mesh() -> void:
 		DoorType.SmallCloset:
 			door_mesh.mesh = load("res://Entities/Objects/Resources/small_closet_door.tres")
 			var material = load("res://Entities/Objects/Resources/small_closet_door_texture.tres")
+			door_mesh.set_surface_override_material(0, material)
+		DoorType.LargeCloset:
+			door_mesh.mesh = load("res://Entities/Objects/Resources/large_closet_door.tres")
+			var material = load("res://Entities/Objects/Resources/closet_door_texture.tres")
 			door_mesh.set_surface_override_material(0, material)
 
 func _on_door_interactable_on_interact() -> void:
