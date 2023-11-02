@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://beufq6tbg4eys"]
+[gd_scene load_steps=10 format=3 uid="uid://beufq6tbg4eys"]
 
 [ext_resource type="Script" path="res://Entities/task.gd" id="1_oqun7"]
 [ext_resource type="Texture2D" uid="uid://bdevvnj65ulyl" path="res://Assets/sudoku_placeholder.png" id="2_kicu5"]
 [ext_resource type="PackedScene" uid="uid://ywcyygkwrji1" path="res://Systems/distraction_manager.tscn" id="3_8qyfe"]
+[ext_resource type="PackedScene" uid="uid://btpb7yb6cmjm1" path="res://Puzzles/sudoku.tscn" id="3_pd1q0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fokeh"]
 size = Vector3(1, 1, 0.0987305)
@@ -12,8 +13,11 @@ size = Vector3(1, 1, 0.0987305)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_swkal"]
 albedo_texture = ExtResource("2_kicu5")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_d1l8o"]
+viewport_path = NodePath("Puzzle/SubViewport")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_hf40d"]
-viewport_path = NodePath("Sprite3D/SubViewport")
+viewport_path = NodePath("ProgressBar/SubViewport")
 
 [node name="Task" type="Area3D"]
 collision_layer = 4
@@ -25,30 +29,49 @@ interact_text = "Advance Task"
 shape = SubResource("BoxShape3D_fokeh")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+visible = false
 mesh = SubResource("QuadMesh_83thu")
 material = SubResource("StandardMaterial3D_swkal")
 
+[node name="Puzzle" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+texture = SubResource("ViewportTexture_d1l8o")
+
+[node name="SubViewport" type="SubViewport" parent="Puzzle"]
+
+[node name="CenterContainer" type="CenterContainer" parent="Puzzle/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -512.0
+offset_bottom = -512.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Sudoku" parent="Puzzle/SubViewport/CenterContainer" instance=ExtResource("3_pd1q0")]
+layout_mode = 2
+
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.636197)
-visible = false
 light_color = Color(0.317647, 0.533333, 0.858824, 1)
 light_energy = 5.0
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="ProgressBar" type="Sprite3D" parent="."]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 2.08165e-12, 0.659, 2.08165e-12)
 texture = SubResource("ViewportTexture_hf40d")
 
-[node name="SubViewport" type="SubViewport" parent="Sprite3D"]
+[node name="SubViewport" type="SubViewport" parent="ProgressBar"]
 size = Vector2i(512, 128)
 
-[node name="CenterContainer" type="CenterContainer" parent="Sprite3D/SubViewport"]
+[node name="CenterContainer" type="CenterContainer" parent="ProgressBar/SubViewport"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="Sprite3D/SubViewport/CenterContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="ProgressBar/SubViewport/CenterContainer"]
 layout_mode = 2
 value = 100.0
 

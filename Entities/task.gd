@@ -4,7 +4,7 @@ const target_progress: int = 18
 var progress: int = 0
 
 @onready var light: OmniLight3D = $OmniLight3D
-@onready var progress_bar: ProgressBar = $Sprite3D/SubViewport/CenterContainer/ProgressBar
+@onready var progress_bar: ProgressBar = $ProgressBar/SubViewport/CenterContainer/ProgressBar
 @onready var distraction_manager: DistractionManager = $DistractionManager
 @onready var last_update: int = 0
 

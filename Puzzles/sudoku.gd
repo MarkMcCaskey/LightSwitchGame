@@ -1,5 +1,8 @@
 class_name Sudoku extends Control
 
+signal SudokuComplete
+signal SudokuQuit
+
 @onready var grid_0_0: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_0
 @onready var grid_0_1: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_1
 @onready var grid_0_2: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_2
@@ -108,10 +111,16 @@ func _on_cell_pressed(grid_id: int, idx: int) -> void:
 	selected_grid = grid_id
 	selected_idx = idx
 
+func _set_value_at_selected(val: int) -> void:
+	row_order[selected_grid / 3][selected_grid % 3].set_value_at_direct(selected_idx, val)
+	if val != 0:
+		if is_solved():
+			emit_signal("SudokuComplete")
+
 func _on_item_list_item_clicked(index: int, _at_position: Vector2, _mouse_button_index: int) -> void:
 	if selected_grid == -1 || selected_idx == -1:
 		return
-	row_order[selected_grid / 3][selected_grid % 3].set_value_at_direct(selected_idx, index + 1)
+	_set_value_at_selected(index + 1)
 
 func _unhandled_input(event: InputEvent) -> void:
 	var num_input: int = -1
@@ -124,6 +133,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("7"): num_input = 7
 	elif event.is_action_pressed("8"): num_input = 8
 	elif event.is_action_pressed("9"): num_input = 9
+	elif event.is_action("ui_cancel"): emit_signal("SudokuQuit")
 	
 	if num_input != -1:
-		row_order[selected_grid / 3][selected_grid % 3].set_value_at_direct(selected_idx, num_input)
+		_set_value_at_selected(num_input)

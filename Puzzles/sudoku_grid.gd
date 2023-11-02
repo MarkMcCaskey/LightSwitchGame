@@ -20,13 +20,13 @@ func grid_is_valid() -> bool:
 	for cell in cells:
 		if !cell.is_cell_valid():
 			return false
-	var set := {}
+	var n_set := {}
 	for cell in cells:
 		if cell.current_value == 0:
 			continue
-		var prev_len: int = len(set)
-		set[cell] = null
-		var new_len: int = len(set)
+		var prev_len: int = len(n_set)
+		n_set[cell] = null
+		var new_len: int = len(n_set)
 		if prev_len == new_len:
 			return false
 	return true
