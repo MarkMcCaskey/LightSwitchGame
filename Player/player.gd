@@ -46,6 +46,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				spawner.spawn_object()
 
 func _physics_process(delta: float) -> void:
+	#print(Engine.get_frames_per_second())
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)
 	var c = interact_ray.get_collider()
