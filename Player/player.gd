@@ -7,6 +7,8 @@ class_name Player extends CharacterBody3D
 @export_range(0.1, 3.0, 0.1) var jump_height: float = 1 # m
 @export_range(0.1, 3.0, 0.1, "or_greater") var camera_sens: float = 1
 
+@export var has_control: bool = true
+
 var jumping: bool = false
 var mouse_captured: bool = false
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 	capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !has_control: return
 	if event is InputEventMouseMotion:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
@@ -46,6 +49,9 @@ func _unhandled_input(event: InputEvent) -> void:
 				spawner.spawn_object()
 
 func _physics_process(delta: float) -> void:
+	# HACK: this also disables physics which isn't necessarily clear by the name `has_control`
+	if !has_control:
+		return
 	#print(Engine.get_frames_per_second())
 	if mouse_captured: _handle_joypad_camera_rotation(delta)
 	velocity = _walk(delta) + _gravity(delta) + _jump(delta)

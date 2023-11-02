@@ -39,6 +39,8 @@ texture = SubResource("ViewportTexture_d1l8o")
 
 [node name="SubViewport" type="SubViewport" parent="Puzzle"]
 disable_3d = true
+handle_input_locally = false
+physics_object_picking = true
 size_2d_override = Vector2i(780, 780)
 size_2d_override_stretch = true
 
@@ -49,6 +51,9 @@ offset_bottom = 0.0
 pivot_offset = Vector2(50, 2.08165e-12)
 size_flags_horizontal = 1
 size_flags_vertical = 1
+
+[node name="Camera3D" type="Camera3D" parent="Puzzle"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.5, 0.5, 5)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.636197)
@@ -75,3 +80,6 @@ layout_mode = 2
 value = 100.0
 
 [node name="DistractionManager" parent="." instance=ExtResource("3_8qyfe")]
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
