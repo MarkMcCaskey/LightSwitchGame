@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="1_8ebf0"]
 [ext_resource type="Script" path="res://Levels/title_screen_background.gd" id="1_xcwc7"]
 [ext_resource type="PackedScene" uid="uid://dthmedsysxst2" path="res://Entities/creature_w_1_creeper_breathing.tscn" id="2_t6d3m"]
-[ext_resource type="Environment" uid="uid://cewjmndrwys8v" path="res://Materials/environment.tres" id="3_c2s13"]
+[ext_resource type="Environment" uid="uid://djl4r4j1fh02j" path="res://Materials/environment.tres" id="3_c2s13"]
 
 [sub_resource type="Animation" id="Animation_b23as"]
 resource_name = "CameraFly"

@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7nv6qtkoox8t"]
+
+[ext_resource type="Script" path="res://Entities/tv.gd" id="1_s2n4y"]
+[ext_resource type="Script" path="res://Util/Interactable.gd" id="2_m6qw3"]
+[ext_resource type="ArrayMesh" uid="uid://b7gc62jv0told" path="res://Entities/Objects/Resources/tv_3.tres" id="3_n5wrr"]
+[ext_resource type="Material" uid="uid://cqvwneolkeg7i" path="res://Entities/Objects/Resources/tv_texture0.tres" id="4_t8nfv"]
+[ext_resource type="Material" uid="uid://do3uoevxuh1wm" path="res://Materials/tv_off_black.tres" id="5_lpw7d"]
+[ext_resource type="AudioStream" uid="uid://b5q313lc07m31" path="res://Assets/Audio/tv_static.ogg" id="6_0evck"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vt64h"]
+size = Vector3(1.2, 0.2, 0.9)
+
+[node name="Tv" type="Node3D"]
+script = ExtResource("1_s2n4y")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Interactable" type="Area3D" parent="Node3D"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("2_m6qw3")
+interact_text = "Toggle TV"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/Interactable"]
+shape = SubResource("BoxShape3D_vt64h")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(37.5, 0, 0, 0, 37.5, 0, 0, 0, 37.5, 0, 0, 0)
+mesh = ExtResource("3_n5wrr")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("4_t8nfv")
+surface_material_override/1 = ExtResource("5_lpw7d")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Node3D"]
+stream = ExtResource("6_0evck")
+attenuation_model = 1
+volume_db = -15.0
+max_distance = 30.0
+
+[connection signal="on_interact" from="Node3D/Interactable" to="." method="_on_interactable_on_interact"]
