@@ -15,8 +15,8 @@ enum TvType { Tv3, Tv4 }
 		if tv_mesh:
 			_reload_tv_mesh()
 
-@onready var tv_mesh: MeshInstance3D = $MeshInstance3D
-@onready var audio_player: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var tv_mesh: MeshInstance3D = $Node3D/MeshInstance3D
+@onready var audio_player: AudioStreamPlayer3D = $Node3D/AudioStreamPlayer3D
 
 const tv_static: Material = preload("res://Materials/tv_static.tres")
 const tv_off_black: Material = preload("res://Materials/tv_off_black.tres")
@@ -39,10 +39,10 @@ func _tv_screen_logic() -> void:
 	if tv_mesh:
 		if tv_on:
 			tv_mesh.set_surface_override_material(1, tv_static)
-			if audio_player: audio_player.play()
+			if audio_player && !Engine.is_editor_hint(): audio_player.play()
 		else:
 			tv_mesh.set_surface_override_material(1, tv_off_black)
-			if audio_player: audio_player.stop()
+			if audio_player && !Engine.is_editor_hint(): audio_player.stop()
 
 
 func _on_interactable_on_interact() -> void:
