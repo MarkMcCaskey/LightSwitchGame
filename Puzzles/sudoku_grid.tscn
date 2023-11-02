@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnrg07ehr2ewi"]
+
+[ext_resource type="Script" path="res://Puzzles/sudoku_grid.gd" id="1_uq7dx"]
+[ext_resource type="PackedScene" uid="uid://dxnnim3jmi3po" path="res://Puzzles/sudoku_cell.tscn" id="1_wbl2o"]
+
+[node name="SudokuGrid" type="GridContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -896.0
+offset_bottom = -392.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 7
+theme_override_constants/v_separation = 5
+columns = 3
+script = ExtResource("1_uq7dx")
+
+[node name="Cell_0_0" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Cell_0_1" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2"
+
+[node name="Cell_0_2" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "3"
+
+[node name="Cell_1_0" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = ""
+
+[node name="Cell_1_1" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "5"
+
+[node name="Cell_1_2" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "6"
+
+[node name="Cell_2_0" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "7"
+
+[node name="Cell_2_1" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "8"
+
+[node name="Cell_2_2" parent="." instance=ExtResource("1_wbl2o")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "9"
+
+[connection signal="CellPressed" from="Cell_0_0" to="." method="_on_cell_0_0_cell_pressed"]
+[connection signal="CellPressed" from="Cell_0_1" to="." method="_on_cell_0_1_cell_pressed"]
+[connection signal="CellPressed" from="Cell_0_2" to="." method="_on_cell_0_2_cell_pressed"]
+[connection signal="CellPressed" from="Cell_1_0" to="." method="_on_cell_1_0_cell_pressed"]
+[connection signal="CellPressed" from="Cell_1_1" to="." method="_on_cell_1_1_cell_pressed"]
+[connection signal="CellPressed" from="Cell_1_2" to="." method="_on_cell_1_2_cell_pressed"]
+[connection signal="CellPressed" from="Cell_2_0" to="." method="_on_cell_2_0_cell_pressed"]
+[connection signal="CellPressed" from="Cell_2_1" to="." method="_on_cell_2_1_cell_pressed"]
+[connection signal="CellPressed" from="Cell_2_2" to="." method="_on_cell_2_2_cell_pressed"]
