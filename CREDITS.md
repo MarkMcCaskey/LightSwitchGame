@@ -23,3 +23,4 @@ Low poly human? if we use that
 [Ghost breath](https://opengameart.org/content/ghost-breath) - CC0
 [Wind woosh loop](https://opengameart.org/content/wind-whoosh-loop) - CC0
 [Ghost noises](https://opengameart.org/content/ghost-monster-voice-moaning-growling) - CC0
+[TV static](https://freesound.org/people/qubodup/sounds/188798/) - CC0
