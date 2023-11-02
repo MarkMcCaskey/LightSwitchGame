@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="2_j6vmr"]
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Player/player.tscn" id="2_jgtl2"]
 [ext_resource type="PackedScene" uid="uid://b4hwasni6qla7" path="res://Entities/scary_dude.tscn" id="3_20vsw"]
-[ext_resource type="Environment" uid="uid://cewjmndrwys8v" path="res://Materials/environment.tres" id="3_hc185"]
+[ext_resource type="Environment" uid="uid://djl4r4j1fh02j" path="res://Materials/environment.tres" id="3_hc185"]
 
 [node name="Main" type="Node3D"]
 

@@ -93,7 +93,6 @@ size = Vector3(0.0964778, 2.47326, 0.908942)
 
 [node name="Door" type="Node3D"]
 script = ExtResource("1_jh4ui")
-flip_direction = null
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../RotationNode/DoorInteractable")

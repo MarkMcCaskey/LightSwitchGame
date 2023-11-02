@@ -11,9 +11,15 @@ class_name Door extends Node3D
 	set(val):
 		flip_direction = val
 		_set_t_dt()
-enum DoorType { Inner, Outer }
-@export var door_type: DoorType
-
+enum DoorType { Inner, Outer, Closet }
+@export var door_type: DoorType:
+	get: 
+		return door_type
+	set(val): 
+		door_type = val
+		if door_mesh:
+			_reload_door_mesh()
+			
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var door_mesh: MeshInstance3D = $RotationNode/DoorMesh
 
@@ -31,7 +37,7 @@ func _set_t_dt() -> void:
 		dt *= -1
 
 func _ready() -> void:
-	_load_door_mesh()
+	_reload_door_mesh()
 	animation_tree.active = true
 
 func _process(delta):
@@ -43,15 +49,19 @@ func _process(delta):
 		t = clampf(t, 0., 1.)
 	animation_tree["parameters/Open/blend_position"] = t
 
-func _load_door_mesh() -> void:
+func _reload_door_mesh() -> void:
 	match door_type:
 		DoorType.Outer:
 			door_mesh.mesh = load("res://Entities/Objects/Resources/outer_door.tres")
 			var material = load("res://Entities/Objects/Resources/outer_door_texture.tres")
 			door_mesh.set_surface_override_material(0, material)
-		_:
+		DoorType.Inner:
 			door_mesh.mesh = load("res://Entities/Objects/Resources/inner_door.tres")
 			var material = load("res://Entities/Objects/Resources/inner_door_texture.tres")
+			door_mesh.set_surface_override_material(0, material)
+		DoorType.Closet:
+			door_mesh.mesh = load("res://Entities/Objects/Resources/closet_door.tres")
+			var material = load("res://Entities/Objects/Resources/closet_door_texture.tres")
 			door_mesh.set_surface_override_material(0, material)
 
 
