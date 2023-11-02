@@ -1,0 +1,125 @@
+[gd_scene load_steps=4 format=3 uid="uid://btpb7yb6cmjm1"]
+
+[ext_resource type="Script" path="res://Puzzles/sudoku.gd" id="1_20d4e"]
+[ext_resource type="PackedScene" uid="uid://dnrg07ehr2ewi" path="res://Puzzles/sudoku_grid.tscn" id="1_besju"]
+[ext_resource type="Texture2D" uid="uid://uou7m3ghh0i7" path="res://Assets/empty_sudoku.png" id="2_qu14p"]
+
+[node name="Sudoku" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_20d4e")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_qu14p")
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -339.0
+offset_top = -342.0
+offset_right = 380.0
+offset_bottom = 389.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.94, 0.94)
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 10
+columns = 3
+
+[node name="SudokuGrid_0_0" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_0_1" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_0_2" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_1_0" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_1_1" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_1_2" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_2_0" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_2_1" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="SudokuGrid_2_2" parent="CenterContainer/TextureRect/GridContainer" instance=ExtResource("1_besju")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ItemList" type="ItemList" parent="CenterContainer2"]
+clip_contents = false
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+theme_override_constants/h_separation = 19
+theme_override_font_sizes/font_size = 32
+auto_height = true
+item_count = 9
+max_columns = 3
+same_column_width = true
+item_0/text = "1"
+item_1/text = "2"
+item_2/text = "3"
+item_3/text = "4"
+item_4/text = "5"
+item_5/text = "6"
+item_6/text = "7"
+item_7/text = "8"
+item_8/text = "9"
+
+[connection signal="item_clicked" from="CenterContainer2/ItemList" to="." method="_on_item_list_item_clicked"]
