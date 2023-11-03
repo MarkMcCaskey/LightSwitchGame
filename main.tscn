@@ -1,19 +1,32 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjuxd0kryxd45"]
+[gd_scene load_steps=4 format=3 uid="uid://bjuxd0kryxd45"]
 
-[ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="2_j6vmr"]
-[ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Player/player.tscn" id="2_jgtl2"]
-[ext_resource type="PackedScene" uid="uid://b4hwasni6qla7" path="res://Entities/scary_dude.tscn" id="3_20vsw"]
-[ext_resource type="Environment" uid="uid://djl4r4j1fh02j" path="res://Materials/environment.tres" id="3_hc185"]
+[ext_resource type="Script" path="res://Node3D.gd" id="1_tym8g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_0nmj5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qe0qu"]
 
 [node name="Main" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("2_jgtl2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.34153, -0.07411, 14.5883)
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.574408, 1.22124, 0)
+script = ExtResource("1_tym8g")
 
-[node name="House" parent="." instance=ExtResource("2_j6vmr")]
+[node name="Camera3D" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.81542)
+current = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_hc185")
+[node name="CubeSpace" type="Node3D" parent="Node3D"]
+transform = Transform3D(0.887767, 0, 0.460293, 0, 1, 0, -0.460293, 0, 0.887767, -0.741926, 0, 0)
 
-[node name="ScaryDude" parent="." instance=ExtResource("3_20vsw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, -0.431932, 28.8695)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/CubeSpace"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0.5, 0.5, 0)
+mesh = SubResource("BoxMesh_0nmj5")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Node3D/CubeSpace/MeshInstance3D"]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/CubeSpace/MeshInstance3D/Area3D"]
+shape = SubResource("BoxShape3D_qe0qu")
