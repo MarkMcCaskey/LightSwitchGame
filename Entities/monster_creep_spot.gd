@@ -36,7 +36,7 @@ func _ready() -> void:
 		#creeper.modulate.a = 0.5
 		add_child(creeper)
 	else:
-		add_to_group("monster_location_" + Location.keys()[location])
+		add_to_group(MonsterCreepSpot.get_group_name(location))
 
 static func get_next_location_random(location: Location) -> Location:
 	var candidates: Array[Location] = MonsterCreepSpot.connected_regions(location)
@@ -54,6 +54,9 @@ static func can_begin_attack(location: Location) -> bool:
 		_: pass
 	
 	return false
+
+static func get_group_name(location: Location) -> String:
+	return "monster_location_" + Location.keys()[location]
 
 static func connected_regions(location: Location) -> Array[Location]:
 	match location:
