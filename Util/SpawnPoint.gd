@@ -13,7 +13,7 @@ func _ready() -> void:
 	#assert(distraction_type != null)
 	if Engine.is_editor_hint():
 		if spawnable_objects && len(spawnable_objects) > 0:
-			var distraction = spawnable_objects[1].instantiate()
+			var distraction = spawnable_objects[0].instantiate()
 			#creeper.scale *= 0.2
 			#creeper.modulate.a = 0.5
 			add_child(distraction)
