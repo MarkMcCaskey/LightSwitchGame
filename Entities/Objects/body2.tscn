@@ -48,7 +48,7 @@ script = ExtResource("1_of7wl")
 type = 1
 
 [node name="Body2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(-50, 4.37114e-06, -7.62298e-22, 1.91069e-13, 2.18557e-06, 50, 4.37114e-06, 50, -2.18557e-06, 0, 0, 0)
 mesh = SubResource("ArrayMesh_xaevv")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_3bs5n")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://domq8w64n6lo5"]
+
+[ext_resource type="Script" path="res://Entities/monster_creep_spot.gd" id="1_e4k3v"]
+
+[node name="MonsterCreepSpot" type="Node3D" groups=["monster_creep_spots"]]
+script = ExtResource("1_e4k3v")
+location = null

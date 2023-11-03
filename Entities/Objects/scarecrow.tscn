@@ -47,7 +47,7 @@ type = 2
 stare_at_player = true
 
 [node name="Scarecrow" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+transform = Transform3D(-2.5, -2.18557e-07, -3.81149e-23, -9.55343e-15, 1.09278e-07, 2.5, -2.18557e-07, 2.5, -1.09278e-07, 0, 0, 0)
 mesh = SubResource("ArrayMesh_sue24")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_mutow")
