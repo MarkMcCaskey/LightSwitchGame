@@ -23,10 +23,13 @@ viewport_path = NodePath("ProgressBar/SubViewport")
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_oqun7")
+dbg_local_coords = true
 interact_text = "Advance Task"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_fokeh")
+
+[node name="DistractionManager" parent="." instance=ExtResource("3_8qyfe")]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="."]
 visible = false
@@ -48,15 +51,16 @@ size_2d_override_stretch = true
 offset_left = -50.0
 offset_right = -50.0
 offset_bottom = 0.0
-pivot_offset = Vector2(50, 2.08165e-12)
 size_flags_horizontal = 1
 size_flags_vertical = 1
 
 [node name="Camera3D" type="Camera3D" parent="Puzzle"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.5, 0.5, 5)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.5, 0.5, 8)
+fov = 45.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.636197)
+visible = false
 light_color = Color(0.317647, 0.533333, 0.858824, 1)
 light_energy = 5.0
 
@@ -78,8 +82,6 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="ProgressBar/SubViewport/CenterContainer"]
 layout_mode = 2
 value = 100.0
-
-[node name="DistractionManager" parent="." instance=ExtResource("3_8qyfe")]
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
