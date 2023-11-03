@@ -42,6 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("exit"): get_tree().quit()
 	if Input.is_action_just_pressed("interact") && current_interactable: current_interactable.interact()
 	if Input.is_action_just_pressed("debug_spawn_distractions"):
+		#play_death_scene()
 		for room in Room.RoomName.values():
 			if room == Room.RoomName.None: continue
 			var spawn_group = Room.room_name_to_spawn_group(room)
@@ -116,3 +117,8 @@ func _jump(delta: float) -> Vector3:
 		return jump_vel
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
+
+func play_death_scene() -> void:
+	var death_scene = load("res://Entities/DeathScene.tscn").instantiate()
+	add_child(death_scene)
+	death_scene.camera.make_current()

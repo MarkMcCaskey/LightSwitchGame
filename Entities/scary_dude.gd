@@ -130,6 +130,7 @@ func _on_creep_timer_timeout() -> void:
 	print("Timer! Rolled a " + str(n))
 	if move_chance > n:
 		if MonsterCreepSpot.can_begin_attack(creep_location):
+			player_target.play_death_scene()
 			print("Monster has entered the house, you die!")
 		else:
 			_go_to_next_creep_spot()
