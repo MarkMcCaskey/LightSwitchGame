@@ -53,4 +53,10 @@ shape = SubResource("CapsuleShape3D_8fn7w")
 [node name="AnimatedCreature1" parent="." instance=ExtResource("3_f7f25")]
 transform = Transform3D(-0.4, 1.39515e-16, -3.49691e-08, 1.39515e-16, 0.4, -1.39515e-16, 3.49691e-08, -1.39515e-16, -0.4, 0, 0, 0)
 
+[node name="CreepTimer" type="Timer" parent="."]
+wait_time = 3.9
+one_shot = true
+
+[connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
+
 [editable path="AnimatedCreature1"]
