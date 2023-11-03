@@ -22,7 +22,7 @@ enum State { Hunting, Creeping, Idle }
 
 var direction: Vector3 = Vector3(0,0,0)
 var player_target: Player
-var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar
+var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
 
 func _ready():
 	monster_vision.add_to_group("monster_vision")
@@ -129,5 +129,13 @@ func _on_creep_timer_timeout() -> void:
 	var n: int = randi_range(1, 20)
 	print("Timer! Rolled a " + str(n))
 	if move_chance > n:
-		_go_to_next_creep_spot()
+		if MonsterCreepSpot.can_begin_attack(creep_location):
+			print("Monster has entered the house, you die!")
+		else:
+			_go_to_next_creep_spot()
+	creep_timer.start()
+
+
+func _on_shoo_away_box_on_interact() -> void:
+	_go_to_next_creep_spot()
 	creep_timer.start()

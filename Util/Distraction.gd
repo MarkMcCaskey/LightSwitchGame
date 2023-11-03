@@ -74,11 +74,7 @@ func _init_idle_audio_sounds() -> void:
 
 func _process(_delta: float) -> void:
 	if stare_at_player && player:
-		var old_x = rotation.x
-		var old_y = rotation.y
-		look_at(player.global_transform.origin + Vector3.RIGHT, Vector3.DOWN)
-		rotation.x = old_x
-		rotation.y = old_y
+		look_at(player.global_transform.origin)
 
 func toggle_light(new_state: bool) -> void:
 	if new_state == is_on:
