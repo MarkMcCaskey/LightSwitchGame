@@ -39,16 +39,16 @@ func _input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouse:
-		#if mouse_on_task:
-		#	event.position -= get_global_transform().origin
-		print(event.global_position)
-		print(sudoku.make_input_local(event).global_position)
-		#print(subviewport.get_mouse_position())
-		#event.position = subviewport.get_mouse_position()
-		#subviewport.push_input(event.xformed_by(subviewport.get_screen_transform().affine_inverse()), false)
-		#subviewport.push_input(sudoku.make_input_local(event))
-		#subviewport.push_input(event.xformed_by(subviewport.get_global_transform().affine_inverse()), true)
-		subviewport.push_input(event.xformed_by(sudoku.get_global_transform().affine_inverse()), false)
+		var main_viewport_size: Vector2 = get_viewport().size
+		var subviewport_size: Vector2 = subviewport.size
+		
+		# this is a certified "good enough" moment
+		# this code is required as sacrifice to the monster in this game
+		# here be dragons
+		event.position += Vector2(-280, -100)
+		event.position /= Vector2(520, 520)
+		event.position *= subviewport_size
+		subviewport.push_input(event, true)
 	else:
 		subviewport.push_input(event)
 
