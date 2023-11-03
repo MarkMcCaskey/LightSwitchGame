@@ -35,6 +35,25 @@ func _ready() -> void:
 		creeper.scale *= 0.2
 		#creeper.modulate.a = 0.5
 		add_child(creeper)
+	else:
+		add_to_group("monster_location_" + Location.keys()[location])
+
+static func get_next_location_random(location: Location) -> Location:
+	var candidates: Array[Location] = MonsterCreepSpot.connected_regions(location)
+	assert(len(candidates) > 0)
+	return candidates[randi() % len(candidates)]
+
+static func can_begin_attack(location: Location) -> bool:
+	match location:
+		Location.FrontDoor: return true
+		# maybe it can enter the garage?
+		Location.BackGarageDoor: return true
+		Location.BackPorch: return true
+		Location.BedRoom1Window: return true
+		Location.BedRoom2Window: return true
+		_: pass
+	
+	return false
 
 static func connected_regions(location: Location) -> Array[Location]:
 	match location:
@@ -54,5 +73,41 @@ static func connected_regions(location: Location) -> Array[Location]:
 			return [Location.HouseLeftFront, Location.HouseLeftBack, Location.RoofBedRoom1Side]
 		Location.HouseLeftBack:
 			return [Location.HouseLeftCenter, Location.BackGarageDoor]
-		_: return []
-		
+		Location.BackGarageDoor:
+			return [Location.HouseLeftBack, Location.HouseBack, Location.BackPorch, Location.BedRoom2Window]
+		Location.HouseBack:
+			return [Location.BackGarageDoor, Location.HouseRightBack, Location.BackPorch]
+		Location.BackPorch:
+			return [Location.HouseBack, Location.HouseRightBack, Location.BedRoom2Window]
+		Location.HouseRightBack:
+			return [Location.HouseRightCenter, Location.HouseBack, Location.BedRoom2Window, Location.BackPorch]
+		Location.HouseRightCenter:
+			return [Location.HouseRightBack, Location.HouseRightFront, Location.RoofBathRoomSide]
+		Location.HouseRightFront:
+			return [Location.HouseRightCenter, Location.HouseFront]
+		Location.HouseFront:
+			return [Location.HouseRightFront, Location.DriveWayClose, Location.DriveWayFar, Location.RoofFront]
+		Location.RoofFront:
+			return [Location.DriveWayClose, Location.BedRoom1Window, Location.RoofCenter, Location.RoofBathRoomSide, Location.RoofBedRoom1Side, Location.HouseFront]
+		Location.BedRoom1Window:
+			return [Location.DriveWayClose, Location.RoofFront, Location.RoofBedRoom1Side, Location.RoofCenter]
+		Location.BedRoom2Window:
+			return [Location.BackGarageDoor, Location.RoofBack, Location.RoofBathRoomSide, Location.HouseRightBack]
+		Location.RoofBedRoom1Side:
+			return [Location.BedRoom1Window, Location.RoofCenter, Location.RoofCenter, Location.HouseLeftCenter, Location.HouseLeftFront, Location.HouseLeftBack]
+		Location.RoofCenter:
+			return [Location.RoofBack, Location.RoofBathRoomSide, Location.RoofBedRoom1Side, Location.RoofFront]
+		Location.RoofBack:
+			return [Location.RoofCenter, Location.RoofBathRoomSide, Location.BedRoom2Window, Location.BackGarageDoor, Location.HouseRightBack]
+		Location.RoofBathRoomSide:
+			return [Location.RoofCenter, Location.RoofBack, Location.RoofFront, Location.HouseRightCenter, Location.HouseRightFront]
+		Location.FrontDoor:
+			return [Location.DriveWayClose, Location.HouseFront, Location.BedRoom1Window, Location.RoofFront]
+		Location.BackPorch:
+			return [Location.HouseBack, Location.HouseBack, Location.BedRoom2Window, Location.HouseRightBack, Location.BackGarageDoor]
+		Location.BackGarageDoor:
+			return [Location.HouseBack, Location.HouseLeftBack, Location.BackPorch, Location.RoofBack]
+		_:
+			print(str(location) + " Unhandled " + Location.keys()[location])
+			assert(false, "wat")
+			return []
