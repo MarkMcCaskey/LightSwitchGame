@@ -891,9 +891,11 @@ one_shot = true
 
 [node name="DooDooDoo" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_jllgn")
+volume_db = -10.0
 
 [node name="Arr" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_vfeug")
+volume_db = -10.0
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

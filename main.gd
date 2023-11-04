@@ -3,6 +3,7 @@ extends Node3D
 @onready var bgm_player1: AudioStreamPlayer = $BGMPlayer1
 @onready var bgm_player2: AudioStreamPlayer = $BGMPlayer2
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var player: Player = $Player
 @onready var monster: ScaryDude = $ScaryDude
 @onready var monster_powerup_timer: Timer = $MonsterPowerUpTimer
 @onready var good_win_scene_location: Node3D = $GoodWinSceneLocation
@@ -75,4 +76,6 @@ func _on_house_house_complete() -> void:
 	animation_player.play("FadeBothOut")
 	monster.stop_monster_sounds()
 	monster.hide()
+	player.hide_everything()
+	player.hide()
 	_play_win_scene()

@@ -121,6 +121,11 @@ func _jump(delta: float) -> Vector3:
 	jump_vel = Vector3.ZERO if is_on_floor() else jump_vel.move_toward(Vector3.ZERO, gravity * delta)
 	return jump_vel
 
+func hide_everything() -> void:
+	camera.hide()
+	interact_label.hide()
+	hide()
+
 func play_death_scene() -> void:
 	if is_dying:
 		return

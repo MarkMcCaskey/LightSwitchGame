@@ -23,6 +23,10 @@ Settings="*res://Systems/settings.gd"
 
 window/stretch/mode="viewport"
 
+[editor]
+
+movie_writer/movie_file="/Users/mark/LightSwitchGameJam/gameplay.avi"
+
 [input]
 
 move_forward={
