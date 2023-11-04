@@ -3,6 +3,7 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var settings_menu: SettingsMenu = $Camera3D/SettingsMenu
 @onready var camera: Camera3D = $Camera3D
+@onready var menu_bgm: AudioStreamPlayer = $MenuBGMPlayer
 const main_scene = "res://main.tscn"
 var settings_open: bool = false
 
@@ -11,6 +12,7 @@ func _ready() -> void:
 	settings_open = false
 	animation_player.play("Idle")
 	camera.make_current()
+	menu_bgm.play()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if settings_open: return

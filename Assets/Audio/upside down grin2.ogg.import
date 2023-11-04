@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bk1c67j0edpfd"
+path="res://.godot/imported/upside down grin2.ogg-5162f57d3dd03e19cbedc4716772e242.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/upside down grin2.ogg"
+dest_files=["res://.godot/imported/upside down grin2.ogg-5162f57d3dd03e19cbedc4716772e242.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

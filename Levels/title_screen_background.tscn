@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://p6gepe6e1r1"]
+[gd_scene load_steps=10 format=3 uid="uid://p6gepe6e1r1"]
 
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="1_8ebf0"]
 [ext_resource type="Script" path="res://Levels/title_screen_background.gd" id="1_xcwc7"]
 [ext_resource type="PackedScene" uid="uid://dthmedsysxst2" path="res://Entities/creature_w_1_creeper_breathing.tscn" id="2_t6d3m"]
 [ext_resource type="PackedScene" uid="uid://dkg12a310ch6c" path="res://Levels/settings_menu.tscn" id="3_y5731"]
 [ext_resource type="Environment" uid="uid://ciobn7dy7kvpe" path="res://Materials/title_environment.tres" id="5_bf2y8"]
+[ext_resource type="AudioStream" uid="uid://bk1c67j0edpfd" path="res://Assets/Audio/upside down grin2.ogg" id="6_6ndvq"]
 
 [sub_resource type="Animation" id="Animation_b23as"]
 resource_name = "CameraFly"
+length = 6.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -81,6 +83,18 @@ tracks/5/keys = {
 "args": [],
 "method": &"_load_first_level"
 }]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("MenuBGMPlayer:volume_db")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 5.8),
+"transitions": PackedFloat32Array(1, 1.5),
+"update": 0,
+"values": [-5.0, -80.0]
 }
 
 [sub_resource type="Animation" id="Animation_68byu"]
@@ -159,10 +173,9 @@ script = ExtResource("1_xcwc7")
 [node name="House" parent="." instance=ExtResource("1_8ebf0")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.819152, -0.129027, -0.558875, 3.39848e-16, 0.97437, -0.224951, 0.573576, 0.184269, 0.798157, -7, 2.08165e-12, 12)
+transform = Transform3D(0.819152, -0.129027, -0.558875, 3.39848e-16, 0.97437, -0.224951, 0.573576, 0.184269, 0.798157, -1.426, 5.127, 2.203)
 
 [node name="ColorRect" type="ColorRect" parent="Camera3D"]
-modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -230,6 +243,11 @@ environment = ExtResource("5_bf2y8")
 libraries = {
 "": SubResource("AnimationLibrary_liw37")
 }
+
+[node name="MenuBGMPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_6ndvq")
+volume_db = -5.0
+pitch_scale = 0.7
 
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
