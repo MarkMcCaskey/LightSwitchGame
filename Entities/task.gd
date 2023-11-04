@@ -27,6 +27,9 @@ func _ready() -> void:
 	progress_bar.max_value = target_progress
 	progress_bar.value = progress
 	light.hide()
+	interact()
+	#interacting_with_task = true
+	#camera.make_current()
 
 func _input(event: InputEvent) -> void:
 	if !interacting_with_task: return
@@ -42,7 +45,7 @@ func _input(event: InputEvent) -> void:
 		# this code is required as sacrifice to the monster in this game
 		# here be dragons
 		event.position += Vector2(-280, -100)
-		event.position /= Vector2(520, 520)
+		event.position /= Vector2(522, 500)
 		event.position *= subviewport_size
 		subviewport.push_input(event, true)
 	else:
