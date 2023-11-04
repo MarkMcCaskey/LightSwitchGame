@@ -18,7 +18,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.6, 2.08165e-12
 shape = SubResource("CapsuleShape3D_3rsb5")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01306, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1.4, 2.08165e-12)
 fov = 45.0
 
 [node name="InteractRayCast" type="RayCast3D" parent="Camera"]

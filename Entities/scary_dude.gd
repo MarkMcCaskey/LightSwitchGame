@@ -29,7 +29,8 @@ enum State { Hunting, Creeping, Idle }
 @onready var sfx_audio: AudioStreamPlayer3D = $SfxAudio
 
 @onready var monster_aggression: float = base_monster_aggression
-@onready var move_chance = base_move_chance
+@onready var move_chance: int = base_move_chance
+@onready var is_seen_by_player: bool = false
 
 var direction: Vector3 = Vector3(0,0,0)
 var player_target: Player
@@ -71,6 +72,8 @@ func actor_setup():
 	target_location = player_target.global_position
 
 func _physics_process(delta: float) -> void:
+	if is_seen_by_player:
+		add_xp(delta * Settings.monster_vision_xp)
 	match state:
 		State.Idle:
 			pass
@@ -126,9 +129,11 @@ func _on_nav_velocity_computed(safe_velocity: Vector3) -> void:
 	velocity = safe_velocity * speed
 
 func seen_by_player() -> void:
+	is_seen_by_player = true
 	speed = 0.5
 
 func end_seen_by_player() -> void:
+	is_seen_by_player = false
 	animated_creature.crouch()
 	speed = 10.0
 
