@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://uyxqdypksv0c"]
+[gd_scene load_steps=11 format=3 uid="uid://uyxqdypksv0c"]
 
 [ext_resource type="Script" path="res://Entities/DeathScene.gd" id="1_ve4bf"]
 [ext_resource type="Texture2D" uid="uid://bsprh2ww75nta" path="res://Assets/Mixamo/Yelling Out-1f1086305a4f04de638b537766bd4a79_W2.png" id="1_xt06t"]
 [ext_resource type="Animation" uid="uid://c7g2pq1wphoou" path="res://animations/yellout.res" id="3_5lbir"]
+[ext_resource type="Material" uid="uid://bpdpw7s33lvvl" path="res://Materials/tv_static_alt.tres" id="4_pnlpj"]
+[ext_resource type="AudioStream" uid="uid://b5q313lc07m31" path="res://Assets/Audio/tv_static.ogg" id="5_gtnig"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hh6mp"]
 resource_name = "Material.002"
@@ -156,6 +158,8 @@ bind/39/pose = Transform3D(-35.7479, -17.1705, 3.39057, -0.745308, -7.06737, -48
 _data = {
 "yellout": ExtResource("3_5lbir")
 }
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fwkap"]
 
 [node name="DeathScene" type="Node3D"]
 script = ExtResource("1_ve4bf")
@@ -522,3 +526,19 @@ libraries = {
 transform = Transform3D(-1, 2.99003e-08, 8.21505e-08, 3.27752e-16, 0.939693, -0.34202, -8.74228e-08, -0.34202, -0.939693, 2.08165e-12, 4.5, -4)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Camera3D"]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Camera3D"]
+transform = Transform3D(3, 0, -4.57379e-23, -4.57379e-23, -1.31134e-07, -3, 0, 3, -1.31134e-07, 2.08165e-12, 2.08165e-12, -1.779)
+visible = false
+mesh = SubResource("PlaneMesh_fwkap")
+material = ExtResource("4_pnlpj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_gtnig")
+volume_db = -10.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

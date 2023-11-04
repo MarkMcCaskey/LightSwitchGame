@@ -15,6 +15,7 @@ func _ready() -> void:
 	animation_player.play("Idle")
 	camera.make_current()
 	menu_bgm.play()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if settings_open: return

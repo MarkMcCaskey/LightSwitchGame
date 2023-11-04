@@ -104,10 +104,10 @@ tracks/7/path = NodePath("MenuSfxPlayer:volume_db")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 4.9),
+"times": PackedFloat32Array(0, 5.8),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-6.0, -80.0]
+"values": [-6.0, -60.0]
 }
 
 [sub_resource type="Animation" id="Animation_68byu"]
@@ -186,10 +186,10 @@ script = ExtResource("1_xcwc7")
 [node name="House" parent="." instance=ExtResource("1_8ebf0")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.819152, -0.129027, -0.558875, 3.39848e-16, 0.97437, -0.224951, 0.573576, 0.184269, 0.798157, -5.6065, 1.28175, 9.55075)
+transform = Transform3D(0.819152, -0.129027, -0.558875, 3.39848e-16, 0.97437, -0.224951, 0.573576, 0.184269, 0.798157, -7, 2.08165e-12, 12)
 
 [node name="ColorRect" type="ColorRect" parent="Camera3D"]
-modulate = Color(1, 1, 1, 0.263158)
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -260,12 +260,12 @@ libraries = {
 
 [node name="MenuBGMPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_6ndvq")
-volume_db = -11.4655
+volume_db = -5.0
 pitch_scale = 0.7
 
 [node name="MenuSfxPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_b5tq4")
-volume_db = -13.551
+volume_db = -6.0
 pitch_scale = 0.5
 
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/StartButton" to="." method="_on_start_button_pressed"]
