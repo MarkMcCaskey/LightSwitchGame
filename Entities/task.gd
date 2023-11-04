@@ -27,9 +27,6 @@ func _ready() -> void:
 	progress_bar.max_value = target_progress
 	progress_bar.value = progress
 	light.hide()
-	interact()
-	#interacting_with_task = true
-	#camera.make_current()
 
 func _input(event: InputEvent) -> void:
 	if !interacting_with_task: return
