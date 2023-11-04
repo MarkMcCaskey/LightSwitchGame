@@ -189,7 +189,12 @@ func _on_creep_timer_timeout() -> void:
 			_go_to_next_creep_spot()
 	creep_timer.start()
 
-
 func _on_shoo_away_box_on_interact() -> void:
 	_go_to_next_creep_spot()
 	creep_timer.start()
+
+func stop_monster_sounds() -> void:
+	# TODO: fade it out later
+	movement_audio.stop()
+	passive_audio.stop()
+	sfx_audio.stop()

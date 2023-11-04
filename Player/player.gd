@@ -1,5 +1,7 @@
 class_name Player extends CharacterBody3D
 
+signal Dying
+
 @export_category("Player")
 @export_range(1, 35, 1) var speed: float = 10 # m/s
 @export_range(10, 400, 1) var acceleration: float = 100 # m/s^2
@@ -25,6 +27,7 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var interact_ray: RayCast3D = $Camera/InteractRayCast
 @onready var interact_label: Label = $Camera/CenterContainer/InteractLabel
 @onready var monster_visible_ray: RayCast3D = $Camera/LookingAtMonsterRay
+@onready var is_dying: bool = false
 
 var current_interactable: Interactable
 var last_seen_monster: ScaryDude
@@ -119,6 +122,11 @@ func _jump(delta: float) -> Vector3:
 	return jump_vel
 
 func play_death_scene() -> void:
+	if is_dying:
+		return
+	is_dying = true
 	var death_scene = load("res://Entities/DeathScene.tscn").instantiate()
+	has_control = false
+	emit_signal("Dying")
 	add_child(death_scene)
 	death_scene.camera.make_current()

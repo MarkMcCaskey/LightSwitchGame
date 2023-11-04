@@ -53,3 +53,8 @@ func _on_monster_power_up_timer_timeout() -> void:
 		xp += float(light_count)
 	monster.add_xp(xp)
 	monster_powerup_timer.start(randf_range(2.0, 70.0))
+
+
+func _on_player_dying() -> void:
+	animation_player.play("FadeBothOut")
+	monster.stop_monster_sounds()

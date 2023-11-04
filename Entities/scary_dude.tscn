@@ -21,7 +21,7 @@ script = ExtResource("1_ohpp7")
 can_kill_player = false
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.877323, -0.468578, -0.103629, 0.417916, 0.852131, -0.31499, 0.235903, 0.233039, 0.943421, -0.754971, 6.05807, 0.0713065)
+transform = Transform3D(-0.350929, 0.187431, 0.0414516, 0.167167, 0.340852, -0.125996, -0.0943612, -0.0932159, -0.377368, 0.301988, 2.42323, -0.028523)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 use_external_skeleton = true

@@ -9,7 +9,6 @@ func _ready() -> void:
 	animation_player.play("yellout")
 
 func _killed() -> void:
-	#animation_player.stop()
 	print("You died!")
 	timer.start()
 
