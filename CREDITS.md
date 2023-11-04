@@ -4,6 +4,10 @@ This project was created for the [Let's Make Something 2023 Game Jam](https://it
 
 This file is a best effort credits section to credit all creators whose work we use (directly or indirectly) as well as additional license info.
 
+Code and Design by Mark.
+
+Additional Code and Design by Branden.
+
 # Assets
 
 [House model + textures](https://elbolilloduro.itch.io/house) - CC0

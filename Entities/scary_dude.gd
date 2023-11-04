@@ -1,5 +1,7 @@
 class_name ScaryDude extends CharacterBody3D
 
+signal ScaryDudeSafetyLevelChanged(old: int, new: int)
+
 enum State { Hunting, Creeping, Idle }
 
 @export var state: State = State.Creeping
@@ -24,7 +26,7 @@ enum State { Hunting, Creeping, Idle }
 
 var direction: Vector3 = Vector3(0,0,0)
 var player_target: Player
-var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
+var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar #MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
 
 func _ready():
 	monster_vision.add_to_group("monster_vision")
@@ -124,6 +126,10 @@ func _go_to_next_creep_spot() -> void:
 	var next: MonsterCreepSpot.Location = MonsterCreepSpot.get_next_location_random(creep_location)
 	creep_location = next
 	print("Going from " + MonsterCreepSpot.Location.keys()[current]  + " to " + MonsterCreepSpot.Location.keys()[next])
+	var old_safety_level = MonsterCreepSpot.safety_rating(current)
+	var new_safety_level = MonsterCreepSpot.safety_rating(next)
+	if old_safety_level != new_safety_level:
+		emit_signal("ScaryDudeSafetyLevelChanged", old_safety_level, new_safety_level)
 	_update_location_to_creep_spot()
 
 

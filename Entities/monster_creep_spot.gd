@@ -115,3 +115,31 @@ static func connected_regions(location: Location) -> Array[Location]:
 			print(str(location) + " Unhandled " + Location.keys()[location])
 			assert(false, "wat")
 			return []
+
+# 1 indicates a position where the monster can attack
+static func safety_rating(location: Location) -> int:
+	match location:
+		Location.FrontDoor: return 1
+		Location.BackGarageDoor: return 1
+		Location.BedRoom2Window: return 1
+		Location.BackPorch: return 1
+		Location.BedRoom1Window: return 1
+		Location.DriveWayClose: return 2
+		Location.DriveWayFar: return 3
+		Location.ColDeSacMiddle: return 2 
+		Location.ColDeSacNear: return 3
+		Location.ColDeSacFar: return 4
+		Location.RoofCenter: return 4
+		Location.RoofFront: return 3
+		Location.RoofBack: return 3
+		Location.RoofBedRoom1Side: return 3
+		Location.RoofBathRoomSide: return 3
+		Location.HouseLeftCenter: return 4
+		Location.HouseLeftFront: return 3
+		Location.HouseLeftBack: return 3
+		Location.HouseRightCenter: return 4
+		Location.HouseRightFront: return 3
+		Location.HouseRightBack: return 3
+		Location.HouseFront: return 2
+		Location.HouseBack: return 2
+		_: return 3
