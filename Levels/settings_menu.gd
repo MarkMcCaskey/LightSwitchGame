@@ -16,7 +16,7 @@ func _ready() -> void:
 		Sudoku.PuzzleDifficulty.Medium: idx = 1
 		Sudoku.PuzzleDifficulty.Hard: idx = 2
 	difficulty.selected = idx
-	monster_level.value = Settings.monster_agression
+	monster_level.value = Settings.monster_move_chance
 	if Settings.sudoku_rng_enabled:
 		_rng_enable()
 	else:
@@ -32,7 +32,7 @@ func _flush_game_settings() -> void:
 	Settings.sudoku_rng_seed = puzzle_seed.value
 	Settings.sudoku_rng_enabled = rng_enabled.button_pressed
 	Settings.sudoku_difficulty = _get_difficulty()
-	Settings.monster_agression = monster_level.value
+	Settings.monster_move_chance= monster_level.value
 
 func _rng_disable() -> void:
 	puzzle_seed.editable = true

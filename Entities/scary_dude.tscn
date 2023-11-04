@@ -131,6 +131,8 @@ shape = SubResource("BoxShape3D_qc0ay")
 
 [node name="PassiveAudio" type="AudioStreamPlayer3D" parent="."]
 
+[node name="SfxAudio" type="AudioStreamPlayer3D" parent="."]
+
 [connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
 [connection signal="on_interact" from="ShooAwayBox" to="." method="_on_shoo_away_box_on_interact"]
 

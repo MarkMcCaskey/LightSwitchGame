@@ -5,15 +5,20 @@ enum DistractionType { Unique, BodyBag, Scarecrow }
 @export var room: Room.RoomName
 @export var type: DistractionType
 @export var stare_at_player: bool = false
+@export var base_distraction_xp: float = Settings.monster_distraction_xp_amount
+@export var base_distraction_multiplier: float = 1.32
 
 var audio_player: AudioStreamPlayer3D
 var player: Player = null
 var kill_timer: Timer
 var audio_timer: Timer
+var xp_timer: Timer
 # ligths on
 var is_on: bool = false
 var idle_audio_sounds: Array[AudioStream] = []
 var last_played_idle_audio_noise: int = -1
+
+@onready var distraction_xp: float = base_distraction_xp
 
 func _ready() -> void:
 	var room_name = Room.room_name_to_light_group(room)
@@ -27,7 +32,7 @@ func _ready() -> void:
 				push_warning("Lights do not all share a state in room/group " + room_name)
 	audio_player = AudioStreamPlayer3D.new()
 	#audio_player.max_db = -10
-	audio_player.max_distance = 30
+	#audio_player.max_distance = 30
 	audio_player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_SQUARE_DISTANCE
 	add_child(audio_player)
 	
@@ -45,7 +50,15 @@ func _ready() -> void:
 	audio_timer.timeout.connect(_audio_timer_timed_out)
 	add_child(audio_timer)
 	
+	xp_timer = Timer.new()
+	xp_timer.one_shot = true
+	xp_timer.stop()
+	xp_timer.wait_time = randf_range(5.0, 10.0)
+	xp_timer.timeout.connect(_xp_timer_timed_out)
+	add_child(xp_timer)
+	
 	add_to_group(room_name)
+	add_to_group("distractions")
 
 	if is_on:
 		kill_timer.start()
@@ -129,3 +142,13 @@ func _audio_finished_handler() -> void:
 
 func _audio_timer_timed_out() -> void:
 	_play_idle_audio()
+
+func _add_xp() -> void:
+	var monster = get_tree().get_first_node_in_group("")
+	if monster:
+		monster.add_xp(distraction_xp)
+		distraction_xp = distraction_xp * base_distraction_multiplier
+
+func _xp_timer_timed_out() -> void:
+	_add_xp()
+	xp_timer.start(randf_range(3.192, 15.9))

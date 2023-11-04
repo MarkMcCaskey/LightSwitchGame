@@ -107,14 +107,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, -0.431932, 28.8695)
 
 [node name="BGMPlayer1" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_stfhj")
-volume_db = -80.0
+volume_db = -52.5
 
 [node name="BGMPlayer2" type="AudioStreamPlayer" parent="."]
-volume_db = -20.0
+volume_db = -52.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_ym1yq")
 }
 
+[node name="MonsterPowerUpTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="ScaryDudeSafetyLevelChanged" from="ScaryDude" to="." method="_on_scary_dude_scary_dude_safety_level_changed"]
+[connection signal="timeout" from="MonsterPowerUpTimer" to="." method="_on_monster_power_up_timer_timeout"]
