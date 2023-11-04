@@ -22,6 +22,7 @@ Low poly human? if we use that
 
 [Simple First Person Controller Template](https://github.com/rbarongr/GodotFirstPersonController) - CC0
 [Glass Material Reference](https://gitlab.com/zolno/godot-experiments/-/tree/glass) - MIT
+[Credits System](https://github.com/benbishopnz/godot-credits/tree/master) - MIT
 
 # Audio
 

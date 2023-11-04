@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://4sb6brubyvis"]
+
+[ext_resource type="Script" path="res://Levels/credits_scroll.gd" id="1_jd6q6"]
+
+[node name="credits_scroll" type="Node2D"]
+script = ExtResource("1_jd6q6")
+
+[node name="CreditsContainer" type="Control" parent="."]
+custom_minimum_size = Vector2(1150, 600)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1150.0
+offset_bottom = 800.0
+
+[node name="ColorRect" type="ColorRect" parent="CreditsContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line" type="Label" parent="CreditsContainer"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
