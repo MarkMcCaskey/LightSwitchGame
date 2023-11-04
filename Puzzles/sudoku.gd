@@ -3,6 +3,10 @@ class_name Sudoku extends Control
 signal SudokuComplete
 signal SudokuQuit
 
+enum PuzzleDifficulty { Easy, Medium, Hard }
+
+@export var difficulty: PuzzleDifficulty = PuzzleDifficulty.Easy
+
 @onready var grid_0_0: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_0
 @onready var grid_0_1: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_1
 @onready var grid_0_2: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_2
@@ -68,9 +72,19 @@ func _inner_check(order, methods: Array[Callable]) -> bool:
 						return false
 	return true
 
+static func difficulty_to_str(d: PuzzleDifficulty) -> String:
+	match d:
+		PuzzleDifficulty.Hard: return "hard"
+		PuzzleDifficulty.Medium: return "medium"
+		_: return "easy"
+
 func load_sudoku() -> void:
 	#var json: JSON = load("res://Puzzles/sudoku_boards/sudoku1.json")
-	var json: JSON = load("res://Puzzles/sudoku_boards/sudoku_almost_solved.json")
+	#var json: JSON = load("res://Puzzles/sudoku_boards/sudoku_almost_solved.json")
+	const num_puzzles: int = 400
+	var puzzle_num: int = randi_range(0, num_puzzles - 1)
+	var diff_str: String = Sudoku.difficulty_to_str(difficulty)
+	var json: JSON = load("res://Assets/PuzzleData/Sudoku/" + diff_str + "/" + str(puzzle_num) + ".json")
 	init_sudoku(json.data)
 
 func init_sudoku(vals) -> void:
