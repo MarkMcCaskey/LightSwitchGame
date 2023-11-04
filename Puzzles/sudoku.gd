@@ -5,7 +5,7 @@ signal SudokuQuit
 
 enum PuzzleDifficulty { Easy, Medium, Hard }
 
-@export var difficulty: PuzzleDifficulty = PuzzleDifficulty.Easy
+@export var difficulty: PuzzleDifficulty = Settings.sudoku_difficulty
 
 @onready var grid_0_0: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_0
 @onready var grid_0_1: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_0_1
@@ -82,7 +82,11 @@ func load_sudoku() -> void:
 	#var json: JSON = load("res://Puzzles/sudoku_boards/sudoku1.json")
 	#var json: JSON = load("res://Puzzles/sudoku_boards/sudoku_almost_solved.json")
 	const num_puzzles: int = 400
-	var puzzle_num: int = randi_range(0, num_puzzles - 1)
+	var puzzle_num: int = 0
+	if Settings.sudoku_rng_enabled || Settings.sudoku_rng_seed == 0:
+		puzzle_num = randi_range(0, num_puzzles - 1)
+	else:
+		puzzle_num = (Settings.sudoku_rng_seed - 1) % num_puzzles
 	var diff_str: String = Sudoku.difficulty_to_str(difficulty)
 	var json: JSON = load("res://Assets/PuzzleData/Sudoku/" + diff_str + "/" + str(puzzle_num) + ".json")
 	init_sudoku(json.data)

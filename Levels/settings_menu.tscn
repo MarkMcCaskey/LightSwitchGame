@@ -1,0 +1,186 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkg12a310ch6c"]
+
+[ext_resource type="Script" path="res://Levels/settings_menu.gd" id="1_jrs2q"]
+
+[node name="SettingsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jrs2q")
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+tab_alignment = 1
+
+[node name="Game" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/Game/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Game/ScrollContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Spacer" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Difficulty" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/Difficulty"]
+layout_mode = 2
+offset_top = -35.0
+offset_right = 107.0
+offset_bottom = -4.0
+item_count = 3
+popup/item_0/text = "Easy"
+popup/item_0/id = 0
+popup/item_1/text = "Medium"
+popup/item_1/id = 1
+popup/item_2/text = "Hard"
+popup/item_2/id = 2
+
+[node name="Label" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/Difficulty"]
+layout_mode = 2
+offset_top = -58.0
+offset_right = 33.0
+offset_bottom = -32.0
+text = "Puzzle Difficulty"
+
+[node name="Randomness" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/Randomness"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -17.0
+offset_right = 143.0
+offset_bottom = 14.0
+button_pressed = true
+text = "Randomness"
+
+[node name="PuzzleSeed" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Puzzle Seed" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/PuzzleSeed"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+tooltip_text = "A value of 0 means a puzzle will randomly be selected"
+mouse_filter = 1
+text = "Puzzle Selection"
+
+[node name="PSSpinBox" type="SpinBox" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/PuzzleSeed"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 89.0625
+offset_bottom = 55.0
+max_value = 400.0
+value = 1.0
+rounded = true
+editable = false
+
+[node name="MonsterAggression" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MA" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggression"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+tooltip_text = "A value of 0 means a puzzle will randomly be selected"
+mouse_filter = 1
+text = "Monster Aggression"
+
+[node name="MASpinBox" type="SpinBox" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggression"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 89.0625
+offset_bottom = 55.0
+min_value = 1.0
+max_value = 20.0
+value = 5.0
+rounded = true
+
+[node name="Display" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/Display/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Display/ScrollContainer/CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Spacer" type="Control" parent="TabContainer/Display/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="TabContainer/Display/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FullScreen" type="Control" parent="TabContainer/Display/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckButton" parent="TabContainer/Display/ScrollContainer/CenterContainer/VBoxContainer/FullScreen"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+text = "Full Screen"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -22.5
+offset_top = -40.0
+offset_right = 22.5
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BackButton" type="Button" parent="CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Back
+"
+
+[connection signal="item_selected" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/Difficulty/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/Randomness/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/PuzzleSeed/PSSpinBox" to="." method="_on_ps_spin_box_value_changed"]
+[connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggression/MASpinBox" to="." method="_on_ma_spin_box_value_changed"]
+[connection signal="toggled" from="TabContainer/Display/ScrollContainer/CenterContainer/VBoxContainer/FullScreen/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="pressed" from="CenterContainer/BackButton" to="." method="_on_back_button_pressed"]

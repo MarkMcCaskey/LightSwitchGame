@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://p6gepe6e1r1"]
+[gd_scene load_steps=9 format=3 uid="uid://p6gepe6e1r1"]
 
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="1_8ebf0"]
 [ext_resource type="Script" path="res://Levels/title_screen_background.gd" id="1_xcwc7"]
 [ext_resource type="PackedScene" uid="uid://dthmedsysxst2" path="res://Entities/creature_w_1_creeper_breathing.tscn" id="2_t6d3m"]
-[ext_resource type="Environment" uid="uid://djl4r4j1fh02j" path="res://Materials/environment.tres" id="3_c2s13"]
+[ext_resource type="PackedScene" uid="uid://dkg12a310ch6c" path="res://Levels/settings_menu.tscn" id="3_y5731"]
+[ext_resource type="Environment" uid="uid://ciobn7dy7kvpe" path="res://Materials/title_environment.tres" id="5_bf2y8"]
 
 [sub_resource type="Animation" id="Animation_b23as"]
 resource_name = "CameraFly"
@@ -170,6 +171,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="FlowContainer" type="VFlowContainer" parent="Camera3D"]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -208,14 +210,21 @@ size_flags_horizontal = 3
 layout_mode = 2
 text = "Exit"
 
+[node name="SettingsMenu" parent="Camera3D" instance=ExtResource("3_y5731")]
+
 [node name="CameraTargetPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42624, 5.12728, 2.20308)
 
 [node name="CreatureW2CreeperBreathing" parent="." instance=ExtResource("2_t6d3m")]
 transform = Transform3D(0.296059, 0, -0.0484656, 0, 0.3, 0, 0.0484656, 0, 0.296059, -1.33673, 3.73947, -2.67625)
 
+[node name="SpotLight3D" type="SpotLight3D" parent="CreatureW2CreeperBreathing"]
+transform = Transform3D(-1, -1.51808e-08, -8.60946e-08, 3.43488e-16, 0.984808, -0.173648, 8.74228e-08, -0.173648, -0.984808, 2.08165e-12, 2, -10)
+light_color = Color(0.533333, 0.0313726, 0.0313726, 1)
+light_energy = 2.83
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = ExtResource("3_c2s13")
+environment = ExtResource("5_bf2y8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -223,4 +232,6 @@ libraries = {
 }
 
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="SettingsClosed" from="Camera3D/SettingsMenu" to="." method="_on_settings_menu_settings_closed"]

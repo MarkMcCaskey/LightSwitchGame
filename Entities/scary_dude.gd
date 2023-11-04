@@ -5,7 +5,7 @@ enum State { Hunting, Creeping, Idle }
 @export var state: State = State.Creeping
 
 @export var speed: float = 1.
-@export var move_chance: int = 15
+@export var move_chance: int = Settings.monster_agression
 # used for debugging
 @export var can_kill_player: bool = true
 
