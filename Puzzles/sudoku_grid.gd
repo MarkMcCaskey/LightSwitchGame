@@ -56,23 +56,23 @@ func set_value_at(i: int, j: int, v: int, immutable: bool) -> void:
 func set_value_at_direct(idx: int, v: int) -> void:
 	cells[idx].current_value = v
 
-func get_row_0() -> Array[int]:
-	return [cell_0_0.current_value, cell_0_1.current_value, cell_0_2.current_value]
+static func get_row_0(grid: SudokuGrid) -> Array[int]:
+	return [grid.cell_0_0.current_value, grid.cell_0_1.current_value, grid.cell_0_2.current_value]
 
-func get_row_1() -> Array[int]:
-	return [cell_1_0.current_value, cell_1_1.current_value, cell_1_2.current_value]
+static func get_row_1(grid: SudokuGrid) -> Array[int]:
+	return [grid.cell_1_0.current_value, grid.cell_1_1.current_value, grid.cell_1_2.current_value]
 
-func get_row_2() -> Array[int]:
-	return [cell_2_0.current_value, cell_2_1.current_value, cell_2_2.current_value]
+static func get_row_2(grid: SudokuGrid) -> Array[int]:
+	return [grid.cell_2_0.current_value, grid.cell_2_1.current_value, grid.cell_2_2.current_value]
 
-func get_col_0() -> Array[int]:
-	return [cell_0_0.current_value, cell_1_0.current_value, cell_2_0.current_value]
+static func get_col_0(grid: SudokuGrid) -> Array[int]:
+	return [grid.cell_0_0.current_value, grid.cell_1_0.current_value, grid.cell_2_0.current_value]
 
-func get_col_1() -> Array[int]:
-	return [cell_0_1.current_value, cell_1_1.current_value, cell_2_1.current_value]
+static func get_col_1(grid: SudokuGrid) -> Array[int]:
+	return [grid.cell_0_1.current_value, grid.cell_1_1.current_value, grid.cell_2_1.current_value]
 
-func get_col_2() -> Array[int]:
-	return [cell_0_2.current_value, cell_1_2.current_value, cell_2_2.current_value]
+static func get_col_2(grid: SudokuGrid) -> Array[int]:
+	return [grid.cell_0_2.current_value, grid.cell_1_2.current_value, grid.cell_2_2.current_value]
 
 
 func _on_cell_0_0_cell_pressed() -> void:

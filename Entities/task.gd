@@ -29,13 +29,7 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if !interacting_with_task: return
 	if event.is_action_pressed("ui_cancel"):
-		var player: Player = get_tree().get_first_node_in_group("Player")
-		player.capture_mouse()
-		player.interact_label.show()
-		interacting_with_task = false
-		player.camera.make_current()
-		subviewport.set_input_as_handled()
-		player.has_control = true
+		_exit_task()
 		return
 
 	if event is InputEventMouse:
@@ -51,6 +45,15 @@ func _input(event: InputEvent) -> void:
 		subviewport.push_input(event, true)
 	else:
 		subviewport.push_input(event)
+
+func _exit_task() -> void:
+	var player: Player = get_tree().get_first_node_in_group("Player")
+	player.capture_mouse()
+	player.interact_label.show()
+	interacting_with_task = false
+	player.camera.make_current()
+	subviewport.set_input_as_handled()
+	player.has_control = true
 
 func interact() -> void:
 	var player: Player = get_tree().get_first_node_in_group("Player")
@@ -79,3 +82,8 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
 	mouse_on_task = false
+
+func _on_sudoku_sudoku_complete() -> void:
+	light.show()
+	progress = target_progress
+	_exit_task()

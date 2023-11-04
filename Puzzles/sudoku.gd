@@ -48,43 +48,17 @@ func are_grids_solved() -> bool:
 	return true
 
 func are_rows_solved() -> bool:
-	return _inner_check(row_order, [Callable(SudokuGrid, "get_row_0"), Callable(SudokuGrid, "get_row_1"), Callable(SudokuGrid, "get_row_2")])
-#	for i in range(3):
-#		var set_0 := {}
-#		var set_1 := {}
-#		var set_2 := {}
-#		for grid in row_order[i]:
-#			for n in grid.get_row_0():
-#				if n == 0: return false
-#				var prev_len: int = len(set_0)
-#				set_0[n] = null
-#				var new_len: int = len(set_0)
-#				if prev_len == new_len:
-#					return false
-#			for n in grid.get_row_1():
-#				if n == 0: return false
-#				var prev_len: int = len(set_1)
-#				set_1[n] = null
-#				var new_len: int = len(set_1)
-#				if prev_len == new_len:
-#					return false
-#			for n in grid.get_row_2():
-#				if n == 0: return false
-#				var prev_len: int = len(set_2)
-#				set_2[n] = null
-#				var new_len: int = len(set_2)
-#				if prev_len == new_len:
-#					return false
-#	return true
+	return _inner_check(row_order, [SudokuGrid.get_row_0, SudokuGrid.get_row_1, SudokuGrid.get_row_2])
 
 func are_cols_solved() -> bool:
-	return _inner_check(col_order, [Callable(SudokuGrid, "get_col_0"), Callable(SudokuGrid, "get_col_1"), Callable(SudokuGrid, "get_col_2")])
+	return _inner_check(col_order, [SudokuGrid.get_col_0, SudokuGrid.get_col_1, SudokuGrid.get_col_2])
 
 func _inner_check(order, methods: Array[Callable]) -> bool:
-	for i in len(order):
+	for grid_seq in order:
 		for method in methods:
 			var n_set := {}
-			for grid in order[i]:
+			for grid in grid_seq:
+				print(method.get_method())
 				for n in method.call(grid):
 					if n == 0: return false
 					var prev_len: int = len(n_set)
@@ -95,7 +69,8 @@ func _inner_check(order, methods: Array[Callable]) -> bool:
 	return true
 
 func load_sudoku() -> void:
-	var json: JSON = load("res://Puzzles/sudoku1.json")
+	#var json: JSON = load("res://Puzzles/sudoku_boards/sudoku1.json")
+	var json: JSON = load("res://Puzzles/sudoku_boards/sudoku_almost_solved.json")
 	init_sudoku(json.data)
 
 func init_sudoku(vals) -> void:

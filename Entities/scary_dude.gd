@@ -6,6 +6,8 @@ enum State { Hunting, Creeping, Idle }
 
 @export var speed: float = 1.
 @export var move_chance: int = 15
+# used for debugging
+@export var can_kill_player: bool = true
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
@@ -129,7 +131,7 @@ func _on_creep_timer_timeout() -> void:
 	var n: int = randi_range(1, 20)
 	print("Timer! Rolled a " + str(n))
 	if move_chance > n:
-		if MonsterCreepSpot.can_begin_attack(creep_location):
+		if MonsterCreepSpot.can_begin_attack(creep_location) && can_kill_player:
 			player_target.play_death_scene()
 			print("Monster has entered the house, you die!")
 		else:
