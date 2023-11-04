@@ -34,6 +34,8 @@ Low poly human? if we use that
 [Atmospheric ambient loops](https://opengameart.org/content/4-atmospheric-ghostly-loops) - CC0
 [Crickets ambient](https://opengameart.org/content/crickets-ambient-noise-loopable) - CC0
 [UI sounds - atmospheric interaction pack](https://opengameart.org/content/atmospheric-interaction-sound-pack) - CC0
+[GUI sound effects](https://opengameart.org/content/gui-sound-effects) - CC0
+[Arr!](https://opengameart.org/content/arr) - CC0
 
 # Data
 [Rated sudoku puzzle data](https://github.com/grantm/sudoku-exchange-puzzle-bank) - Public Domain
