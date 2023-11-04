@@ -7,7 +7,7 @@ var progress: int = 0
 
 @onready var light: OmniLight3D = $OmniLight3D
 @onready var progress_bar: ProgressBar = $ProgressBar/SubViewport/CenterContainer/ProgressBar
-@onready var distraction_manager: DistractionManager = $DistractionManager
+#@onready var distraction_manager: DistractionManager = $DistractionManager
 @onready var last_update: int = 0
 @onready var camera: Camera3D = $Puzzle/Camera3D
 @onready var subviewport: SubViewport = $Puzzle/SubViewport
@@ -75,8 +75,8 @@ func interact() -> void:
 #	if progress >= target_progress:
 #		light.show()
 
-func _gen_distraction(difficulty: int) -> void:
-	distraction_manager.generate_distraction(difficulty)
+#func _gen_distraction(difficulty: int) -> void:
+#	distraction_manager.generate_distraction(difficulty)
 
 
 func _on_mouse_entered() -> void:

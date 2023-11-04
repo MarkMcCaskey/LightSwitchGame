@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://beufq6tbg4eys"]
+[gd_scene load_steps=9 format=3 uid="uid://beufq6tbg4eys"]
 
 [ext_resource type="Script" path="res://Entities/task.gd" id="1_oqun7"]
 [ext_resource type="Texture2D" uid="uid://bdevvnj65ulyl" path="res://Assets/sudoku_placeholder.png" id="2_kicu5"]
-[ext_resource type="PackedScene" uid="uid://ywcyygkwrji1" path="res://Systems/distraction_manager.tscn" id="3_8qyfe"]
 [ext_resource type="PackedScene" uid="uid://btpb7yb6cmjm1" path="res://Puzzles/sudoku.tscn" id="3_pd1q0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fokeh"]
@@ -80,8 +79,6 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="ProgressBar/SubViewport/CenterContainer"]
 layout_mode = 2
 value = 100.0
-
-[node name="DistractionManager" parent="." instance=ExtResource("3_8qyfe")]
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

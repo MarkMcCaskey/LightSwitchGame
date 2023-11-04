@@ -28,6 +28,7 @@ enum State { Hunting, Creeping, Idle }
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
 @onready var sfx_audio: AudioStreamPlayer3D = $SfxAudio
 
+@onready var monster_aggression: float = base_monster_aggression
 @onready var move_chance = base_move_chance
 
 var direction: Vector3 = Vector3(0,0,0)

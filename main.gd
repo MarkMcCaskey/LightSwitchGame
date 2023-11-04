@@ -8,6 +8,8 @@ extends Node3D
 @onready var monster_powerup_timer: Timer = $MonsterPowerUpTimer
 @onready var good_win_scene_location: Node3D = $GoodWinSceneLocation
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
+@onready var distraction_manager: DistractionManager = $DistractionManager
+@onready var distraction_timer: Timer = $DistractionManager/DistractionTimer
 
 const win_scene: PackedScene = preload("res://Entities/WinScene.tscn")
 const safety4 := preload("res://Assets/Audio/atmoseerie04.ogg")
@@ -79,3 +81,7 @@ func _on_house_house_complete() -> void:
 	player.hide_everything()
 	player.hide()
 	_play_win_scene()
+
+func _on_distraction_timer_timeout() -> void:
+	distraction_manager.generate_distraction(1)
+	distraction_timer.start(randf_range(19.3, 79.3) / monster.monster_aggression)
