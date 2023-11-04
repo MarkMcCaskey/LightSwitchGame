@@ -33,8 +33,7 @@ surface_material_override/1 = ExtResource("5_lpw7d")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Node3D"]
 stream = ExtResource("6_0evck")
-attenuation_model = 1
-volume_db = -15.0
-max_distance = 30.0
+volume_db = -20.0
+max_db = -10.0
 
 [connection signal="on_interact" from="Node3D/Interactable" to="." method="_on_interactable_on_interact"]

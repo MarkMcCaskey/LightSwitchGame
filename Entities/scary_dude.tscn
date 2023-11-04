@@ -127,6 +127,10 @@ interact_text = "Shoo Monster Away"
 transform = Transform3D(1.16741, -1.42018e-31, -4.53394e-24, -4.53394e-24, 1.16741, 4.53394e-24, 0, 0, 1.16741, 1.04821e-15, 1.69134, -1.31381)
 shape = SubResource("BoxShape3D_qc0ay")
 
+[node name="MovementAudio" type="AudioStreamPlayer3D" parent="."]
+
+[node name="PassiveAudio" type="AudioStreamPlayer3D" parent="."]
+
 [connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
 [connection signal="on_interact" from="ShooAwayBox" to="." method="_on_shoo_away_box_on_interact"]
 
