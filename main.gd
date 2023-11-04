@@ -5,7 +5,10 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var monster: ScaryDude = $ScaryDude
 @onready var monster_powerup_timer: Timer = $MonsterPowerUpTimer
+@onready var good_win_scene_location: Node3D = $GoodWinSceneLocation
+@onready var world_environment: WorldEnvironment = $WorldEnvironment
 
+const win_scene: PackedScene = preload("res://Entities/WinScene.tscn")
 const safety4 := preload("res://Assets/Audio/atmoseerie04.ogg")
 const safety3 := preload("res://Assets/Audio/atmoseerie01.ogg")
 const safety2 := preload("res://Assets/Audio/atmoseerie02.ogg")
@@ -58,3 +61,18 @@ func _on_monster_power_up_timer_timeout() -> void:
 func _on_player_dying() -> void:
 	animation_player.play("FadeBothOut")
 	monster.stop_monster_sounds()
+
+func _play_win_scene() -> void:
+	var player: Player = get_tree().get_first_node_in_group("Player")
+	if player:
+		player.has_control = false
+	world_environment.environment.ambient_light_energy = 10
+	world_environment.environment.fog_enabled = false
+	var win = win_scene.instantiate()
+	good_win_scene_location.add_child(win)
+
+func _on_house_house_complete() -> void:
+	animation_player.play("FadeBothOut")
+	monster.stop_monster_sounds()
+	monster.hide()
+	_play_win_scene()

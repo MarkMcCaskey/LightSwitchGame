@@ -1,5 +1,7 @@
 class_name Task extends Interactable
 
+signal TaskComplete
+
 const target_progress: int = 18
 var progress: int = 0
 
@@ -87,3 +89,4 @@ func _on_sudoku_sudoku_complete() -> void:
 	light.show()
 	progress = target_progress
 	_exit_task()
+	emit_signal("TaskComplete")

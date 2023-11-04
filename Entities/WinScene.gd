@@ -8,6 +8,7 @@ class_name WinScene extends Node3D
 func _ready() -> void:
 	ResourceLoader.load_threaded_request("res://Levels/title_screen_background.tscn")
 	animation_player.play("mixamo_com")
+	camera.make_current()
 
 func _on_timer_timeout() -> void:
 	var menu = ResourceLoader.load_threaded_get("res://Levels/title_screen_background.tscn")

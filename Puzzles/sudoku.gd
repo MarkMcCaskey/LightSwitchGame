@@ -89,6 +89,7 @@ func load_sudoku() -> void:
 		puzzle_num = (Settings.sudoku_rng_seed - 1) % num_puzzles
 	var diff_str: String = Sudoku.difficulty_to_str(difficulty)
 	var json: JSON = load("res://Assets/PuzzleData/Sudoku/" + diff_str + "/" + str(puzzle_num) + ".json")
+	#var json: JSON = load("res://Assets/PuzzleData/Sudoku/sudoku_almost_solved.json")
 	init_sudoku(json.data)
 
 func init_sudoku(vals) -> void:

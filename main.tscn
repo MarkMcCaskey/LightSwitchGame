@@ -172,6 +172,10 @@ libraries = {
 [node name="MonsterPowerUpTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="GoodWinSceneLocation" type="Node3D" parent="."]
+transform = Transform3D(-0.866025, 1.27665e-16, -0.5, 3.48787e-16, 1, -3.48787e-16, 0.5, -4.76452e-16, -0.866025, 0.561, -0.3, 17.262)
+
 [connection signal="Dying" from="Player" to="." method="_on_player_dying"]
+[connection signal="HouseComplete" from="House" to="." method="_on_house_house_complete"]
 [connection signal="ScaryDudeSafetyLevelChanged" from="ScaryDude" to="." method="_on_scary_dude_scary_dude_safety_level_changed"]
 [connection signal="timeout" from="MonsterPowerUpTimer" to="." method="_on_monster_power_up_timer_timeout"]
