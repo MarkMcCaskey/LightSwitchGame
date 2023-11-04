@@ -17,3 +17,5 @@ environment = ExtResource("3_hc185")
 
 [node name="ScaryDude" parent="." instance=ExtResource("3_20vsw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, -0.431932, 28.8695)
+
+[node name="BGMPlayer" type="AudioStreamPlayer" parent="."]

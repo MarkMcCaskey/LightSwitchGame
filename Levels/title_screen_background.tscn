@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://p6gepe6e1r1"]
+[gd_scene load_steps=11 format=3 uid="uid://p6gepe6e1r1"]
 
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="1_8ebf0"]
 [ext_resource type="Script" path="res://Levels/title_screen_background.gd" id="1_xcwc7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dkg12a310ch6c" path="res://Levels/settings_menu.tscn" id="3_y5731"]
 [ext_resource type="Environment" uid="uid://ciobn7dy7kvpe" path="res://Materials/title_environment.tres" id="5_bf2y8"]
 [ext_resource type="AudioStream" uid="uid://bk1c67j0edpfd" path="res://Assets/Audio/upside down grin2.ogg" id="6_6ndvq"]
+[ext_resource type="AudioStream" uid="uid://cpg6ingpay1n7" path="res://Assets/Audio/game_start.ogg" id="7_b5tq4"]
 
 [sub_resource type="Animation" id="Animation_b23as"]
 resource_name = "CameraFly"
@@ -17,7 +18,7 @@ tracks/0/path = NodePath("Camera3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(-7, 2.08165e-12, 12), Vector3(-1.426, 5.127, 2.203)]
@@ -65,7 +66,7 @@ tracks/4/path = NodePath("Camera3D/ColorRect:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 1.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -77,7 +78,7 @@ tracks/5/path = NodePath(".")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(1.9),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -95,6 +96,18 @@ tracks/6/keys = {
 "transitions": PackedFloat32Array(1, 1.5),
 "update": 0,
 "values": [-5.0, -80.0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("MenuSfxPlayer:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 4.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-6.0, -80.0]
 }
 
 [sub_resource type="Animation" id="Animation_68byu"]
@@ -173,9 +186,10 @@ script = ExtResource("1_xcwc7")
 [node name="House" parent="." instance=ExtResource("1_8ebf0")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.819152, -0.129027, -0.558875, 3.39848e-16, 0.97437, -0.224951, 0.573576, 0.184269, 0.798157, -1.426, 5.127, 2.203)
+transform = Transform3D(0.819152, -0.129027, -0.558875, 3.39848e-16, 0.97437, -0.224951, 0.573576, 0.184269, 0.798157, -7, 2.08165e-12, 12)
 
 [node name="ColorRect" type="ColorRect" parent="Camera3D"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -248,6 +262,11 @@ libraries = {
 stream = ExtResource("6_6ndvq")
 volume_db = -5.0
 pitch_scale = 0.7
+
+[node name="MenuSfxPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_b5tq4")
+volume_db = -6.0
+pitch_scale = 0.5
 
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

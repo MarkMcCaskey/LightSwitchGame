@@ -4,6 +4,8 @@ extends Node3D
 @onready var settings_menu: SettingsMenu = $Camera3D/SettingsMenu
 @onready var camera: Camera3D = $Camera3D
 @onready var menu_bgm: AudioStreamPlayer = $MenuBGMPlayer
+@onready var menu_sfx: AudioStreamPlayer = $MenuSfxPlayer
+
 const main_scene = "res://main.tscn"
 var settings_open: bool = false
 
@@ -23,6 +25,7 @@ func _on_start_button_pressed() -> void:
 	_start_game()
 
 func _start_game() -> void:
+	menu_sfx.play()
 	ResourceLoader.load_threaded_request(main_scene)
 	animation_player.play("CameraFly")
 
