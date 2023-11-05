@@ -57,11 +57,26 @@ static func can_begin_attack(location: Location) -> bool:
 	
 	return false
 
-static func get_group_name(location: Location) -> String:
-	return "monster_location_" + Location.keys()[location]
+static func get_group_name(loc: Location) -> String:
+	return "monster_location_" + Location.keys()[loc]
 
-static func connected_regions(location: Location) -> Array[Location]:
-	match location:
+static func is_on_roof(loc: Location) -> bool:
+	match loc:
+		Location.RoofCenter: return true
+		Location.RoofFront: return true
+		Location.RoofBack: return true
+		Location.RoofBedRoom1Side: return true
+		Location.RoofBathRoomSide: return true
+		Location.BedRoom1Window: return true
+		Location.BedRoom2Window: return true
+		_: return false
+	return false
+
+static func is_on_same_level(loc1: Location, loc2: Location) -> bool:
+	return MonsterCreepSpot.is_on_roof(loc1) == MonsterCreepSpot.is_on_roof(loc2)
+
+static func connected_regions(loc: Location) -> Array[Location]:
+	match loc:
 		Location.ColDeSacFar:
 			return [Location.ColDeSacMiddle]
 		Location.ColDeSacMiddle:
@@ -113,13 +128,13 @@ static func connected_regions(location: Location) -> Array[Location]:
 		Location.BackGarageDoor:
 			return [Location.HouseBack, Location.HouseLeftBack, Location.BackPorch, Location.RoofBack]
 		_:
-			print(str(location) + " Unhandled " + Location.keys()[location])
+			print(str(loc) + " Unhandled " + Location.keys()[loc])
 			assert(false, "wat")
 			return []
 
 # 1 indicates a position where the monster can attack
-static func safety_rating(location: Location) -> int:
-	match location:
+static func safety_rating(loc: Location) -> int:
+	match loc:
 		Location.FrontDoor: return 1
 		Location.BackGarageDoor: return 1
 		Location.BedRoom2Window: return 1

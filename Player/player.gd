@@ -148,11 +148,11 @@ func play_death_scene() -> void:
 	has_control = false
 	emit_signal("Dying")
 	death_scene.connect("StaticTriggered", _static_triggered)
+	add_child(death_scene)
 	death_scene.global_position = death_scene_location
 	var old_z: float = death_scene.rotation.z
 	death_scene.look_at(global_position)
 	death_scene.rotation.z = old_z
-	add_child(death_scene)
 	death_scene.camera.make_current()
 
 func _static_triggered() -> void:
