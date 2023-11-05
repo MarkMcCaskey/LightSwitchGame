@@ -37,6 +37,7 @@ const path_finding_check_time: float = 2.0
 @onready var movement_audio: AudioStreamPlayer3D = $MovementAudio
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
 @onready var sfx_audio: AudioStreamPlayer3D = $SfxAudio
+@onready var major_event_audio: AudioStreamPlayer3D = $MajorEventAudio
 
 @onready var monster_aggression: float = base_monster_aggression
 @onready var move_chance: int = base_move_chance
@@ -62,6 +63,8 @@ const level_up_sfx: Array[AudioStream] = [
 ]
 var last_level_up_sfx_idx: int = -1
 @onready var position_2_seconds_ago: Vector3 = global_position
+
+const monster_entered_house_audio = preload("res://Assets/Audio/theircoming3.ogg")
 
 func _ready():
 	monster_vision.add_to_group("monster_vision")
@@ -245,6 +248,9 @@ func _enter_house_behavior_change() -> void:
 
 func _house_entered() -> void:
 	state = State.InHouse
+	major_event_audio.stream = monster_entered_house_audio
+	major_event_audio.max_db = -10
+	major_event_audio.play()
 
 func _on_creep_timer_timeout() -> void:
 	if state == State.MovingBetweenCreepSpots:

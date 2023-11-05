@@ -12,6 +12,7 @@ extends Node3D
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
 @onready var distraction_manager: DistractionManager = $DistractionManager
 @onready var distraction_timer: Timer = $DistractionManager/DistractionTimer
+@onready var monster_spawn_timer: Timer = $MonsterSpawnTimer
 
 @onready var player_entered_house_at_least_once: bool = false
 
@@ -101,6 +102,10 @@ func _start_distraction_timer() -> void:
 func _on_player_seeing_static() -> void:
 	house.hide()
 
+func _player_entered_house_for_the_first_time() -> void:
+	_start_distraction_timer()
+	monster_spawn_timer.start(randf_range(1.0, 15.0))
+
 func _on_player_house_status_changed(is_in_house) -> void:
 	var tween := get_tree().create_tween()
 	var vol_target: float = -33.
@@ -113,7 +118,7 @@ func _on_player_house_status_changed(is_in_house) -> void:
 		monster.notify_player_inside()
 		if !player_entered_house_at_least_once:
 			player_entered_house_at_least_once = true
-			_start_distraction_timer()
+			_player_entered_house_for_the_first_time()
 	else:
 		vol_target = -20.
 		light_target = 5.0
@@ -124,3 +129,7 @@ func _on_player_house_status_changed(is_in_house) -> void:
 	var environment := world_environment.environment
 	tween.tween_property(environment, "ambient_light_energy", light_target, 1.0).set_ease(Tween.EASE_IN)
 	tween.tween_property(environment, "fog_density", fog_target, 1.0).set_ease(Tween.EASE_IN)
+
+func _on_monster_spawn_timer_timeout() -> void:
+	# when we do this, we'll need to make sure the other code can handle no monster existing
+	print("SPAWN MONSTER!")

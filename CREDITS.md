@@ -37,6 +37,13 @@ Low poly human? if we use that
 [UI sounds - atmospheric interaction pack](https://opengameart.org/content/atmospheric-interaction-sound-pack) - CC0
 [GUI sound effects](https://opengameart.org/content/gui-sound-effects) - CC0
 [Arr!](https://opengameart.org/content/arr) - CC0
+[They're coming](https://opengameart.org/content/their-coming-generic-horn-sound) - CC0
+[Monster or beast sounds](https://opengameart.org/content/monster-or-beast-sounds) - CC0
+[Excited horror sound](https://opengameart.org/content/excited-horror-sound) - CC0
+[Evil creature ambient](https://opengameart.org/content/evil-creature) - CC0
+[Horror Breathing](https://opengameart.org/content/horror-breathing) - CC0
+[Weird chanting sound](https://opengameart.org/content/weird-chanting-sound) - CC0
+[Big Scary troll noises](https://opengameart.org/content/big-scary-troll-sounds) - CC0
 
 # Data
 [Rated sudoku puzzle data](https://github.com/grantm/sudoku-exchange-puzzle-bank) - Public Domain
