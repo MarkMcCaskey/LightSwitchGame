@@ -4,7 +4,7 @@ class_name LightBulb extends Node3D
 
 @onready var light: SpotLight3D = $SpotLight3D
 # TODO: export, etc
-var is_on: bool = true
+var is_on: bool = false
 
 func _ready() -> void:
 	assert(room != Room.RoomName.None)

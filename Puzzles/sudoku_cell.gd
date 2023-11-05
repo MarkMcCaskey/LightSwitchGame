@@ -31,7 +31,7 @@ func is_cell_valid() -> bool:
 func is_cell_solved() -> bool:
 	return current_value >= 1 && current_value <= 9
 
-func _react_to_cell_value(old_val: int, new_val: int) -> void:
+func _react_to_cell_value(_old_val: int, new_val: int) -> void:
 	if new_val == 0:
 		text = " "
 	else:

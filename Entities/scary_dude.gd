@@ -7,6 +7,7 @@ enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreep
 @export var state: State = State.Creeping:
 	get: return state
 	set(val):
+		print(State.keys()[state] + " -> " + State.keys()[val])
 		if val == State.Hunting || val == State.InHouse || State.MovingBetweenCreepSpots:
 			if pathfinding_fix_timer:
 				position_at_last_timeout = global_position
@@ -171,7 +172,10 @@ func _nav_physics_process(_delta: float, look_at_next_position = false) -> void:
 		direction = new_velocity.normalized()
 	else:
 		direction = Vector3(0., 0., 0.)
-		animated_creature.breakdance()
+		if state == State.MovingBetweenCreepSpots:
+			state = State.Creeping
+			creep_timer.start()
+		#animated_creature.breakdance()
 	
 	var next_velocity: Vector3 = velocity
 	if direction.x != 0: #&& state_machine.can_move():
@@ -445,7 +449,7 @@ func _on_outside_blood_lust_timer_timeout() -> void:
 func _on_extreme_danger_warning_timer_timeout() -> void:
 	match warning_type:
 		WarningType.Glass:
-			sfx_audio.volume_db = -10
+			sfx_audio.volume_db = -15
 			var idx: int = _get_new_rand_window_sfx_idx()
 			last_window_knock_sfx_idx = idx
 			sfx_audio.stream = window_knocking_sfx[idx]
