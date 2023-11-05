@@ -44,6 +44,8 @@ Low poly human? if we use that
 [Horror Breathing](https://opengameart.org/content/horror-breathing) - CC0
 [Weird chanting sound](https://opengameart.org/content/weird-chanting-sound) - CC0
 [Big Scary troll noises](https://opengameart.org/content/big-scary-troll-sounds) - CC0
+[oh my](https://opengameart.org/content/oh-my-help-me-posh-english-high-pitched) - CC0
+[heart beat sounds](https://opengameart.org/content/heartbeat-sounds) - CC0
 
 # Data
 [Rated sudoku puzzle data](https://github.com/grantm/sudoku-exchange-puzzle-bank) - Public Domain

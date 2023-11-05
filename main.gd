@@ -108,11 +108,11 @@ func _player_entered_house_for_the_first_time() -> void:
 
 func _on_player_house_status_changed(is_in_house) -> void:
 	var tween := get_tree().create_tween()
-	var vol_target: float = -33.
+	var vol_target: float = -40.
 	var light_target: float = 1.0
 	var fog_target: float = 0.05
 	if is_in_house:
-		vol_target = -33.
+		vol_target = -40.
 		light_target = 1.0
 		fog_target = 0.07
 		monster.notify_player_inside()

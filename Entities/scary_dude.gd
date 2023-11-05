@@ -62,6 +62,25 @@ const level_up_sfx: Array[AudioStream] = [
 	preload("res://Assets/Audio/ambience-4.ogg")
 ]
 var last_level_up_sfx_idx: int = -1
+const aggressive_idle_sfx: Array[AudioStream] = [
+	preload("res://Assets/Audio/troll-idle-noises-01.ogg"),
+	preload("res://Assets/Audio/troll-idle-noises-02.ogg"),
+	preload("res://Assets/Audio/troll-idle-noises-03.ogg"),
+	preload("res://Assets/Audio/troll-idle-noises-04.ogg"),
+	preload("res://Assets/Audio/troll-idle-noises-05.ogg"),
+	preload("res://Assets/Audio/troll-idle-noises-06.ogg"),
+	preload("res://Assets/Audio/troll-idle-noises-07.ogg")
+]
+var last_agressive_idle_sfx_idx: int = -1
+const less_aggressive_idle_sfx: Array[AudioStream] = [
+	preload("res://Assets/Audio/Beast Growl 1.ogg"),
+	preload("res://Assets/Audio/Beast Growl 2.ogg"),
+	preload("res://Assets/Audio/Beast Growl 3.ogg"),
+	preload("res://Assets/Audio/Beast Growl 4.ogg"),
+	preload("res://Assets/Audio/Beast Growl 5.ogg")
+]
+var last_less_agressive_idle_sfx_idx: int = -1
+
 @onready var position_2_seconds_ago: Vector3 = global_position
 
 const monster_entered_house_audio = preload("res://Assets/Audio/theircoming3.ogg")
@@ -206,6 +225,24 @@ func _get_new_rand_level_up_sfx_idx() -> int:
 		candidate = _get_new_rand_level_up_sfx_idx()
 	return candidate
 
+func _get_rand_aggressive_sfx_idx() -> int:
+	return randi_range(0, len(aggressive_idle_sfx) -1)
+
+func _get_new_rand_aggressive_sfx_idx() -> int:
+	var candidate: int = _get_rand_aggressive_sfx_idx()
+	while candidate == last_agressive_idle_sfx_idx:
+		candidate = _get_new_rand_aggressive_sfx_idx()
+	return candidate
+	
+func _get_rand_less_aggressive_sfx_idx() -> int:
+	return randi_range(0, len(less_aggressive_idle_sfx) -1)
+
+func _get_new_rand_less_aggressive_sfx_idx() -> int:
+	var candidate: int = _get_rand_less_aggressive_sfx_idx()
+	while candidate == last_less_agressive_idle_sfx_idx:
+		candidate = _get_new_rand_less_aggressive_sfx_idx()
+	return candidate
+
 func _update_location_to_creep_spot(smooth: bool) -> void:
 	var creep_node = get_tree().get_first_node_in_group(MonsterCreepSpot.get_group_name(creep_location))
 	assert(creep_node is MonsterCreepSpot, "at " + MonsterCreepSpot.Location.keys()[creep_location])
@@ -229,6 +266,22 @@ func _go_to_next_creep_spot() -> void:
 	var new_safety_level = MonsterCreepSpot.safety_rating(next)
 	if old_safety_level != new_safety_level:
 		emit_signal("ScaryDudeSafetyLevelChanged", old_safety_level, new_safety_level)
+	
+	var should_play_audio: int = randi_range(1, 10)
+	if should_play_audio <= 7:
+		if new_safety_level <= 2:
+			var idx := _get_new_rand_aggressive_sfx_idx()
+			last_agressive_idle_sfx_idx = idx
+			movement_audio.volume_db = -10
+			movement_audio.stream = aggressive_idle_sfx[idx]
+			movement_audio.play()
+		elif new_safety_level <= 3:
+			var idx := _get_new_rand_less_aggressive_sfx_idx()
+			last_less_agressive_idle_sfx_idx = idx
+			movement_audio.volume_db = -10
+			movement_audio.stream = less_aggressive_idle_sfx[idx]
+			movement_audio.play()
+	
 	if MonsterCreepSpot.is_on_same_level(current, next):
 		state = State.MovingBetweenCreepSpots
 		target_location = creep_node.global_position
