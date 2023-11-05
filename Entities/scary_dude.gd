@@ -568,7 +568,6 @@ func _on_instant_kill_timer_fail_safe_timeout() -> void:
 	# and for good measure, let's not even rely on the hitbox
 	player_target.kill_by(self)
 
-
 func _on_shame_timer_timeout() -> void:
 	state = State.Creeping
 	creep_timer.start()
