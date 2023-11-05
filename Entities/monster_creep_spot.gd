@@ -75,6 +75,21 @@ static func is_on_roof(loc: Location) -> bool:
 static func is_on_same_level(loc1: Location, loc2: Location) -> bool:
 	return MonsterCreepSpot.is_on_roof(loc1) == MonsterCreepSpot.is_on_roof(loc2)
 
+static func is_by_glass(loc: Location) -> bool:
+	match loc:
+		Location.BedRoom1Window: return true
+		Location.BedRoom2Window: return true
+		Location.BackPorch: return true
+		_: pass
+	return false
+
+static func is_by_door(loc: Location) -> bool:
+	match loc:
+		Location.FrontDoor: return true
+		Location.BackGarageDoor: return true
+		_: pass
+	return false
+
 static func connected_regions(loc: Location) -> Array[Location]:
 	match loc:
 		Location.ColDeSacFar:

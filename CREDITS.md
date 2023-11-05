@@ -48,6 +48,8 @@ Splash Screen Logo - ChatGPT 4 + Dalle 3
 [oh my](https://opengameart.org/content/oh-my-help-me-posh-english-high-pitched) - CC0
 [heart beat sounds](https://opengameart.org/content/heartbeat-sounds) - CC0
 [click sound](https://opengameart.org/content/click-sounds6) - CC0
+[Knocking sound](https://freesound.org/people/iamadam19/sounds/362633/) - CC0
+[Knocking on window](https://pixabay.com/sound-effects/knocking-on-window-99754/) - royalty free / "for free use"
 
 # Data
 [Rated sudoku puzzle data](https://github.com/grantm/sudoku-exchange-puzzle-bank) - Public Domain

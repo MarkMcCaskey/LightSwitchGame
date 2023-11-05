@@ -33,6 +33,7 @@ enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreep
 @onready var creep_timer: Timer = $CreepTimer
 @onready var pathfinding_fix_timer: Timer = $PathFindingFixTimer
 @onready var outside_bloodlust_timer: Timer = $OutsideBloodLustTimer
+@onready var extreme_danger_warning_timer: Timer = $ExtremeDangerWarningTimer
 const path_finding_check_time: float = 2.0
 @onready var movement_audio: AudioStreamPlayer3D = $MovementAudio
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
@@ -52,6 +53,8 @@ const path_finding_check_time: float = 2.0
 @onready var player_inside: bool = true
 
 @onready var position_at_last_timeout: Vector3 = global_position
+enum WarningType { Glass, WoodDoor }
+@onready var warning_type: WarningType
 
 var player_target: Player
 
@@ -80,6 +83,15 @@ const less_aggressive_idle_sfx: Array[AudioStream] = [
 	preload("res://Assets/Audio/Beast Growl 5.ogg")
 ]
 var last_less_agressive_idle_sfx_idx: int = -1
+
+const window_knocking_sfx: Array[AudioStream] = [
+	preload("res://Assets/Audio/knocking-on-window-01.ogg"),
+	preload("res://Assets/Audio/knocking-on-window-02.ogg"),
+	preload("res://Assets/Audio/knocking-on-window-03.ogg"),
+]
+var last_window_knock_sfx_idx: int = -1
+
+const door_knocking: AudioStream = preload("res://Assets/Audio/knocking.ogg")
 
 @onready var position_2_seconds_ago: Vector3 = global_position
 
@@ -217,30 +229,39 @@ func _on_level_up() -> void:
 		move_chance += 1
 
 func _get_rand_level_up_sfx_idx() -> int:
-	return randi_range(0, len(level_up_sfx) -1)
+	return randi_range(0, len(level_up_sfx) - 1)
 
 func _get_new_rand_level_up_sfx_idx() -> int:
 	var candidate: int = _get_rand_level_up_sfx_idx()
 	while candidate == last_level_up_sfx_idx:
-		candidate = _get_new_rand_level_up_sfx_idx()
+		candidate = _get_rand_level_up_sfx_idx()
 	return candidate
 
 func _get_rand_aggressive_sfx_idx() -> int:
-	return randi_range(0, len(aggressive_idle_sfx) -1)
+	return randi_range(0, len(aggressive_idle_sfx) - 1)
 
 func _get_new_rand_aggressive_sfx_idx() -> int:
 	var candidate: int = _get_rand_aggressive_sfx_idx()
 	while candidate == last_agressive_idle_sfx_idx:
-		candidate = _get_new_rand_aggressive_sfx_idx()
+		candidate = _get_rand_aggressive_sfx_idx()
 	return candidate
 	
 func _get_rand_less_aggressive_sfx_idx() -> int:
-	return randi_range(0, len(less_aggressive_idle_sfx) -1)
+	return randi_range(0, len(less_aggressive_idle_sfx) - 1)
 
 func _get_new_rand_less_aggressive_sfx_idx() -> int:
 	var candidate: int = _get_rand_less_aggressive_sfx_idx()
 	while candidate == last_less_agressive_idle_sfx_idx:
-		candidate = _get_new_rand_less_aggressive_sfx_idx()
+		candidate = _get_rand_less_aggressive_sfx_idx()
+	return candidate
+
+func _get_rand_window_sfx_idx() -> int:
+	return randi_range(0, len(window_knocking_sfx) - 1)
+
+func _get_new_rand_window_sfx_idx() -> int:
+	var candidate: int = _get_rand_window_sfx_idx()
+	while candidate == last_window_knock_sfx_idx:
+		candidate = _get_rand_window_sfx_idx()
 	return candidate
 
 func _update_location_to_creep_spot(smooth: bool) -> void:
@@ -281,6 +302,13 @@ func _go_to_next_creep_spot() -> void:
 			movement_audio.volume_db = -10
 			movement_audio.stream = less_aggressive_idle_sfx[idx]
 			movement_audio.play()
+	
+	if MonsterCreepSpot.is_by_door(next):
+		warning_type = WarningType.WoodDoor
+		extreme_danger_warning_timer.start(randf_range(0.4, 2.5))
+	elif MonsterCreepSpot.is_by_glass(next):
+		warning_type = WarningType.Glass
+		extreme_danger_warning_timer.start(randf_range(0.4, 2.5))
 	
 	if MonsterCreepSpot.is_on_same_level(current, next):
 		state = State.MovingBetweenCreepSpots
@@ -392,3 +420,17 @@ func _start_chase() -> void:
 func _on_outside_blood_lust_timer_timeout() -> void:
 	if !player_inside:
 		_start_chase()
+
+func _on_extreme_danger_warning_timer_timeout() -> void:
+	match warning_type:
+		WarningType.Glass:
+			sfx_audio.volume_db = -10
+			var idx: int = _get_new_rand_window_sfx_idx()
+			last_window_knock_sfx_idx = idx
+			sfx_audio.stream = window_knocking_sfx[idx]
+			sfx_audio.play()
+		WarningType.WoodDoor:
+			sfx_audio.volume_db = -10
+			sfx_audio.stream = door_knocking
+			sfx_audio.play()
+		_: assert(false, "unknown warning type " + WarningType.keys()[warning_type])
