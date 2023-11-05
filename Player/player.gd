@@ -2,6 +2,7 @@ class_name Player extends CharacterBody3D
 
 signal Dying
 signal SeeingStatic
+signal HouseStatusChanged(is_in_house: bool)
 
 @export_category("Player")
 @export_range(1, 35, 1) var speed: float = 4 # m/s
@@ -157,3 +158,9 @@ func play_death_scene() -> void:
 
 func _static_triggered() -> void:
 	emit_signal("SeeingStatic")
+
+func enter_house() -> void:
+	emit_signal("HouseStatusChanged", true)
+
+func exit_house() -> void:
+	emit_signal("HouseStatusChanged", false)
