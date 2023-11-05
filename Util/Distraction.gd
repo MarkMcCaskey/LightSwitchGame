@@ -8,6 +8,8 @@ enum DistractionType { Unique, BodyBag, Scarecrow }
 @export var base_distraction_xp: float = Settings.monster_distraction_xp_amount
 @export var base_distraction_multiplier: float = 1.32
 
+@onready var is_dead: bool = false
+
 var audio_player: AudioStreamPlayer3D
 var player: Player = null
 var kill_timer: Timer
@@ -39,14 +41,14 @@ func _ready() -> void:
 	kill_timer = Timer.new()
 	kill_timer.one_shot = true
 	kill_timer.stop()
-	kill_timer.wait_time = 10.
+	kill_timer.wait_time = 4.
 	kill_timer.timeout.connect(_kill_timer_timed_out)
 	add_child(kill_timer)
 		
 	audio_timer = Timer.new()
 	audio_timer.one_shot = true
 	audio_timer.stop()
-	audio_timer.wait_time = 3.0
+	audio_timer.wait_time = 3.3
 	audio_timer.timeout.connect(_audio_timer_timed_out)
 	add_child(audio_timer)
 	
@@ -81,7 +83,10 @@ func _init_idle_audio_sounds() -> void:
 				load("res://Assets/Audio/qubodup-GhostMoan04.ogg")
 			]
 		Distraction.DistractionType.Scarecrow:
-			pass
+			idle_audio_sounds = [
+				load("res://Assets/Audio/shh1.ogg"),
+				load("res://Assets/Audio/gasp1.ogg")
+			]
 		_:
 			pass
 
@@ -102,7 +107,10 @@ func toggle_light(new_state: bool) -> void:
 		kill_timer.stop()
 
 func _kill_timer_timed_out() -> void:
-	queue_free()
+	is_dead = true
+	audio_player.stream = load("res://Assets/Audio/Dieing pixie.ogg")
+	audio_player.max_db = -20
+	audio_player.play()
 
 func _play_intro_audio() -> void:
 	match type:
@@ -110,7 +118,12 @@ func _play_intro_audio() -> void:
 			var intro_sound = load("res://Assets/Audio/ghostbreath.ogg")
 			audio_player.stream = intro_sound
 		Distraction.DistractionType.Scarecrow:
-			pass
+			var i: int = randi_range(1, 2)
+			var intro_sound
+			if i == 1:
+				intro_sound = load("res://Assets/Audio/yawn1.ogg")
+			else:
+				intro_sound = load("res://Assets/Audio/yawn2.ogg")
 		_:
 			pass
 	audio_player.play()
@@ -135,20 +148,25 @@ func _play_idle_audio() -> void:
 	audio_player.play()
 
 func _audio_finished_handler() -> void:
-	var new_wait_time: float = randf_range(1.3, 8.9)
+	if is_dead:
+		queue_free()
+		return
+	var new_wait_time: float = randf_range(1.3, 9.9)
 	#print("audio finished! waiting for " + str(new_wait_time) +  " seconds")
 	audio_timer.paused = false
 	audio_timer.start(new_wait_time)
 
 func _audio_timer_timed_out() -> void:
-	_play_idle_audio()
+	if !is_dead:
+		_play_idle_audio()
 
 func _add_xp() -> void:
-	var monster = get_tree().get_first_node_in_group("")
+	var monster = get_tree().get_first_node_in_group("Monster")
 	if monster:
 		monster.add_xp(distraction_xp)
 		distraction_xp = distraction_xp * base_distraction_multiplier
 
 func _xp_timer_timed_out() -> void:
+	if is_dead: return
 	_add_xp()
 	xp_timer.start(randf_range(3.192, 15.9))

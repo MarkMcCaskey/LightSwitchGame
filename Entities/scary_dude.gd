@@ -112,6 +112,7 @@ const shoo_away_sound: AudioStream = preload("res://Assets/Audio/Dieing Beast.og
 const monster_entered_house_audio = preload("res://Assets/Audio/theircoming3.ogg")
 
 func _ready():
+	add_to_group("Monster")
 	monster_vision.add_to_group("monster_vision")
 	#animation_tree.active = true
 

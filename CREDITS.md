@@ -50,6 +50,7 @@ Splash Screen Logo - ChatGPT 4 + Dalle 3
 [click sound](https://opengameart.org/content/click-sounds6) - CC0
 [Knocking sound](https://freesound.org/people/iamadam19/sounds/362633/) - CC0
 [Knocking on window](https://pixabay.com/sound-effects/knocking-on-window-99754/) - royalty free / "for free use"
+[Misc SFX](https://opengameart.org/content/sound-effects-pack) - CC0
 
 # Data
 [Rated sudoku puzzle data](https://github.com/grantm/sudoku-exchange-puzzle-bank) - Public Domain

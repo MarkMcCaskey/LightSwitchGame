@@ -3,6 +3,7 @@ class_name LightSwitchTrigger extends Interactable
 @export var room: Room.RoomName
 
 @onready var is_on: bool = false
+@onready var click_sound: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 func _ready() -> void:
 	call_deferred("_setup")
@@ -13,6 +14,7 @@ func _setup() -> void:
 
 func interact() -> void:
 	is_on = !is_on
+	click_sound.play()
 	do_set()
 
 func do_set() -> void:
