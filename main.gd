@@ -107,7 +107,11 @@ func _start_distraction_timer() -> void:
 	var divisior: float = Settings.monster_agression
 	if monster:
 		divisior = monster.monster_aggression
-	distraction_timer.start(randf_range(24.3, 105.3) / divisior)
+	var bonus: float = 1.0
+	if Settings.guarantee_distraction_spawn:
+		# just to make it less annoying
+		bonus = 2.23
+	distraction_timer.start((randf_range(24.3, 105.3) * bonus) / divisior)
 
 # The player shouldn't be able to see anything anymore
 func _on_player_seeing_static() -> void:

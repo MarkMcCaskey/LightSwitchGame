@@ -118,7 +118,7 @@ bones/74/rotation = Quaternion(0.709047, 0.380176, -0.226613, 0.548968)
 bones/75/rotation = Quaternion(0.148626, -0.00931449, -0.000334606, 0.98885)
 
 [node name="CreepTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 6.2
 one_shot = true
 
 [node name="PathFindingFixTimer" type="Timer" parent="."]
