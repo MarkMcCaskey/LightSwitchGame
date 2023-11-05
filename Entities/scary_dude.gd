@@ -40,6 +40,7 @@ enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreep
 @onready var extreme_danger_warning_timer: Timer = $ExtremeDangerWarningTimer
 @onready var instant_kill_timer: Timer = $InstantKillTimer
 @onready var instant_kill_timer_fail_safe: Timer = $InstantKillTimerFailSafe
+@onready var shame_timer: Timer = $ShameTimer
 const path_finding_check_time: float = 2.0
 @onready var movement_audio: AudioStreamPlayer3D = $MovementAudio
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
@@ -54,7 +55,7 @@ const path_finding_check_time: float = 2.0
 @onready var is_seen_by_player: bool = false
 
 @onready var direction: Vector3 = Vector3(0,0,0)
-@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar: #MonsterCreepSpot.Location.BedRoom1Window: #MonsterCreepSpot.Location.ColDeSacMiddle:
+@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.FrontDoor:#MonsterCreepSpot.Location.ColDeSacFar: #MonsterCreepSpot.Location.BedRoom1Window: #MonsterCreepSpot.Location.ColDeSacMiddle:
 	get: return creep_location
 	set(v):
 		creep_location = v
@@ -176,6 +177,9 @@ func _physics_process(delta: float) -> void:
 			return
 		State.MovingBetweenCreepSpots:
 			_nav_physics_process(delta, true)
+		State.BackingAway:
+			_monster_look_at_player()
+			_nav_physics_process(delta, false)
 	#if velocity == Vector3.ZERO:
 	#velocity = Vector3(1., 0., 1.)
 	#move_and_slide()
@@ -199,6 +203,9 @@ func _nav_physics_process(_delta: float, look_at_next_position = false) -> void:
 		if state == State.MovingBetweenCreepSpots:
 			state = State.Creeping
 			creep_timer.start()
+		elif state == State.BackingAway:
+			creep_location = MonsterCreepSpot.Location.ColDeSacMiddle
+			shame_timer.start()
 		#animated_creature.breakdance()
 	
 	var next_velocity: Vector3 = velocity
@@ -433,14 +440,15 @@ func _on_creep_timer_timeout() -> void:
 
 func _on_shoo_away_box_on_interact() -> void:
 	state = State.BackingAway
-	var next: MonsterCreepSpot.Location
 	if MonsterCreepSpot.is_on_roof(creep_location):
-		next = MonsterCreepSpot.Location.RoofCenter
+		var next := MonsterCreepSpot.Location.RoofCenter
+		_go_to_creep_spot(next)
 	else:
-		next = MonsterCreepSpot.Location.DriveWayFar
-	_go_to_creep_spot(next)
+		# Tired, hard code position in the middle of the street
+		target_location = Vector3(-13, 0, 36)
+	
 	sfx_audio.stream = shoo_away_sound
-	sfx_audio.max_db = -10
+	sfx_audio.max_db = -7
 	sfx_audio.play()
 	creep_timer.start()
 
@@ -559,3 +567,8 @@ func _on_instant_kill_timer_timeout() -> void:
 func _on_instant_kill_timer_fail_safe_timeout() -> void:
 	# and for good measure, let's not even rely on the hitbox
 	player_target.kill_by(self)
+
+
+func _on_shame_timer_timeout() -> void:
+	state = State.Creeping
+	creep_timer.start()
