@@ -28,6 +28,8 @@ var track1_active: bool = true
 func _ready() -> void:
 	bgm_low_constant.volume_db = -20.
 	bgm_low_constant.play()
+	# If the player doesn't enter the house, spawn the monster after 2 minutes
+	monster_spawn_timer.start(117.3)
 
 func crossfade_bgm(audio_stream: AudioStream) -> void:
 	if bgm_player1.playing && bgm_player2.playing:
