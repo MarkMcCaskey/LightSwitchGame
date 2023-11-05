@@ -149,6 +149,7 @@ script = ExtResource("1_nvy0t")
 
 [node name="Player" parent="." instance=ExtResource("2_jgtl2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.34153, -0.07411, 14.5883)
+speed = 4.0
 
 [node name="House" parent="." instance=ExtResource("2_j6vmr")]
 

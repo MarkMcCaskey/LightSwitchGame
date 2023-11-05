@@ -2,9 +2,15 @@ class_name ScaryDude extends CharacterBody3D
 
 signal ScaryDudeSafetyLevelChanged(old: int, new: int)
 
-enum State { Hunting, Creeping, Idle }
+enum State { Hunting, Creeping, Idle, InHouse }
 
-@export var state: State = State.Creeping
+@export var state: State = State.Creeping:
+	get: return state
+	set(val):
+		if val == State.Hunting || val == State.InHouse:
+			if pathfinding_fix_timer:
+				pathfinding_fix_timer.start(path_finding_check_time)
+		state = val
 
 @export var speed: float = 1.
 @export var base_move_chance: int = Settings.monster_move_chance
@@ -24,6 +30,8 @@ enum State { Hunting, Creeping, Idle }
 @onready var animated_creature: AnimatedCreature1 = $AnimatedCreature1
 @onready var monster_vision: Camera3D = $BoneAttachment3D/MonsterVision
 @onready var creep_timer: Timer = $CreepTimer
+@onready var pathfinding_fix_timer: Timer = $PathFindingFixTimer
+const path_finding_check_time: float = 2.0
 @onready var movement_audio: AudioStreamPlayer3D = $MovementAudio
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
 @onready var sfx_audio: AudioStreamPlayer3D = $SfxAudio
@@ -32,12 +40,16 @@ enum State { Hunting, Creeping, Idle }
 @onready var move_chance: int = base_move_chance
 @onready var is_seen_by_player: bool = false
 
-var direction: Vector3 = Vector3(0,0,0)
+@onready var direction: Vector3 = Vector3(0,0,0)
+@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar #MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
+@onready var current_level: int = 0
+@onready var current_xp: float = 0
+@onready var xp_to_next_level: float = 5
+@onready var is_in_the_house: bool = false 
+
+@onready var position_at_last_timeout: Vector3 = global_position
+
 var player_target: Player
-var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar #MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
-var current_level: int = 0
-var current_xp: float = 0
-var xp_to_next_level: float = 5
 
 const level_up_sfx: Array[AudioStream] = [
 	preload("res://Assets/Audio/ambience-1.ogg"),
@@ -46,6 +58,7 @@ const level_up_sfx: Array[AudioStream] = [
 	preload("res://Assets/Audio/ambience-4.ogg")
 ]
 var last_level_up_sfx_idx: int = -1
+@onready var position_2_seconds_ago: Vector3 = global_position
 
 func _ready():
 	monster_vision.add_to_group("monster_vision")
@@ -80,7 +93,11 @@ func _physics_process(delta: float) -> void:
 		State.Hunting:
 			_nav_physics_process(delta)
 		State.Creeping:
+			if player_target:
+				look_at(player_target.global_position + Vector3(0, 1.2, 0), Vector3.UP)
 			_creep_physics_process(delta)
+		State.InHouse:
+			_nav_physics_process(delta)
 	#if velocity == Vector3.ZERO:
 	#velocity = Vector3(1., 0., 1.)
 	move_and_slide()
@@ -116,10 +133,10 @@ func _nav_physics_process(_delta: float) -> void:
 	else:
 		next_velocity.y = move_toward(next_velocity.y, 0, speed)
 	
-	navigation_agent.set_velocity(next_velocity)
+	navigation_agent.set_velocity(next_velocity * _delta)
 	if navigation_agent.is_navigation_finished():
-		velocity = next_velocity
-	velocity = next_velocity
+		velocity = next_velocity * _delta
+	#velocity = next_velocity
 
 func _creep_physics_process(_delta: float) -> void:
 	pass
@@ -183,14 +200,18 @@ func _go_to_next_creep_spot() -> void:
 		emit_signal("ScaryDudeSafetyLevelChanged", old_safety_level, new_safety_level)
 	_update_location_to_creep_spot()
 
+func _enter_house_behavior_change() -> void:
+	is_in_the_house = true
+	state = State.InHouse
 
 func _on_creep_timer_timeout() -> void:
 	var n: int = randi_range(1, 20)
 	print("Timer! Rolled a " + str(n))
-	if move_chance > n:
+	if move_chance >= n:
 		if MonsterCreepSpot.can_begin_attack(creep_location) && can_kill_player:
-			player_target.play_death_scene()
-			print("Monster has entered the house, you die!")
+			_enter_house_behavior_change()
+			print("Monster has entered the house!")
+			return
 		else:
 			_go_to_next_creep_spot()
 	creep_timer.start()
@@ -204,3 +225,20 @@ func stop_monster_sounds() -> void:
 	movement_audio.stop()
 	passive_audio.stop()
 	sfx_audio.stop()
+
+const epsilon: float = 0.0001
+func _positions_approx_equal() -> bool:
+	var difference := global_position - position_at_last_timeout
+	return (abs(difference.x) < epsilon) && (abs(difference.y) < epsilon) && (abs(difference.z) < epsilon)
+
+func _on_path_finding_fix_timer_timeout() -> void:
+	if !(state == State.Hunting || state == State.InHouse):
+		return
+	pathfinding_fix_timer.start(path_finding_check_time)
+	if navigation_agent.is_navigation_finished():
+		return
+	if _positions_approx_equal():
+		if state == State.Hunting:
+			print("Stuck hunting! teleport to creep spot?")
+		elif state == State.InHouse:
+			print("Stuck in house, teleport behind player? This should be its own mode")

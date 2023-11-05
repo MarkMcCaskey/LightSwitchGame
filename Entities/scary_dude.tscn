@@ -117,6 +117,10 @@ bones/75/rotation = Quaternion(0.148626, -0.00931449, -0.000334606, 0.98885)
 wait_time = 5.0
 one_shot = true
 
+[node name="PathFindingFixTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="ShooAwayBox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 4
@@ -134,6 +138,7 @@ shape = SubResource("BoxShape3D_qc0ay")
 [node name="SfxAudio" type="AudioStreamPlayer3D" parent="."]
 
 [connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
+[connection signal="timeout" from="PathFindingFixTimer" to="." method="_on_path_finding_fix_timer_timeout"]
 [connection signal="on_interact" from="ShooAwayBox" to="." method="_on_shoo_away_box_on_interact"]
 
 [editable path="AnimatedCreature1"]
