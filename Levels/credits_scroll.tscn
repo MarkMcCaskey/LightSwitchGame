@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://4sb6brubyvis"]
+[gd_scene load_steps=3 format=3 uid="uid://4sb6brubyvis"]
 
 [ext_resource type="Script" path="res://Levels/credits_scroll.gd" id="1_jd6q6"]
+[ext_resource type="AudioStream" uid="uid://bk1c67j0edpfd" path="res://Assets/Audio/upside down grin2.ogg" id="2_mbgwf"]
 
 [node name="credits_scroll" type="Node2D"]
 script = ExtResource("1_jd6q6")
@@ -33,3 +34,7 @@ offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 28
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mbgwf")
+autoplay = true

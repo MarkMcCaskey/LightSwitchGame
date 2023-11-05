@@ -6,12 +6,12 @@ class_name WinScene extends Node3D
 @onready var timer: Timer = $Timer
 
 func _ready() -> void:
-	ResourceLoader.load_threaded_request("res://Levels/title_screen_background.tscn")
+	ResourceLoader.load_threaded_request("res://Levels/credits_scroll.tscn")
 	animation_player.play("mixamo_com")
 	camera.make_current()
 
 func _on_timer_timeout() -> void:
-	var menu = ResourceLoader.load_threaded_get("res://Levels/title_screen_background.tscn")
+	var menu = ResourceLoader.load_threaded_get("res://Levels/credits_scroll.tscn")
 	get_tree().change_scene_to_packed(menu)
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
