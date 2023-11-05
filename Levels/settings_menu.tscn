@@ -34,14 +34,18 @@ grow_vertical = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="TabContainer/Game/ScrollContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Game/ScrollContainer/CenterContainer"]
+[node name="VBoxContainer" type="HFlowContainer" parent="TabContainer/Game/ScrollContainer/CenterContainer"]
+custom_minimum_size = Vector2(800, 500)
 layout_mode = 2
-theme_override_constants/separation = 60
+theme_override_constants/h_separation = 300
+theme_override_constants/v_separation = 100
 alignment = 1
 
 [node name="Spacer" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer2" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="Difficulty" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
@@ -120,8 +124,113 @@ offset_right = 89.0625
 offset_bottom = 55.0
 min_value = 1.0
 max_value = 20.0
-value = 5.0
+value = 2.0
 rounded = true
+
+[node name="MonsterXpMultiplier" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MXP" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterXpMultiplier"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+tooltip_text = "A value of 0 means a puzzle will randomly be selected"
+mouse_filter = 1
+text = "Monster XP multiplier"
+
+[node name="MXPSpinBox" type="SpinBox" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterXpMultiplier"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 89.0625
+offset_bottom = 55.0
+value = 1.0
+
+[node name="MonsterVisionXp" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MVXP" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterVisionXp"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+tooltip_text = "A value of 0 means a puzzle will randomly be selected"
+mouse_filter = 1
+text = "Monster Vision XP (per second)"
+
+[node name="MVXPSpinBox" type="SpinBox" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterVisionXp"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 89.0625
+offset_bottom = 55.0
+min_value = -1000.0
+max_value = 1000.0
+value = 1.0
+
+[node name="MonsterAggressionDenom" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MAD" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggressionDenom"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+tooltip_text = "A value of 0 means a puzzle will randomly be selected"
+mouse_filter = 1
+text = "Monster +1 Aggression every N levels"
+
+[node name="MADSpinBox" type="SpinBox" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggressionDenom"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 89.0625
+offset_bottom = 55.0
+min_value = 1.0
+max_value = 10.0
+value = 2.0
+rounded = true
+
+[node name="MonsterDistractionXp" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MDXP" type="Label" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterDistractionXp"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+tooltip_text = "A value of 0 means a puzzle will randomly be selected"
+mouse_filter = 1
+text = "Monster +1 Aggression every N levels"
+
+[node name="MDXPSpinBox" type="SpinBox" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterDistractionXp"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 89.0625
+offset_bottom = 55.0
+value = 3.0
+
+[node name="LightsGiveXp" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LightXpCheckButton" type="CheckButton" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/LightsGiveXp"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -17.0
+offset_right = 143.0
+offset_bottom = 14.0
+button_pressed = true
+text = "Lights give monster XP"
+
+[node name="GuaranteeDistraction" type="Control" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GuaranteeDistractionCheckButton" type="CheckButton" parent="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/GuaranteeDistraction"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -17.0
+offset_right = 143.0
+offset_bottom = 14.0
+button_pressed = true
+text = "Guarantee Distraction Spawn"
 
 [node name="Display" type="Control" parent="TabContainer"]
 visible = false
@@ -182,5 +291,11 @@ text = "Back
 [connection signal="toggled" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/Randomness/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/PuzzleSeed/PSSpinBox" to="." method="_on_ps_spin_box_value_changed"]
 [connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggression/MASpinBox" to="." method="_on_ma_spin_box_value_changed"]
+[connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterXpMultiplier/MXPSpinBox" to="." method="_on_mxp_spin_box_value_changed"]
+[connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterVisionXp/MVXPSpinBox" to="." method="_on_mvxp_spin_box_value_changed"]
+[connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterAggressionDenom/MADSpinBox" to="." method="_on_mad_spin_box_value_changed"]
+[connection signal="value_changed" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/MonsterDistractionXp/MDXPSpinBox" to="." method="_on_mdxp_spin_box_value_changed"]
+[connection signal="toggled" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/LightsGiveXp/LightXpCheckButton" to="." method="_on_light_xp_check_button_toggled"]
+[connection signal="toggled" from="TabContainer/Game/ScrollContainer/CenterContainer/VBoxContainer/GuaranteeDistraction/GuaranteeDistractionCheckButton" to="." method="_on_guarantee_distraction_check_button_toggled"]
 [connection signal="toggled" from="TabContainer/Display/ScrollContainer/CenterContainer/VBoxContainer/FullScreen/CheckBox" to="." method="_on_check_box_toggled"]
 [connection signal="pressed" from="CenterContainer/BackButton" to="." method="_on_back_button_pressed"]
