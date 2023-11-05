@@ -31,9 +31,9 @@ func _ready() -> void:
 			if is_on:
 				push_warning("Lights do not all share a state in room/group " + room_name)
 	audio_player = AudioStreamPlayer3D.new()
-	#audio_player.max_db = -10
+	audio_player.max_db = -10
 	#audio_player.max_distance = 30
-	audio_player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_SQUARE_DISTANCE
+	#audio_player.attenuation_model = AudioStreamPlayer3D.ATTENUATION_INVERSE_SQUARE_DISTANCE
 	add_child(audio_player)
 	
 	kill_timer = Timer.new()
