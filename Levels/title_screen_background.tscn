@@ -198,10 +198,11 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="FlowContainer" type="VFlowContainer" parent="Camera3D"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 15.0
+offset_right = 15.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
@@ -209,7 +210,7 @@ alignment = 1
 [node name="Title" type="Label" parent="Camera3D/FlowContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "Light Switch Game"
+text = "Enigma of the Eldritch Elk"
 
 [node name="HFlowContainer" type="HFlowContainer" parent="Camera3D/FlowContainer"]
 layout_mode = 2
