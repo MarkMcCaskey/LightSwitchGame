@@ -2,6 +2,7 @@ extends Node3D
 
 @onready var bgm_player1: AudioStreamPlayer = $BGMPlayer1
 @onready var bgm_player2: AudioStreamPlayer = $BGMPlayer2
+@onready var bgm_low_constant: AudioStreamPlayer = $BGMLowConstant
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player: Player = $Player
 @onready var monster: ScaryDude = $ScaryDude
@@ -22,7 +23,8 @@ enum Bgm { Crickets }
 var track1_active: bool = true
 
 func _ready() -> void:
-	bgm_player1.play()
+	bgm_low_constant.volume_db = -30
+	bgm_low_constant.play()
 
 func crossfade_bgm(audio_stream: AudioStream) -> void:
 	if bgm_player1.playing && bgm_player2.playing:
@@ -90,3 +92,11 @@ func _on_distraction_timer_timeout() -> void:
 # The player shouldn't be able to see anything anymore
 func _on_player_seeing_static() -> void:
 	house.hide()
+
+func _on_player_house_status_changed(is_in_house) -> void:
+	var tween := get_tree().create_tween()
+	var target: float = -33.
+	if is_in_house: target = -33.
+	else: target = -20.
+	
+	tween.tween_property(bgm_low_constant, "volume_db", target, 0.7)

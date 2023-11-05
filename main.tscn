@@ -58,6 +58,30 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BGMLowConstant:volume_db")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-30.0, -80.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("BGMLowConstant:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_o7upl"]
 resource_name = "FadeToTrack1"
@@ -160,11 +184,14 @@ environment = ExtResource("3_hc185")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, -0.431932, 28.8695)
 
 [node name="BGMPlayer1" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_stfhj")
-volume_db = -25.0
+volume_db = -80.0
 
 [node name="BGMPlayer2" type="AudioStreamPlayer" parent="."]
-volume_db = -25.0
+volume_db = -80.0
+
+[node name="BGMLowConstant" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_stfhj")
+volume_db = -80.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -184,6 +211,7 @@ wait_time = 27.0
 one_shot = true
 
 [connection signal="Dying" from="Player" to="." method="_on_player_dying"]
+[connection signal="HouseStatusChanged" from="Player" to="." method="_on_player_house_status_changed"]
 [connection signal="SeeingStatic" from="Player" to="." method="_on_player_seeing_static"]
 [connection signal="HouseComplete" from="House" to="." method="_on_house_house_complete"]
 [connection signal="ScaryDudeSafetyLevelChanged" from="ScaryDude" to="." method="_on_scary_dude_scary_dude_safety_level_changed"]
