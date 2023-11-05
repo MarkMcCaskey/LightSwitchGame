@@ -3,8 +3,10 @@ class_name PauseMenu extends Control
 signal PauseMenuClosed
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
+	if event.is_action_pressed("ui_cancel") || event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()
+		# needed for web
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		emit_signal("PauseMenuClosed")
  
 func _on_unpause_button_pressed() -> void:

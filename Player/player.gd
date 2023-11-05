@@ -47,7 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("jump"): jumping = true
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") || Input.is_action_just_pressed("pause"):
 		release_mouse()
 		get_tree().paused = true
 		pause_menu.show()
