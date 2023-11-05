@@ -5,7 +5,7 @@ extends Node3D
 @onready var bgm_low_constant: AudioStreamPlayer = $BGMLowConstant
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player: Player = $Player
-@onready var monster: ScaryDude = $ScaryDude
+var monster: ScaryDude
 @onready var house: Node3D = $House
 @onready var monster_powerup_timer: Timer = $MonsterPowerUpTimer
 @onready var good_win_scene_location: Node3D = $GoodWinSceneLocation
@@ -23,6 +23,8 @@ const safety3 := preload("res://Assets/Audio/atmoseerie01.ogg")
 const safety2 := preload("res://Assets/Audio/atmoseerie02.ogg")
 const safety1 := preload("res://Assets/Audio/atmoseerie03.ogg")
 enum Bgm { Crickets }
+
+const monster_scene = preload("res://Entities/scary_dude.tscn")
 
 var track1_active: bool = true
 
@@ -66,13 +68,15 @@ func _on_monster_power_up_timer_timeout() -> void:
 			if node.is_on:
 				light_count += 1
 		xp += float(light_count)
-	monster.add_xp(xp)
+	if monster:
+		monster.add_xp(xp)
 	monster_powerup_timer.start(randf_range(2.0, 49.0))
 
 func _on_player_dying() -> void:
 	animation_player.play("FadeBothOut")
-	monster.stop_monster_sounds()
-	monster.hide()
+	if monster:
+		monster.stop_monster_sounds()
+		monster.hide()
 
 func _play_win_scene() -> void:
 	var player: Player = get_tree().get_first_node_in_group("Player")
@@ -85,8 +89,9 @@ func _play_win_scene() -> void:
 
 func _on_house_house_complete() -> void:
 	animation_player.play("FadeBothOut")
-	monster.stop_monster_sounds()
-	monster.hide()
+	if monster:
+		monster.stop_monster_sounds()
+		monster.hide()
 	player.hide_everything()
 	player.hide()
 	_play_win_scene()
@@ -99,7 +104,10 @@ func _on_distraction_timer_timeout() -> void:
 	_start_distraction_timer()
 
 func _start_distraction_timer() -> void:
-	distraction_timer.start(randf_range(24.3, 105.3) / monster.monster_aggression)
+	var divisior: float = Settings.monster_agression
+	if monster:
+		divisior = monster.monster_aggression
+	distraction_timer.start(randf_range(24.3, 105.3) / divisior)
 
 # The player shouldn't be able to see anything anymore
 func _on_player_seeing_static() -> void:
@@ -118,7 +126,8 @@ func _on_player_house_status_changed(is_in_house) -> void:
 		vol_target = -40.
 		light_target = 1.0
 		fog_target = 0.07
-		monster.notify_player_inside()
+		if monster:
+			monster.notify_player_inside()
 		if !player_entered_house_at_least_once:
 			player_entered_house_at_least_once = true
 			_player_entered_house_for_the_first_time()
@@ -126,7 +135,8 @@ func _on_player_house_status_changed(is_in_house) -> void:
 		vol_target = -20.
 		light_target = 5.0
 		fog_target = 0.04
-		monster.notify_player_outside()
+		if monster:
+			monster.notify_player_outside()
 	
 	tween.tween_property(bgm_low_constant, "volume_db", vol_target, 0.7).set_ease(Tween.EASE_IN)
 	var environment := world_environment.environment
@@ -136,7 +146,7 @@ func _on_player_house_status_changed(is_in_house) -> void:
 func _on_monster_spawn_timer_timeout() -> void:
 	# when we do this, we'll need to make sure the other code can handle no monster existing
 	print("SPAWN MONSTER!")
-
+	monster = monster_scene.instantiate()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player:
