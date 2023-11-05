@@ -130,3 +130,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if num_input != -1:
 		_set_value_at_selected(num_input)
+
+func _on_back_button_pressed() -> void:
+	print("HERE?")
+	emit_signal("SudokuQuit")

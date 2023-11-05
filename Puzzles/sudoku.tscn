@@ -107,7 +107,10 @@ offset_bottom = 99.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ItemList" type="ItemList" parent="CenterContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2"]
+layout_mode = 2
+
+[node name="ItemList" type="ItemList" parent="CenterContainer2/VBoxContainer"]
 clip_contents = false
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
@@ -127,4 +130,10 @@ item_6/text = "7"
 item_7/text = "8"
 item_8/text = "9"
 
-[connection signal="item_clicked" from="CenterContainer2/ItemList" to="." method="_on_item_list_item_clicked"]
+[node name="BackButton" type="Button" parent="CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "Back"
+
+[connection signal="item_clicked" from="CenterContainer2/VBoxContainer/ItemList" to="." method="_on_item_list_item_clicked"]
+[connection signal="pressed" from="CenterContainer2/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -90,3 +90,6 @@ func _on_sudoku_sudoku_complete() -> void:
 	progress = target_progress
 	_exit_task()
 	emit_signal("TaskComplete")
+
+func _on_sudoku_sudoku_quit() -> void:
+	_exit_task()

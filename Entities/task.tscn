@@ -83,3 +83,4 @@ value = 100.0
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="SudokuComplete" from="Puzzle/SubViewport/Sudoku" to="." method="_on_sudoku_sudoku_complete"]
+[connection signal="SudokuQuit" from="Puzzle/SubViewport/Sudoku" to="." method="_on_sudoku_sudoku_quit"]
