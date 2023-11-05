@@ -76,6 +76,22 @@ size = Vector3(1, 2.56194, 0.168356)
 [sub_resource type="BoxShape3D" id="BoxShape3D_nfto2"]
 size = Vector3(1.19214, 2.72572, 0.172029)
 
+[sub_resource type="Animation" id="Animation_c4nwq"]
+resource_name = "Closed"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RotationNode:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)]
+}
+
 [sub_resource type="Animation" id="Animation_am5qa"]
 resource_name = "ClosedToOpen"
 tracks/0/type = "value"
@@ -89,21 +105,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(-1, 2.08165e-12, 2.08165e-12)]
-}
-
-[sub_resource type="Animation" id="Animation_h4t8t"]
-resource_name = "OpenToClosed"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RotationNode:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-1, 2.08165e-12, 2.08165e-12), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_rthhe"]
@@ -122,9 +123,8 @@ tracks/0/keys = {
 "values": [Vector3(-1, 2.08165e-12, 2.08165e-12)]
 }
 
-[sub_resource type="Animation" id="Animation_c4nwq"]
-resource_name = "Closed"
-length = 0.1
+[sub_resource type="Animation" id="Animation_h4t8t"]
+resource_name = "OpenToClosed"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -132,10 +132,10 @@ tracks/0/path = NodePath("RotationNode:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)]
+"values": [Vector3(-1, 2.08165e-12, 2.08165e-12), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2c1j5"]

@@ -27,6 +27,7 @@ enum Location {
 	HouseFront,
 	HouseBack,
 }
+@export var enter_house_position: Node3D
 
 func _ready() -> void:
 	if Engine.is_editor_hint():

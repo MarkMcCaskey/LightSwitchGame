@@ -5,6 +5,7 @@ extends Node3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var player: Player = $Player
 @onready var monster: ScaryDude = $ScaryDude
+@onready var house: Node3D = $House
 @onready var monster_powerup_timer: Timer = $MonsterPowerUpTimer
 @onready var good_win_scene_location: Node3D = $GoodWinSceneLocation
 @onready var world_environment: WorldEnvironment = $WorldEnvironment
@@ -60,10 +61,10 @@ func _on_monster_power_up_timer_timeout() -> void:
 	monster.add_xp(xp)
 	monster_powerup_timer.start(randf_range(2.0, 70.0))
 
-
 func _on_player_dying() -> void:
 	animation_player.play("FadeBothOut")
 	monster.stop_monster_sounds()
+	monster.hide()
 
 func _play_win_scene() -> void:
 	var player: Player = get_tree().get_first_node_in_group("Player")
@@ -85,3 +86,7 @@ func _on_house_house_complete() -> void:
 func _on_distraction_timer_timeout() -> void:
 	distraction_manager.generate_distraction(1)
 	distraction_timer.start(randf_range(19.3, 79.3) / monster.monster_aggression)
+
+# The player shouldn't be able to see anything anymore
+func _on_player_seeing_static() -> void:
+	house.hide()

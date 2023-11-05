@@ -2,7 +2,7 @@ class_name ScaryDude extends CharacterBody3D
 
 signal ScaryDudeSafetyLevelChanged(old: int, new: int)
 
-enum State { Hunting, Creeping, Idle, InHouse }
+enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse }
 
 @export var state: State = State.Creeping:
 	get: return state
@@ -41,7 +41,7 @@ const path_finding_check_time: float = 2.0
 @onready var is_seen_by_player: bool = false
 
 @onready var direction: Vector3 = Vector3(0,0,0)
-@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar #MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
+@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
 @onready var current_level: int = 0
 @onready var current_xp: float = 0
 @onready var xp_to_next_level: float = 5
@@ -81,8 +81,14 @@ func actor_setup():
 	if state == State.Creeping:
 		_update_location_to_creep_spot()
 		creep_timer.start()
-	look_at(player_target.global_position)
+	_monster_look_at_player()
 	target_location = player_target.global_position
+
+func _monster_look_at_player() -> void:
+	if player_target:
+		var old_x := rotation.x
+		look_at(player_target.global_position + Vector3(0, 1.2, 0), Vector3.UP)
+		rotation.x = old_x
 
 func _physics_process(delta: float) -> void:
 	if is_seen_by_player:
@@ -93,11 +99,12 @@ func _physics_process(delta: float) -> void:
 		State.Hunting:
 			_nav_physics_process(delta)
 		State.Creeping:
-			if player_target:
-				look_at(player_target.global_position + Vector3(0, 1.2, 0), Vector3.UP)
+			_monster_look_at_player()
 			_creep_physics_process(delta)
 		State.InHouse:
 			_nav_physics_process(delta)
+		State.EnteringHouse:
+			return
 	#if velocity == Vector3.ZERO:
 	#velocity = Vector3(1., 0., 1.)
 	move_and_slide()
@@ -106,7 +113,7 @@ func _physics_process(delta: float) -> void:
 
 func _nav_physics_process(_delta: float) -> void:
 	if player_target:
-		look_at(player_target.global_position)
+		_monster_look_at_player()
 		target_location = player_target.global_position
 	if !navigation_agent.is_navigation_finished():
 		var current_agent_position: Vector3 = collision_shape.global_transform.origin
@@ -151,7 +158,7 @@ func seen_by_player() -> void:
 
 func end_seen_by_player() -> void:
 	is_seen_by_player = false
-	animated_creature.crouch()
+	#animated_creature.crouch()
 	speed = 10.0
 
 func add_xp(xp: float) -> void:
@@ -202,6 +209,16 @@ func _go_to_next_creep_spot() -> void:
 
 func _enter_house_behavior_change() -> void:
 	is_in_the_house = true
+	var group_name := MonsterCreepSpot.get_group_name(creep_location)
+	var spot := get_tree().get_first_node_in_group(group_name)
+	var enter_house_position: Node3D = spot.enter_house_position
+	assert(enter_house_position)
+	state = State.EnteringHouse
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, "global_position", enter_house_position.global_position, 1.0)
+	tween.tween_callback(_house_entered)
+
+func _house_entered() -> void:
 	state = State.InHouse
 
 func _on_creep_timer_timeout() -> void:
@@ -244,3 +261,13 @@ func _on_path_finding_fix_timer_timeout() -> void:
 		elif state == State.InHouse:
 			print("Stuck in house, teleport behind player? This should be its own mode")
 	position_at_last_timeout = global_position
+
+func _on_kill_zone_body_entered(body: Node3D) -> void:
+	print("Entered!")
+	if body is Player:
+		body.kill_by(self)
+
+
+func _on_kill_zone_area_entered(area: Area3D) -> void:
+	print("ENTERED WAT")
+	pass # Replace with function body.

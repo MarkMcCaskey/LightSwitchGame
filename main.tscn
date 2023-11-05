@@ -184,6 +184,7 @@ wait_time = 27.0
 one_shot = true
 
 [connection signal="Dying" from="Player" to="." method="_on_player_dying"]
+[connection signal="SeeingStatic" from="Player" to="." method="_on_player_seeing_static"]
 [connection signal="HouseComplete" from="House" to="." method="_on_house_house_complete"]
 [connection signal="ScaryDudeSafetyLevelChanged" from="ScaryDude" to="." method="_on_scary_dude_scary_dude_safety_level_changed"]
 [connection signal="timeout" from="MonsterPowerUpTimer" to="." method="_on_monster_power_up_timer_timeout"]

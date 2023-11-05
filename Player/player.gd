@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody3D
 
 signal Dying
+signal SeeingStatic
 
 @export_category("Player")
 @export_range(1, 35, 1) var speed: float = 4 # m/s
@@ -126,6 +127,19 @@ func hide_everything() -> void:
 	interact_label.hide()
 	hide()
 
+var death_scene_location: Vector3 = Vector3(0,0,0)
+func kill_by(node: Node3D) -> void:
+	has_control = false
+	var dummy := Node3D.new()
+	add_child(dummy)
+	dummy.rotation = camera.rotation
+	dummy.look_at(node.global_position + Vector3(0, 1, 0), Vector3.UP)
+	death_scene_location = node.global_position
+	var tween := get_tree().create_tween()
+	#print("Going from " + str(camera.rotation) + " to " + str(dummy.rotation))
+	tween.tween_property(camera, "rotation", dummy.rotation, 0.6).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_callback(play_death_scene)
+
 func play_death_scene() -> void:
 	if is_dying:
 		return
@@ -133,5 +147,13 @@ func play_death_scene() -> void:
 	var death_scene = load("res://Entities/DeathScene.tscn").instantiate()
 	has_control = false
 	emit_signal("Dying")
+	death_scene.connect("StaticTriggered", _static_triggered)
+	death_scene.global_position = death_scene_location
+	var old_z: float = death_scene.rotation.z
+	death_scene.look_at(global_position)
+	death_scene.rotation.z = old_z
 	add_child(death_scene)
 	death_scene.camera.make_current()
+
+func _static_triggered() -> void:
+	emit_signal("SeeingStatic")
