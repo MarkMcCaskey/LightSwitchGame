@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://beufq6tbg4eys"]
+[gd_scene load_steps=10 format=3 uid="uid://beufq6tbg4eys"]
 
 [ext_resource type="Script" path="res://Entities/task.gd" id="1_oqun7"]
 [ext_resource type="Texture2D" uid="uid://bdevvnj65ulyl" path="res://Assets/sudoku_placeholder.png" id="2_kicu5"]
 [ext_resource type="PackedScene" uid="uid://btpb7yb6cmjm1" path="res://Puzzles/sudoku.tscn" id="3_pd1q0"]
+[ext_resource type="AudioStream" uid="uid://2if8lk1khimn" path="res://Assets/Audio/pageturn1.ogg" id="4_thtji"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fokeh"]
 size = Vector3(1, 1, 0.0987305)
@@ -79,6 +80,11 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="ProgressBar/SubViewport/CenterContainer"]
 layout_mode = 2
 value = 100.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_thtji")
+volume_db = -20.0
+max_db = 4.996e-16
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -12,6 +12,7 @@ var progress: int = 0
 @onready var camera: Camera3D = $Puzzle/Camera3D
 @onready var subviewport: SubViewport = $Puzzle/SubViewport
 @onready var sudoku: Sudoku = $Puzzle/SubViewport/Sudoku
+@onready var audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 var interacting_with_task: bool = false
 var mouse_on_task: bool = false
@@ -64,6 +65,7 @@ func interact() -> void:
 	player.interact_label.hide()
 	interacting_with_task = true
 	camera.make_current()
+	audio.play()
 #	if progress >= target_progress:
 #		return
 #	progress += 1

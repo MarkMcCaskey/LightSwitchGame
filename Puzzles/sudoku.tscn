@@ -135,5 +135,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Back"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="item_clicked" from="CenterContainer2/VBoxContainer/ItemList" to="." method="_on_item_list_item_clicked"]
 [connection signal="pressed" from="CenterContainer2/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

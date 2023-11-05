@@ -16,6 +16,14 @@ enum PuzzleDifficulty { Easy, Medium, Hard }
 @onready var grid_2_0: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_2_0
 @onready var grid_2_1: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_2_1
 @onready var grid_2_2: SudokuGrid = $CenterContainer/TextureRect/GridContainer/SudokuGrid_2_2
+@onready var audio: AudioStreamPlayer = $AudioStreamPlayer
+
+const write_sfx: Array[AudioStream] = [
+	preload("res://Assets/Audio/pencil-scratch-01.ogg"),
+	preload("res://Assets/Audio/pencil-scratch-02.ogg"),
+	preload("res://Assets/Audio/pencil-scratch-03.ogg"),
+	preload("res://Assets/Audio/pencil-scratch-04.ogg")
+]
 
 # Array[Array[SudokuGrid]]
 @onready var row_order = [
@@ -104,8 +112,14 @@ func _on_cell_pressed(grid_id: int, idx: int) -> void:
 	selected_grid = grid_id
 	selected_idx = idx
 
+func _play_random_sfx() -> void:
+	var idx := randi_range(0, len(write_sfx) - 1)
+	audio.stream = write_sfx[idx]
+	audio.play()
+
 func _set_value_at_selected(val: int) -> void:
 	row_order[selected_grid / 3][selected_grid % 3].set_value_at_direct(selected_idx, val)
+	_play_random_sfx()
 	if val != 0:
 		if is_solved():
 			emit_signal("SudokuComplete")
