@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bkf5wkwm72mrj"
+path="res://.godot/imported/Beast Growl 1.ogg-209c63d77ae95f178dd193c425f63f3c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/Beast Growl 1.ogg"
+dest_files=["res://.godot/imported/Beast Growl 1.ogg-209c63d77ae95f178dd193c425f63f3c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

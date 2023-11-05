@@ -29,6 +29,7 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var interact_ray: RayCast3D = $Camera/InteractRayCast
 @onready var interact_label: Label = $Camera/CenterContainer/InteractLabel
 @onready var monster_visible_ray: RayCast3D = $Camera/LookingAtMonsterRay
+@onready var jump_scare_sting: AudioStreamPlayer = $JumpScareSting
 @onready var is_dying: bool = false
 
 var current_interactable: Interactable
@@ -131,15 +132,17 @@ func hide_everything() -> void:
 var death_scene_location: Vector3 = Vector3(0,0,0)
 func kill_by(node: Node3D) -> void:
 	has_control = false
+	jump_scare_sting.play()
 	var dummy := Node3D.new()
 	add_child(dummy)
 	dummy.rotation = camera.rotation
 	dummy.look_at(node.global_position + Vector3(0, 1, 0), Vector3.UP)
 	death_scene_location = node.global_position
 	var tween := get_tree().create_tween()
-	#print("Going from " + str(camera.rotation) + " to " + str(dummy.rotation))
-	tween.tween_property(camera, "rotation", dummy.rotation, 0.6).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
+	print("Going from " + str(camera.rotation) + " to " + str(dummy.rotation))
+	tween.tween_property(camera, "rotation", dummy.rotation, 0.4).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_callback(play_death_scene)
+	tween.tween_property(jump_scare_sting, "volume_db", -30, 5.0).set_ease(Tween.EASE_IN)
 
 func play_death_scene() -> void:
 	if is_dying:
