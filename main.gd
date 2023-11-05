@@ -89,8 +89,9 @@ func _on_house_house_complete() -> void:
 
 func _on_distraction_timer_timeout() -> void:
 	var found: bool = distraction_manager.generate_distraction(1)
-	while !found:
-		found = distraction_manager.generate_distraction(1)
+	if Settings.guarantee_distraction_spawn:
+		while !found:
+			found = distraction_manager.generate_distraction(1)
 	_start_distraction_timer()
 
 func _start_distraction_timer() -> void:
@@ -102,15 +103,24 @@ func _on_player_seeing_static() -> void:
 
 func _on_player_house_status_changed(is_in_house) -> void:
 	var tween := get_tree().create_tween()
-	var target: float = -33.
+	var vol_target: float = -33.
+	var light_target: float = 1.0
+	var fog_target: float = 0.05
 	if is_in_house:
-		target = -33.
+		vol_target = -33.
+		light_target = 1.0
+		fog_target = 0.07
 		monster.notify_player_inside()
 		if !player_entered_house_at_least_once:
 			player_entered_house_at_least_once = true
 			_start_distraction_timer()
 	else:
-		target = -20.
+		vol_target = -20.
+		light_target = 5.0
+		fog_target = 0.04
 		monster.notify_player_outside()
 	
-	tween.tween_property(bgm_low_constant, "volume_db", target, 0.7).set_ease(Tween.EASE_IN)
+	tween.tween_property(bgm_low_constant, "volume_db", vol_target, 0.7).set_ease(Tween.EASE_IN)
+	var environment := world_environment.environment
+	tween.tween_property(environment, "ambient_light_energy", light_target, 1.0).set_ease(Tween.EASE_IN)
+	tween.tween_property(environment, "fog_density", fog_target, 1.0).set_ease(Tween.EASE_IN)
