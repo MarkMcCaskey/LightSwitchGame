@@ -13,6 +13,8 @@ extends Node3D
 @onready var distraction_manager: DistractionManager = $DistractionManager
 @onready var distraction_timer: Timer = $DistractionManager/DistractionTimer
 
+@onready var player_entered_house_at_least_once: bool = false
+
 const win_scene: PackedScene = preload("res://Entities/WinScene.tscn")
 const safety4 := preload("res://Assets/Audio/atmoseerie04.ogg")
 const safety3 := preload("res://Assets/Audio/atmoseerie01.ogg")
@@ -86,7 +88,12 @@ func _on_house_house_complete() -> void:
 	_play_win_scene()
 
 func _on_distraction_timer_timeout() -> void:
-	distraction_manager.generate_distraction(1)
+	var found: bool = distraction_manager.generate_distraction(1)
+	while !found:
+		found = distraction_manager.generate_distraction(1)
+	_start_distraction_timer()
+
+func _start_distraction_timer() -> void:
 	distraction_timer.start(randf_range(19.3, 79.3) / monster.monster_aggression)
 
 # The player shouldn't be able to see anything anymore
@@ -99,6 +106,9 @@ func _on_player_house_status_changed(is_in_house) -> void:
 	if is_in_house:
 		target = -33.
 		monster.notify_player_inside()
+		if !player_entered_house_at_least_once:
+			player_entered_house_at_least_once = true
+			_start_distraction_timer()
 	else:
 		target = -20.
 		monster.notify_player_outside()

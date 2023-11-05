@@ -303,15 +303,33 @@ func _on_kill_zone_body_entered(body: Node3D) -> void:
 
 func notify_player_outside() -> void:
 	player_inside = false
-	outside_bloodlust_timer.start(randf_range(1.3, 12.9))
-	pass
+	var factor: float = 1.0
+	var dist: float = global_position.distance_to(player_target.global_position)
+	if dist < 10.:
+		factor = 3.0
+	elif dist < 20.:
+		factor = 2.0
+	elif dist < 30.:
+		factor = 1.0
+	else:
+		factor = 0.7
+	outside_bloodlust_timer.start(randf_range(1.3, 12.9) / factor)
+
+func _find_closest_creep_spot() -> MonsterCreepSpot.Location:
+	return creep_location
 
 func notify_player_inside() -> void:
 	player_inside = true
-	pass
+	if state == State.Hunting:
+		creep_location = _find_closest_creep_spot()
+		state = State.Creeping
+		
+
+func _start_chase() -> void:
+	print("Chasing player!")
+	state = State.Hunting
+	target_location = player_target.global_position
 
 func _on_outside_blood_lust_timer_timeout() -> void:
 	if !player_inside:
-		print("Chasing player!")
-		state = State.Hunting
-		target_location = player_target.global_position
+		_start_chase()
