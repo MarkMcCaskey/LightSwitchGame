@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://de48w7jbpet8v" path="res://Entities/animated_creature_1.tscn" id="3_f7f25"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aat8h"]
-radius = 0.308607
-height = 1.52683
+radius = 0.19
+height = 1.5
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8fn7w"]
 radius = 0.581136
@@ -16,8 +16,8 @@ height = 6.37386
 size = Vector3(2.01623, 3.21491, 3.68859)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l6ww0"]
-radius = 0.991958
-height = 3.07716
+radius = 1.03135
+height = 4.09522
 
 [node name="ScaryDude" type="CharacterBody3D"]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
@@ -47,9 +47,10 @@ transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.12107
 shape = SubResource("CapsuleShape3D_aat8h")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_max_distance = 3.01
 avoidance_enabled = true
-height = 2.5
 radius = 1.0
+max_speed = 4.6
 
 [node name="VisibleAura" type="Area3D" parent="."]
 collision_layer = 8
@@ -140,19 +141,24 @@ shape = SubResource("BoxShape3D_qc0ay")
 [node name="PassiveAudio" type="AudioStreamPlayer3D" parent="."]
 
 [node name="SfxAudio" type="AudioStreamPlayer3D" parent="."]
+attenuation_model = 1
 
 [node name="KillZone" type="Area3D" parent="."]
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone"]
-transform = Transform3D(1, -8.72551e-18, 7.06087e-16, -7.06086e-16, -0.0247114, 0.999695, 8.72552e-18, -0.999695, -0.0247114, 8.01442e-16, 1.1621, -1.13584)
+transform = Transform3D(1, -8.72549e-18, 7.06087e-16, -7.06086e-16, -0.0247114, 0.999695, 8.72552e-18, -0.999695, -0.0247114, 8.66494e-16, 1.1621, -1.32319)
 shape = SubResource("CapsuleShape3D_l6ww0")
+
+[node name="OutsideBloodLustTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
 [connection signal="timeout" from="PathFindingFixTimer" to="." method="_on_path_finding_fix_timer_timeout"]
 [connection signal="on_interact" from="ShooAwayBox" to="." method="_on_shoo_away_box_on_interact"]
-[connection signal="area_entered" from="KillZone" to="." method="_on_kill_zone_area_entered"]
 [connection signal="body_entered" from="KillZone" to="." method="_on_kill_zone_body_entered"]
+[connection signal="timeout" from="OutsideBloodLustTimer" to="." method="_on_outside_blood_lust_timer_timeout"]
 
 [editable path="AnimatedCreature1"]

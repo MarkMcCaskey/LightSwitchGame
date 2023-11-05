@@ -32,6 +32,7 @@ enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreep
 @onready var monster_vision: Camera3D = $BoneAttachment3D/MonsterVision
 @onready var creep_timer: Timer = $CreepTimer
 @onready var pathfinding_fix_timer: Timer = $PathFindingFixTimer
+@onready var outside_bloodlust_timer: Timer = $OutsideBloodLustTimer
 const path_finding_check_time: float = 2.0
 @onready var movement_audio: AudioStreamPlayer3D = $MovementAudio
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
@@ -42,11 +43,12 @@ const path_finding_check_time: float = 2.0
 @onready var is_seen_by_player: bool = false
 
 @onready var direction: Vector3 = Vector3(0,0,0)
-@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.DriveWayFar #MonsterCreepSpot.Location.FrontDoor #MonsterCreepSpot.Location.ColDeSacFar
+@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacMiddle
 @onready var current_level: int = 0
 @onready var current_xp: float = 0
 @onready var xp_to_next_level: float = 5
-@onready var is_in_the_house: bool = false 
+@onready var is_in_the_house: bool = false
+@onready var player_inside: bool = true
 
 @onready var position_at_last_timeout: Vector3 = global_position
 
@@ -71,8 +73,8 @@ func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
 	
-	navigation_agent.path_desired_distance = 4.0
-	navigation_agent.target_desired_distance = 4.0
+	navigation_agent.path_desired_distance = 1.0
+	navigation_agent.target_desired_distance = 1.0
 	#if target_location == Vector3.ZERO:
 		#target_location = collision_shape.global_transform.origin
 
@@ -206,8 +208,10 @@ func _update_location_to_creep_spot(smooth: bool) -> void:
 	assert(creep_node is MonsterCreepSpot, "at " + MonsterCreepSpot.Location.keys()[creep_location])
 	if smooth:
 		var tween := get_tree().create_tween()
-		tween.tween_property(self, "global_position", creep_node.global_position, 2.0).set_ease(Tween.EASE_IN_OUT)
-		tween.tween_property(self, "global_rotation", creep_node.global_rotation, 2.0).set_ease(Tween.EASE_IN_OUT)
+		var distance := global_position.distance_to(creep_node.global_position)
+		var time_to_arrive := distance / speed
+		tween.tween_property(self, "global_position", creep_node.global_position, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "global_rotation", creep_node.global_rotation, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
 	else:
 		global_position = creep_node.global_position
 		global_rotation = creep_node.global_rotation
@@ -243,6 +247,12 @@ func _house_entered() -> void:
 	state = State.InHouse
 
 func _on_creep_timer_timeout() -> void:
+	if state == State.MovingBetweenCreepSpots:
+		# this shouldn't happen but you know
+		creep_timer.start()
+		return
+	if state != State.Creeping:
+		return
 	var n: int = randi_range(1, 20)
 	print("Timer! Rolled a " + str(n))
 	if move_chance >= n:
@@ -288,11 +298,20 @@ func _on_path_finding_fix_timer_timeout() -> void:
 	position_at_last_timeout = global_position
 
 func _on_kill_zone_body_entered(body: Node3D) -> void:
-	print("Entered!")
 	if body is Player:
 		body.kill_by(self)
 
+func notify_player_outside() -> void:
+	player_inside = false
+	outside_bloodlust_timer.start(randf_range(1.3, 12.9))
+	pass
 
-func _on_kill_zone_area_entered(area: Area3D) -> void:
-	print("ENTERED WAT")
-	pass # Replace with function body.
+func notify_player_inside() -> void:
+	player_inside = true
+	pass
+
+func _on_outside_blood_lust_timer_timeout() -> void:
+	if !player_inside:
+		print("Chasing player!")
+		state = State.Hunting
+		target_location = player_target.global_position

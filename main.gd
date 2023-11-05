@@ -23,7 +23,7 @@ enum Bgm { Crickets }
 var track1_active: bool = true
 
 func _ready() -> void:
-	bgm_low_constant.volume_db = -30
+	bgm_low_constant.volume_db = -20.
 	bgm_low_constant.play()
 
 func crossfade_bgm(audio_stream: AudioStream) -> void:
@@ -61,7 +61,7 @@ func _on_monster_power_up_timer_timeout() -> void:
 				light_count += 1
 		xp += float(light_count)
 	monster.add_xp(xp)
-	monster_powerup_timer.start(randf_range(2.0, 70.0))
+	monster_powerup_timer.start(randf_range(2.0, 49.0))
 
 func _on_player_dying() -> void:
 	animation_player.play("FadeBothOut")
@@ -96,7 +96,11 @@ func _on_player_seeing_static() -> void:
 func _on_player_house_status_changed(is_in_house) -> void:
 	var tween := get_tree().create_tween()
 	var target: float = -33.
-	if is_in_house: target = -33.
-	else: target = -20.
+	if is_in_house:
+		target = -33.
+		monster.notify_player_inside()
+	else:
+		target = -20.
+		monster.notify_player_outside()
 	
 	tween.tween_property(bgm_low_constant, "volume_db", target, 0.7).set_ease(Tween.EASE_IN)
