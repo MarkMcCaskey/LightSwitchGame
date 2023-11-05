@@ -5,7 +5,7 @@ var sudoku_rng_enabled: bool = true
 var sudoku_rng_seed: int = 0
 
 var monster_agression: float = 1.5
-var monster_move_chance: int = 3#25
+var monster_move_chance: int = 4#25
 var monster_lights_give_xp: bool = true
 var monster_distraction_xp_amount: float = 3.0
 var monster_xp_multiplier: float = 1.0
