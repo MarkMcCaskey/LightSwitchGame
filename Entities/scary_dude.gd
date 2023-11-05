@@ -273,9 +273,15 @@ func _update_location_to_creep_spot(smooth: bool) -> void:
 		var time_to_arrive := distance / speed
 		tween.tween_property(self, "global_position", creep_node.global_position, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_property(self, "global_rotation", creep_node.global_rotation, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_callback(_set_state_to_creeping)
 	else:
 		global_position = creep_node.global_position
 		global_rotation = creep_node.global_rotation
+		state = State.Creeping
+
+func _set_state_to_creeping() -> void:
+	state = State.Creeping
+	creep_timer.start()
 
 func _go_to_next_creep_spot() -> void:
 	var creep_node = get_tree().get_first_node_in_group(MonsterCreepSpot.get_group_name(creep_location))
@@ -403,13 +409,28 @@ func notify_player_outside() -> void:
 	outside_bloodlust_timer.start(randf_range(1.3, 12.9) / factor)
 
 func _find_closest_creep_spot() -> MonsterCreepSpot.Location:
-	return creep_location
+	var closest_dist: float = 9999999
+	var closest_loc: MonsterCreepSpot.Location
+	for node in get_tree().get_nodes_in_group("creep_spots"):
+		if node is MonsterCreepSpot:
+			var dist = global_position.distance_to(node.global_position)
+			if dist < closest_dist:
+				closest_dist = dist
+				closest_loc = node.location
+	return closest_loc
 
 func notify_player_inside() -> void:
 	player_inside = true
 	if state == State.Hunting:
-		creep_location = _find_closest_creep_spot()
-		state = State.Creeping
+		creep_location  = _find_closest_creep_spot()
+		var creep_node = get_tree().get_first_node_in_group(MonsterCreepSpot.get_group_name(creep_location))
+		# hack because we should only be chasing on the ground, not on the roof
+		if MonsterCreepSpot.is_on_same_level(MonsterCreepSpot.Location.FrontDoor, creep_location):
+			state = State.MovingBetweenCreepSpots
+			target_location = creep_node.global_position
+		else:
+			state = State.Creeping
+			_update_location_to_creep_spot(true)
 		
 
 func _start_chase() -> void:

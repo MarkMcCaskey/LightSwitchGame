@@ -39,6 +39,7 @@ func _ready() -> void:
 		add_child(creeper)
 	else:
 		add_to_group(MonsterCreepSpot.get_group_name(location))
+		add_to_group("creep_spots")
 
 static func get_next_location_random(location: Location) -> Location:
 	var candidates: Array[Location] = MonsterCreepSpot.connected_regions(location)
@@ -69,7 +70,7 @@ static func is_on_roof(loc: Location) -> bool:
 		Location.RoofBathRoomSide: return true
 		Location.BedRoom1Window: return true
 		Location.BedRoom2Window: return true
-		_: return false
+		_: pass
 	return false
 
 static func is_on_same_level(loc1: Location, loc2: Location) -> bool:
