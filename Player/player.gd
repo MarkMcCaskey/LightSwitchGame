@@ -30,6 +30,7 @@ var jump_vel: Vector3 # Jumping velocity
 @onready var interact_label: Label = $Camera/CenterContainer/InteractLabel
 @onready var monster_visible_ray: RayCast3D = $Camera/LookingAtMonsterRay
 @onready var jump_scare_sting: AudioStreamPlayer = $JumpScareSting
+@onready var pause_menu: PauseMenu = $Camera/PauseMenu
 @onready var is_dying: bool = false
 
 var current_interactable: Interactable
@@ -37,6 +38,7 @@ var last_seen_monster: ScaryDude
 
 func _ready() -> void:
 	interact_label.hide()
+	pause_menu.hide()
 	capture_mouse()
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -45,7 +47,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		look_dir = event.relative * 0.001
 		if mouse_captured: _rotate_camera()
 	if Input.is_action_just_pressed("jump"): jumping = true
-	if Input.is_action_just_pressed("exit"): get_tree().quit()
+	if Input.is_action_just_pressed("ui_cancel"):
+		release_mouse()
+		get_tree().paused = true
+		pause_menu.show()
 	if Input.is_action_just_pressed("interact") && current_interactable: current_interactable.interact()
 	if Input.is_action_just_pressed("debug_spawn_distractions"):
 		play_death_scene()
@@ -167,3 +172,9 @@ func enter_house() -> void:
 
 func exit_house() -> void:
 	emit_signal("HouseStatusChanged", false)
+
+func _on_pause_menu_pause_menu_closed() -> void:
+	pause_menu.hide()
+	get_tree().paused = false
+	capture_mouse()
+

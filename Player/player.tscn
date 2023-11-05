@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdk6hwb4hi2wc"]
+[gd_scene load_steps=5 format=3 uid="uid://cdk6hwb4hi2wc"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_2f8j2"]
+[ext_resource type="PackedScene" uid="uid://xl3jjcu7ko3m" path="res://Levels/pause_menu.tscn" id="2_524k5"]
 [ext_resource type="AudioStream" uid="uid://cud4o4bttltpy" path="res://Assets/Audio/excited horror sound.ogg" id="2_f4q2v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3rsb5"]
@@ -74,12 +75,10 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(1, 0, 0.0823529, 1)
 debug_shape_thickness = 1
 
-[node name="PauseMenu" type="Control" parent="Camera"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PauseMenu" parent="Camera" instance=ExtResource("2_524k5")]
 
 [node name="JumpScareSting" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_f4q2v")
 volume_db = 7.0
+
+[connection signal="PauseMenuClosed" from="Camera/PauseMenu" to="." method="_on_pause_menu_pause_menu_closed"]
