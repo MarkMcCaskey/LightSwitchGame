@@ -14,6 +14,7 @@ extends Node3D
 @onready var distraction_timer: Timer = $DistractionManager/DistractionTimer
 @onready var monster_spawn_timer: Timer = $MonsterSpawnTimer
 
+@onready var tv_triggered: bool = false
 @onready var player_entered_house_at_least_once: bool = false
 
 const win_scene: PackedScene = preload("res://Entities/WinScene.tscn")
@@ -135,3 +136,10 @@ func _on_player_house_status_changed(is_in_house) -> void:
 func _on_monster_spawn_timer_timeout() -> void:
 	# when we do this, we'll need to make sure the other code can handle no monster existing
 	print("SPAWN MONSTER!")
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body is Player:
+		if !player_entered_house_at_least_once && !tv_triggered:
+			tv_triggered = true
+			house.turn_on_living_room_tv()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bjuxd0kryxd45"]
+[gd_scene load_steps=13 format=3 uid="uid://bjuxd0kryxd45"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_nvy0t"]
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="2_j6vmr"]
@@ -168,6 +168,9 @@ _data = {
 "FadeToTrack2": SubResource("Animation_dc1sd")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_66n03"]
+radius = 1.5
+
 [node name="Main" type="Node3D"]
 script = ExtResource("1_nvy0t")
 
@@ -214,6 +217,14 @@ one_shot = true
 wait_time = 5.0
 one_shot = true
 
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.05782, 0.574546, -0.239382)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_66n03")
+
 [connection signal="Dying" from="Player" to="." method="_on_player_dying"]
 [connection signal="HouseStatusChanged" from="Player" to="." method="_on_player_house_status_changed"]
 [connection signal="SeeingStatic" from="Player" to="." method="_on_player_seeing_static"]
@@ -222,3 +233,4 @@ one_shot = true
 [connection signal="timeout" from="MonsterPowerUpTimer" to="." method="_on_monster_power_up_timer_timeout"]
 [connection signal="timeout" from="DistractionManager/DistractionTimer" to="." method="_on_distraction_timer_timeout"]
 [connection signal="timeout" from="MonsterSpawnTimer" to="." method="_on_monster_spawn_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
