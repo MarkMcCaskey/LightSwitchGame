@@ -99,4 +99,4 @@ func _on_player_house_status_changed(is_in_house) -> void:
 	if is_in_house: target = -33.
 	else: target = -20.
 	
-	tween.tween_property(bgm_low_constant, "volume_db", target, 0.7)
+	tween.tween_property(bgm_low_constant, "volume_db", target, 0.7).set_ease(Tween.EASE_IN)
