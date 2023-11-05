@@ -22,6 +22,7 @@ Splash Screen Logo - ChatGPT 4 + Dalle 3
 # Godot
 
 [Simple First Person Controller Template](https://github.com/rbarongr/GodotFirstPersonController) - CC0
+[TV static](https://godotshaders.com/shader/tv-noise-effect/)
 [Glass Material Reference](https://gitlab.com/zolno/godot-experiments/-/tree/glass) - MIT
 [Credits System](https://github.com/benbishopnz/godot-credits/tree/master) - MIT
 

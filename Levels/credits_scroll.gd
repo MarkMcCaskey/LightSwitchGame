@@ -1,7 +1,7 @@
 extends Node2D
 
 const section_time := 2.0
-const line_time := 0.3
+const line_time := 0.7
 const base_speed := 100
 const speed_up_multiplier := 10.0
 const title_color := Color.BLUE_VIOLET
@@ -22,7 +22,8 @@ var lines := []
 
 var credits = [
 	[
-		"Light Switch Game by Mark"
+		"Enigma of the Eldritch Elk",
+		"Submitted to the Let's Make Something 2023 Game Jam"
 	],[
 		"Programming and Design",
 		"Mark",
@@ -31,30 +32,53 @@ var credits = [
 		"Branden",
 	],[
 		"Art",
-		"Artist Name"
+		"House model + textures:", "https://elbolilloduro.itch.io/house - CC0",
+		"Mixamo Animations",
+		"Halloween assets + textures:", "https://elbolilloduro.itch.io/halloween - CC0",
+		"Empty sudoku board:", "https://commons.wikimedia.org/wiki/File:9x9_Empty_Sudoku_Grid.svg - CC0",
+		"Splash Screen Logo:", "ChatGPT 4 + Dalle 3"
 	],[
-		"Music",
-		"Musician Name"
+		"Godot / Code References",
+		"Simple First Person Controller Template:", "https://github.com/rbarongr/GodotFirstPersonController - CC0",
+		"TV static shader:", "https://godotshaders.com/shader/tv-noise-effect/ - CC0",
+		"Glass Material Reference:", "https://gitlab.com/zolno/godot-experiments/-/tree/glass - MIT",
+		"Credits System:", "https://github.com/benbishopnz/godot-credits/tree/master - MIT"
 	],[
-		"Sound Effects",
-		"SFX Name"
+		"Data",
+		"Rated sudoku puzzle data:", "https://github.com/grantm/sudoku-exchange-puzzle-bank - Public Domain"
+	],[
+		"Sound",
+		"Ghost breath:", "https://opengameart.org/content/ghost-breath - CC0",
+		"Wind woosh loop:", "https://opengameart.org/content/wind-whoosh-loop - CC0",
+		"Ghost noises:", "https://opengameart.org/content/ghost-monster-voice-moaning-growling - CC0",
+		"TV static:", "https://freesound.org/people/qubodup/sounds/188798/ - CC0",
+		"Dark Ambiences:", "https://opengameart.org/content/dark-ambiences - CC0",
+		"Title music (upsidedown grin):", "https://opengameart.org/content/upside-down-grin-freaky-ambient - CC0",
+		"Atmospheric ambient loops:", "https://opengameart.org/content/4-atmospheric-ghostly-loops - CC0",
+		"Crickets ambient:", "https://opengameart.org/content/crickets-ambient-noise-loopable - CC0",
+		"UI sounds - atmospheric interaction pack:", "https://opengameart.org/content/atmospheric-interaction-sound-pack - CC0",
+		"GUI sound effects:", "https://opengameart.org/content/gui-sound-effects - CC0",
+		"Arr!:", "https://opengameart.org/content/arr - CC0",
+		"They're coming:", "https://opengameart.org/content/their-coming-generic-horn-sound - CC0",
+		"Monster or beast sounds:", "https://opengameart.org/content/monster-or-beast-sounds - CC0",
+		"Excited horror sound:", "https://opengameart.org/content/excited-horror-sound - CC0",
+		"Evil creature ambient:", "https://opengameart.org/content/evil-creature - CC0",
+		"Big Scary troll noises:", "https://opengameart.org/content/big-scary-troll-sounds - CC0",
+		"click sound:", "https://opengameart.org/content/click-sounds6 - CC0",
+		"Knocking sound:", "https://freesound.org/people/iamadam19/sounds/362633/ - CC0",
+		"Knocking on window:", "https://pixabay.com/sound-effects/knocking-on-window-99754/ - royalty free / \"for free use\"",
+		"Misc SFX:", "https://opengameart.org/content/sound-effects-pack - CC0",
 	],[
 		"Testers",
-		"Name 1",
-		"Name 2",
-		"Name 3"
+		"lol",
+		"lmao even"
 	],[
 		"Tools used",
-		"Developed with Godot Engine",
-		"https://godotengine.org/license",
-		"",
-		"Art created with My Favourite Art Program",
-		"https://myfavouriteartprogram.com"
+		"Godot",
+		"Blender",
+		"Audacity"
 	],[
-		"Special thanks",
-		"My parents",
-		"My friends",
-		"My pet rabbit"
+		"Thanks for playing!"
 	]
 ]
 
@@ -97,7 +121,8 @@ func finish():
 		finished = true
 		# NOTE: This is called when the credits finish
 		# - Hook up your code to return to the relevant scene here, eg...
-		#get_tree().change_scene("res://scenes/MainMenu.tscn")
+		var main_menu = load("res://Levels/title_screen_background.tscn")
+		get_tree().change_scene_to_packed(main_menu)
 
 
 func add_line():
@@ -106,6 +131,8 @@ func add_line():
 	lines.append(new_line)
 	if curr_line == 0:
 		new_line.add_theme_color_override("font_color", title_color)
+	else:
+		new_line.add_theme_color_override("font_color", Color.BLACK)
 	$CreditsContainer.add_child(new_line)
 	
 	if section.size() > 0:

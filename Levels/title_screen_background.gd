@@ -54,7 +54,8 @@ func _on_about_button_pressed() -> void:
 	how_to_play.show()
 
 func _on_credits_pressed() -> void:
-	pass # Replace with function body.
+	var credits = load("res://Levels/credits_scroll.tscn")
+	get_tree().change_scene_to_packed(credits)
 
 func _on_how_to_play_how_to_play_quit() -> void:
 	how_to_play.hide()

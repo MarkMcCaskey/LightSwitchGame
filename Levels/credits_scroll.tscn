@@ -13,7 +13,6 @@ offset_right = 1150.0
 offset_bottom = 800.0
 
 [node name="ColorRect" type="ColorRect" parent="CreditsContainer"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,3 +32,4 @@ offset_top = -23.0
 offset_right = 20.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_font_sizes/font_size = 28
