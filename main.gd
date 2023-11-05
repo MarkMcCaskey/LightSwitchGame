@@ -147,6 +147,8 @@ func _on_monster_spawn_timer_timeout() -> void:
 	# when we do this, we'll need to make sure the other code can handle no monster existing
 	print("SPAWN MONSTER!")
 	monster = monster_scene.instantiate()
+	add_child(monster)
+	monster.connect("ScaryDudeSafetyLevelChanged", _on_scary_dude_scary_dude_safety_level_changed)
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player:

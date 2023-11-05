@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjuxd0kryxd45"]
+[gd_scene load_steps=12 format=3 uid="uid://bjuxd0kryxd45"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_nvy0t"]
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="2_j6vmr"]
 [ext_resource type="PackedScene" uid="uid://cdk6hwb4hi2wc" path="res://Player/player.tscn" id="2_jgtl2"]
-[ext_resource type="PackedScene" uid="uid://b4hwasni6qla7" path="res://Entities/scary_dude.tscn" id="3_20vsw"]
 [ext_resource type="Environment" uid="uid://djl4r4j1fh02j" path="res://Materials/environment.tres" id="3_hc185"]
 [ext_resource type="AudioStream" uid="uid://bw15util1ops0" path="res://Assets/Audio/crickets.ogg" id="5_stfhj"]
 [ext_resource type="PackedScene" uid="uid://ywcyygkwrji1" path="res://Systems/distraction_manager.tscn" id="7_m0a0j"]
@@ -183,18 +182,15 @@ speed = 4.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("3_hc185")
 
-[node name="ScaryDude" parent="." instance=ExtResource("3_20vsw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.2165, -0.431932, 28.8695)
-
 [node name="BGMPlayer1" type="AudioStreamPlayer" parent="."]
-volume_db = -80.0
+volume_db = -25.0
 
 [node name="BGMPlayer2" type="AudioStreamPlayer" parent="."]
-volume_db = -80.0
+volume_db = -25.0
 
 [node name="BGMLowConstant" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_stfhj")
-volume_db = -80.0
+volume_db = -30.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -229,7 +225,6 @@ shape = SubResource("SphereShape3D_66n03")
 [connection signal="HouseStatusChanged" from="Player" to="." method="_on_player_house_status_changed"]
 [connection signal="SeeingStatic" from="Player" to="." method="_on_player_seeing_static"]
 [connection signal="HouseComplete" from="House" to="." method="_on_house_house_complete"]
-[connection signal="ScaryDudeSafetyLevelChanged" from="ScaryDude" to="." method="_on_scary_dude_scary_dude_safety_level_changed"]
 [connection signal="timeout" from="MonsterPowerUpTimer" to="." method="_on_monster_power_up_timer_timeout"]
 [connection signal="timeout" from="DistractionManager/DistractionTimer" to="." method="_on_distraction_timer_timeout"]
 [connection signal="timeout" from="MonsterSpawnTimer" to="." method="_on_monster_spawn_timer_timeout"]

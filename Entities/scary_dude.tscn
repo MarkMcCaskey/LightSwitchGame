@@ -34,7 +34,7 @@ external_skeleton = NodePath("../creature_w2_final/RootNode/Armature/Skeleton3D"
 [node name="RedStain" type="SpotLight3D" parent="BoneAttachment3D"]
 transform = Transform3D(-0.998949, -0.0410392, -0.0204092, -0.0450545, 0.961007, 0.272828, 0.00841675, 0.273461, -0.961846, 0.038464, -0.826476, -0.151598)
 light_color = Color(1, 0, 0, 1)
-light_energy = 5.0
+light_energy = 3.5
 spot_range = 15.0
 spot_angle = 35.0
 

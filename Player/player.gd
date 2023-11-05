@@ -163,6 +163,8 @@ func play_death_scene() -> void:
 	death_scene.look_at(global_position)
 	death_scene.rotation.z = old_z
 	death_scene.camera.make_current()
+	camera.hide()
+	interact_label.hide()
 
 func _static_triggered() -> void:
 	emit_signal("SeeingStatic")

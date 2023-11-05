@@ -55,7 +55,7 @@ const path_finding_check_time: float = 2.0
 @onready var is_seen_by_player: bool = false
 
 @onready var direction: Vector3 = Vector3(0,0,0)
-@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.FrontDoor:#MonsterCreepSpot.Location.ColDeSacFar: #MonsterCreepSpot.Location.BedRoom1Window: #MonsterCreepSpot.Location.ColDeSacMiddle:
+@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar: #MonsterCreepSpot.Location.BedRoom1Window: #MonsterCreepSpot.Location.ColDeSacMiddle:
 	get: return creep_location
 	set(v):
 		creep_location = v
