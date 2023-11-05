@@ -8,6 +8,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		emit_signal("PauseMenuClosed")
  
 func _on_unpause_button_pressed() -> void:
+	# needed for web
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	emit_signal("PauseMenuClosed")
 
 func _on_menu_button_pressed() -> void:

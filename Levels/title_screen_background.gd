@@ -31,6 +31,8 @@ func _start_game() -> void:
 	menu_sfx.play()
 	ResourceLoader.load_threaded_request(main_scene)
 	animation_player.play("CameraFly")
+	# needed for web
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _load_first_level() -> void:
 	var first_level = ResourceLoader.load_threaded_get(main_scene)
