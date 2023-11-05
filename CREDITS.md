@@ -17,6 +17,7 @@ Low poly human? if we use that
 [Halloween assets + textures](https://elbolilloduro.itch.io/halloween)
 [Placeholder sudoku image](https://en.wikipedia.org/wiki/File:Sudoku_Puzzle_by_L2G-20050714_standardized_layout.svg) - public domain / CC0 (this won't make it into the final game but it'll be in the repo)
 [Empty sudoku board](https://commons.wikimedia.org/wiki/File:9x9_Empty_Sudoku_Grid.svg) - CC0
+Splash Screen Logo - ChatGPT 4 + Dalle 3
 
 # Godot
 
@@ -46,6 +47,7 @@ Low poly human? if we use that
 [Big Scary troll noises](https://opengameart.org/content/big-scary-troll-sounds) - CC0
 [oh my](https://opengameart.org/content/oh-my-help-me-posh-english-high-pitched) - CC0
 [heart beat sounds](https://opengameart.org/content/heartbeat-sounds) - CC0
+[click sound](https://opengameart.org/content/click-sounds6) - CC0
 
 # Data
 [Rated sudoku puzzle data](https://github.com/grantm/sudoku-exchange-puzzle-bank) - Public Domain

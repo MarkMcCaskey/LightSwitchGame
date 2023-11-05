@@ -13,6 +13,8 @@ config_version=5
 config/name="LightSwitchGameJam"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
+boot_splash/bg_color=Color(0.133333, 0.156863, 0.176471, 1)
+boot_splash/image="res://logo.png"
 config/icon="res://icon.svg"
 
 [autoload]
