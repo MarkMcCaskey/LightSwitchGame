@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4hwasni6qla7"]
+[gd_scene load_steps=9 format=3 uid="uid://b4hwasni6qla7"]
 
 [ext_resource type="Script" path="res://Entities/scary_dude.gd" id="1_ohpp7"]
 [ext_resource type="Script" path="res://Util/Interactable.gd" id="3_bnalh"]
 [ext_resource type="PackedScene" uid="uid://de48w7jbpet8v" path="res://Entities/animated_creature_1.tscn" id="3_f7f25"]
+[ext_resource type="PackedScene" uid="uid://ddjhp4dm7ib14" path="res://Entities/creature_w_2_final.tscn" id="4_hc0hx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_aat8h"]
 radius = 0.19
@@ -13,23 +14,22 @@ radius = 0.581136
 height = 6.37386
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qc0ay"]
-size = Vector3(2.01623, 3.21491, 3.68859)
+size = Vector3(3.3, 2, 3.75)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l6ww0"]
 radius = 1.03135
-height = 4.09522
+height = 2.5
 
 [node name="ScaryDude" type="CharacterBody3D"]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("1_ohpp7")
-can_kill_player = false
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
-transform = Transform3D(-0.350929, 0.187431, 0.0414516, 0.167167, 0.340852, -0.125996, -0.0943612, -0.0932159, -0.377368, 0.301988, 2.42323, -0.028523)
+transform = Transform3D(-0.247399, -0.00838581, -0.0349766, -0.00369495, 0.24775, -0.0332637, 0.0357776, -0.0324007, -0.245296, -0.0621999, 1.55193, -0.0038136)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 use_external_skeleton = true
-external_skeleton = NodePath("../AnimatedCreature1/RootNode/Armature/Skeleton3D")
+external_skeleton = NodePath("../creature_w2_final/RootNode/Armature/Skeleton3D")
 
 [node name="RedStain" type="SpotLight3D" parent="BoneAttachment3D"]
 transform = Transform3D(-0.998949, -0.0410392, -0.0204092, -0.0450545, 0.961007, 0.272828, 0.00841675, 0.273461, -0.961846, 0.038464, -0.826476, -0.151598)
@@ -47,9 +47,7 @@ transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.12107
 shape = SubResource("CapsuleShape3D_aat8h")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_max_distance = 3.01
 avoidance_enabled = true
-radius = 1.0
 max_speed = 4.6
 
 [node name="VisibleAura" type="Area3D" parent="."]
@@ -62,6 +60,7 @@ shape = SubResource("CapsuleShape3D_8fn7w")
 
 [node name="AnimatedCreature1" parent="." instance=ExtResource("3_f7f25")]
 transform = Transform3D(-0.4, 1.39515e-16, -3.49691e-08, 1.39515e-16, 0.4, -1.39515e-16, 3.49691e-08, -1.39515e-16, -0.4, 0, 0, 0)
+visible = false
 
 [node name="Skeleton3D" parent="AnimatedCreature1/RootNode/Armature" index="0"]
 bones/0/position = Vector3(-0.184921, 3.59637, -0.503358)
@@ -133,7 +132,7 @@ script = ExtResource("3_bnalh")
 interact_text = "Shoo Monster Away"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ShooAwayBox"]
-transform = Transform3D(1.16741, -1.42018e-31, -4.53394e-24, -4.53394e-24, 1.16741, 4.53394e-24, 0, 0, 1.16741, 1.04821e-15, 1.69134, -1.31381)
+transform = Transform3D(1.16741, -1.42018e-31, -7.93082e-24, -7.93082e-24, 1.16741, 7.93082e-24, 0, 0, 1.16741, -0.0277171, 1.07225, -1.31029)
 shape = SubResource("BoxShape3D_qc0ay")
 
 [node name="MovementAudio" type="AudioStreamPlayer3D" parent="."]
@@ -153,7 +152,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone"]
-transform = Transform3D(1, -8.72549e-18, 7.06087e-16, -7.06086e-16, -0.0247114, 0.999695, 8.72552e-18, -0.999695, -0.0247114, 8.66494e-16, 1.1621, -1.32319)
+transform = Transform3D(1, -8.72549e-18, 7.06087e-16, -7.06086e-16, -0.0247114, 0.999695, 8.72552e-18, -0.999695, -0.0247114, 6.81746e-16, 1.1621, -0.794769)
 shape = SubResource("CapsuleShape3D_l6ww0")
 
 [node name="OutsideBloodLustTimer" type="Timer" parent="."]
@@ -164,6 +163,10 @@ one_shot = true
 wait_time = 0.9
 one_shot = true
 
+[node name="creature_w2_final" parent="." instance=ExtResource("4_hc0hx")]
+
+[node name="RotateRef" type="Node3D" parent="."]
+
 [connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
 [connection signal="timeout" from="PathFindingFixTimer" to="." method="_on_path_finding_fix_timer_timeout"]
 [connection signal="on_interact" from="ShooAwayBox" to="." method="_on_shoo_away_box_on_interact"]
@@ -172,3 +175,4 @@ one_shot = true
 [connection signal="timeout" from="ExtremeDangerWarningTimer" to="." method="_on_extreme_danger_warning_timer_timeout"]
 
 [editable path="AnimatedCreature1"]
+[editable path="creature_w2_final"]

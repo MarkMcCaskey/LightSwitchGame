@@ -87,16 +87,17 @@ func load_sudoku() -> void:
 	else:
 		puzzle_num = (Settings.sudoku_rng_seed - 1) % num_puzzles
 	var diff_str: String = Sudoku.difficulty_to_str(difficulty)
-	#var json: JSON = load("res://Assets/PuzzleData/Sudoku/" + diff_str + "/" + str(puzzle_num) + ".json")
-	var json: JSON = load("res://Assets/PuzzleData/Sudoku/sudoku_almost_solved.json")
+	var json: JSON = load("res://Assets/PuzzleData/Sudoku/" + diff_str + "/" + str(puzzle_num) + ".json")
+	print("SUDOKU NUM " + str(puzzle_num))
+	#var json: JSON = load("res://Assets/PuzzleData/Sudoku/sudoku_almost_solved.json")
 	init_sudoku(json.data)
 
 func init_sudoku(vals) -> void:
 	for i in range(9):
 		for j in range(9):
-			var grid = row_order[i % 3][j % 3]
-			var i_idx: int = i / 3
-			var j_idx: int = j / 3
+			var grid = row_order[i / 3][j / 3]
+			var i_idx: int = i % 3
+			var j_idx: int = j % 3
 			grid.set_value_at(i_idx, j_idx, vals[i][j], true)
 
 func _on_cell_pressed(grid_id: int, idx: int) -> void:

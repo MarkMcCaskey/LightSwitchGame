@@ -2,17 +2,19 @@ class_name ScaryDude extends CharacterBody3D
 
 signal ScaryDudeSafetyLevelChanged(old: int, new: int)
 
-enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreepSpots }
+enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreepSpots, BackingAway }
 
 @export var state: State = State.Creeping:
 	get: return state
 	set(val):
 		print(State.keys()[state] + " -> " + State.keys()[val])
-		if val == State.Hunting || val == State.InHouse || State.MovingBetweenCreepSpots:
+		update_animation(state, val)
+		if val == State.Hunting || val == State.InHouse || State.MovingBetweenCreepSpots || State.EnteringHouse:
 			if pathfinding_fix_timer:
 				position_at_last_timeout = global_position
 				pathfinding_fix_timer.start(path_finding_check_time)
 		state = val
+		update_vars()
 
 @export var speed: float = 4.6
 @export var base_move_chance: int = Settings.monster_move_chance
@@ -30,6 +32,7 @@ enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreep
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
 @onready var animated_creature: AnimatedCreature1 = $AnimatedCreature1
+@onready var creature_final: CreatureW2Final = $creature_w2_final
 @onready var monster_vision: Camera3D = $BoneAttachment3D/MonsterVision
 @onready var creep_timer: Timer = $CreepTimer
 @onready var pathfinding_fix_timer: Timer = $PathFindingFixTimer
@@ -40,13 +43,20 @@ const path_finding_check_time: float = 2.0
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
 @onready var sfx_audio: AudioStreamPlayer3D = $SfxAudio
 @onready var major_event_audio: AudioStreamPlayer3D = $MajorEventAudio
+@onready var rotate_ref: Node3D = $RotateRef
+@onready var shoo_away_box: Area3D = $ShooAwayBox
+@onready var shoo_away_box_collider: CollisionShape3D = $ShooAwayBox/CollisionShape3D
 
 @onready var monster_aggression: float = base_monster_aggression
 @onready var move_chance: int = base_move_chance
 @onready var is_seen_by_player: bool = false
 
 @onready var direction: Vector3 = Vector3(0,0,0)
-@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacMiddle
+@onready var creep_location: MonsterCreepSpot.Location = MonsterCreepSpot.Location.ColDeSacFar: #MonsterCreepSpot.Location.BedRoom1Window: #MonsterCreepSpot.Location.ColDeSacMiddle:
+	get: return creep_location
+	set(v):
+		creep_location = v
+		update_vars()
 @onready var current_level: int = 0
 @onready var current_xp: float = 0
 @onready var xp_to_next_level: float = 5
@@ -93,6 +103,7 @@ const window_knocking_sfx: Array[AudioStream] = [
 var last_window_knock_sfx_idx: int = -1
 
 const door_knocking: AudioStream = preload("res://Assets/Audio/knocking.ogg")
+const shoo_away_sound: AudioStream = preload("res://Assets/Audio/Dieing Beast.ogg")
 
 @onready var position_2_seconds_ago: Vector3 = global_position
 
@@ -121,9 +132,17 @@ func actor_setup():
 		creep_timer.start()
 	_monster_look_at_player()
 	target_location = player_target.global_position
+	update_vars()
 
+var tween: Tween
 func _monster_look_at_player() -> void:
-	if player_target:
+	if player_target: 
+#		if tween: tween.kill()
+#		rotate_ref.rotation_degrees = rotation_degrees
+#		rotate_ref.look_at(player_target.global_position + Vector3(0, 0, 0), Vector3.UP)
+#		tween = get_tree().create_tween()
+#		rotate_ref.rotation.x = rotation.x
+#		tween.tween_property(self, "rotation_degrees", rotate_ref.rotation_degrees + Vector3(0, -90, 0), 0.15).set_trans(Tween.TRANS_LINEAR)
 		var old_x := rotation.x
 		look_at(player_target.global_position + Vector3(0, 1.2, 0), Vector3.UP)
 		rotation.x = old_x
@@ -139,7 +158,7 @@ func _physics_process(delta: float) -> void:
 			_monster_look_at_player()
 			if player_target:
 				target_location = player_target.global_position
-			_nav_physics_process(delta)
+			_nav_physics_process(delta, false)
 		State.Creeping:
 			_monster_look_at_player()
 			_creep_physics_process(delta)
@@ -148,7 +167,7 @@ func _physics_process(delta: float) -> void:
 			_monster_look_at_player()
 			if player_target:
 				target_location = player_target.global_position
-			_nav_physics_process(delta)
+			_nav_physics_process(delta, false)
 		State.EnteringHouse:
 			move_and_slide()
 			return
@@ -165,7 +184,9 @@ func _nav_physics_process(_delta: float, look_at_next_position = false) -> void:
 		var current_agent_position: Vector3 = collision_shape.global_transform.origin
 		var next_path_position: Vector3 = navigation_agent.get_next_path_position()
 		if look_at_next_position:
+			var old_x := rotation.x
 			look_at(next_path_position, Vector3.UP)
+			rotation.x = old_x
 
 		var new_velocity: Vector3 = next_path_position - current_agent_position
 		#print("Next position = " + str(next_path_position) + "; " + str(new_velocity))
@@ -203,6 +224,44 @@ func _on_nav_velocity_computed(safe_velocity: Vector3) -> void:
 	#print(str(velocity) + " -> " + str(safe_velocity) + "; ")
 	velocity = safe_velocity
 	move_and_slide()
+
+func update_animation(old_state: State, new_state: State) -> void:
+	if old_state == new_state: return
+	# enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreepSpots }
+	match new_state:
+		State.Creeping:
+			creature_final.idle()
+		State.Idle:
+			creature_final.idle()
+		State.Hunting:
+			creature_final.run()
+		State.MovingBetweenCreepSpots:
+			creature_final.walk()
+		State.EnteringHouse:
+			creature_final.walk()
+		State.BackingAway:
+			creature_final.walk_back()
+
+func update_vars() -> void:
+	var shoo_away_enabled: bool = state == State.Creeping
+	
+	match creep_location:
+		MonsterCreepSpot.Location.BedRoom1Window: pass
+		MonsterCreepSpot.Location.BedRoom2Window: pass
+		MonsterCreepSpot.Location.BackPorch: pass
+		MonsterCreepSpot.Location.FrontDoor: pass
+		MonsterCreepSpot.Location.BackGarageDoor: pass
+		_: shoo_away_enabled = false
+	
+	if shoo_away_box && shoo_away_box_collider:
+		if shoo_away_enabled:
+			shoo_away_box.set_deferred("monitorable", true)
+			shoo_away_box.set_deferred("monitoring", true)
+			shoo_away_box_collider.disabled = false
+		else:
+			shoo_away_box.set_deferred("monitorable", false)
+			shoo_away_box.set_deferred("monitoring", false)
+			shoo_away_box_collider.disabled = true
 
 func seen_by_player() -> void:
 	is_seen_by_player = true
@@ -276,11 +335,11 @@ func _update_location_to_creep_spot(smooth: bool) -> void:
 		var distance := global_position.distance_to(creep_node.global_position)
 		var time_to_arrive := distance / speed
 		tween.tween_property(self, "global_position", creep_node.global_position, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
-		tween.tween_property(self, "global_rotation", creep_node.global_rotation, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
+		tween.tween_property(self, "rotation", creep_node.rotation, time_to_arrive).set_ease(Tween.EASE_IN_OUT)
 		tween.tween_callback(_set_state_to_creeping)
 	else:
 		global_position = creep_node.global_position
-		global_rotation = creep_node.global_rotation
+		rotation = creep_node.rotation
 		state = State.Creeping
 
 func _set_state_to_creeping() -> void:
@@ -288,9 +347,14 @@ func _set_state_to_creeping() -> void:
 	creep_timer.start()
 
 func _go_to_next_creep_spot() -> void:
+	var next: MonsterCreepSpot.Location = MonsterCreepSpot.get_next_location_random(creep_location)
+	_go_to_creep_spot(next)
+
+func _go_to_creep_spot(next: MonsterCreepSpot.Location) -> void:
 	var creep_node = get_tree().get_first_node_in_group(MonsterCreepSpot.get_group_name(creep_location))
 	var current = creep_location
-	var next: MonsterCreepSpot.Location = MonsterCreepSpot.get_next_location_random(creep_location)
+	if next == current:
+		return
 	creep_location = next
 	print("Going from " + MonsterCreepSpot.Location.keys()[current]  + " to " + MonsterCreepSpot.Location.keys()[next])
 	var old_safety_level = MonsterCreepSpot.safety_rating(current)
@@ -342,6 +406,9 @@ func _house_entered() -> void:
 	major_event_audio.stream = monster_entered_house_audio
 	major_event_audio.max_db = -10
 	major_event_audio.play()
+	position_at_last_timeout = global_position
+	target_location = player_target.global_position
+	pathfinding_fix_timer.start()
 
 func _on_creep_timer_timeout() -> void:
 	if state == State.MovingBetweenCreepSpots:
@@ -362,7 +429,16 @@ func _on_creep_timer_timeout() -> void:
 	creep_timer.start()
 
 func _on_shoo_away_box_on_interact() -> void:
-	_go_to_next_creep_spot()
+	state = State.BackingAway
+	var next: MonsterCreepSpot.Location
+	if MonsterCreepSpot.is_on_roof(creep_location):
+		next = MonsterCreepSpot.Location.RoofCenter
+	else:
+		next = MonsterCreepSpot.Location.DriveWayFar
+	_go_to_creep_spot(next)
+	sfx_audio.stream = shoo_away_sound
+	sfx_audio.max_db = -10
+	sfx_audio.play()
 	creep_timer.start()
 
 func stop_monster_sounds() -> void:
@@ -377,19 +453,26 @@ func _positions_approx_equal() -> bool:
 	return (abs(difference.x) < epsilon) && (abs(difference.y) < epsilon) && (abs(difference.z) < epsilon)
 
 func _on_path_finding_fix_timer_timeout() -> void:
-	if !(state == State.Hunting || state == State.InHouse || state == State.MovingBetweenCreepSpots):
+	print("PATH FINDER TIMED OUT!")
+	if !(state == State.Hunting || state == State.InHouse || state == State.MovingBetweenCreepSpots || state == State.EnteringHouse):
 		return
 	pathfinding_fix_timer.start(path_finding_check_time)
 	if navigation_agent.is_navigation_finished():
-		position_at_last_timeout = global_position
-		return
+		if state == State.InHouse:
+			target_location = player_target.global_position
+		else:
+			position_at_last_timeout = global_position
+			return
 	if _positions_approx_equal():
 		if state == State.Hunting:
 			print("Stuck hunting! teleport to creep spot?")
 		elif state == State.InHouse:
 			print("Stuck in house, teleport behind player? This should be its own mode")
 		elif state == State.MovingBetweenCreepSpots:
+			_update_location_to_creep_spot(false)
 			print("Stuck moving between creep spots!")
+		elif state == State.EnteringHouse:
+			print("Stuck entering house!")
 		else:
 			assert(false, "stuck in state " + State.keys()[state])
 	position_at_last_timeout = global_position
@@ -410,7 +493,7 @@ func notify_player_outside() -> void:
 		factor = 1.0
 	else:
 		factor = 0.7
-	outside_bloodlust_timer.start(randf_range(1.3, 12.9) / factor)
+	outside_bloodlust_timer.start(randf_range(1.3, 11.9) / factor)
 
 func _find_closest_creep_spot() -> MonsterCreepSpot.Location:
 	var closest_dist: float = 9999999
