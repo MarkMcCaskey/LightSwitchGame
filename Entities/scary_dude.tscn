@@ -167,12 +167,22 @@ one_shot = true
 
 [node name="RotateRef" type="Node3D" parent="."]
 
+[node name="InstantKillTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="InstantKillTimerFailSafe" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="CreepTimer" to="." method="_on_creep_timer_timeout"]
 [connection signal="timeout" from="PathFindingFixTimer" to="." method="_on_path_finding_fix_timer_timeout"]
 [connection signal="on_interact" from="ShooAwayBox" to="." method="_on_shoo_away_box_on_interact"]
 [connection signal="body_entered" from="KillZone" to="." method="_on_kill_zone_body_entered"]
 [connection signal="timeout" from="OutsideBloodLustTimer" to="." method="_on_outside_blood_lust_timer_timeout"]
 [connection signal="timeout" from="ExtremeDangerWarningTimer" to="." method="_on_extreme_danger_warning_timer_timeout"]
+[connection signal="timeout" from="InstantKillTimer" to="." method="_on_instant_kill_timer_timeout"]
+[connection signal="timeout" from="InstantKillTimerFailSafe" to="." method="_on_instant_kill_timer_fail_safe_timeout"]
 
 [editable path="AnimatedCreature1"]
 [editable path="creature_w2_final"]

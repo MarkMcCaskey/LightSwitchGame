@@ -38,6 +38,8 @@ enum State { Hunting, Creeping, Idle, InHouse, EnteringHouse, MovingBetweenCreep
 @onready var pathfinding_fix_timer: Timer = $PathFindingFixTimer
 @onready var outside_bloodlust_timer: Timer = $OutsideBloodLustTimer
 @onready var extreme_danger_warning_timer: Timer = $ExtremeDangerWarningTimer
+@onready var instant_kill_timer: Timer = $InstantKillTimer
+@onready var instant_kill_timer_fail_safe: Timer = $InstantKillTimerFailSafe
 const path_finding_check_time: float = 2.0
 @onready var movement_audio: AudioStreamPlayer3D = $MovementAudio
 @onready var passive_audio: AudioStreamPlayer3D = $PassiveAudio
@@ -468,6 +470,7 @@ func _on_path_finding_fix_timer_timeout() -> void:
 			print("Stuck hunting! teleport to creep spot?")
 		elif state == State.InHouse:
 			print("Stuck in house, teleport behind player? This should be its own mode")
+			instant_kill_timer.start(randf_range(2.5, 39.6) / monster_aggression)
 		elif state == State.MovingBetweenCreepSpots:
 			_update_location_to_creep_spot(false)
 			print("Stuck moving between creep spots!")
@@ -542,3 +545,12 @@ func _on_extreme_danger_warning_timer_timeout() -> void:
 			sfx_audio.stream = door_knocking
 			sfx_audio.play()
 		_: assert(false, "unknown warning type " + WarningType.keys()[warning_type])
+
+func _on_instant_kill_timer_timeout() -> void:
+	global_position = player_target.global_position + Vector3(-1, 0, 0)
+	_monster_look_at_player()
+	instant_kill_timer_fail_safe.start()
+
+func _on_instant_kill_timer_fail_safe_timeout() -> void:
+	# and for good measure, let's not even rely on the hitbox
+	player_target.kill_by(self)

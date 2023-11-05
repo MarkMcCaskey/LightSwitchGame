@@ -74,6 +74,12 @@ collide_with_bodies = false
 debug_shape_custom_color = Color(1, 0, 0.0823529, 1)
 debug_shape_thickness = 1
 
+[node name="PauseMenu" type="Control" parent="Camera"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="JumpScareSting" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_f4q2v")
 volume_db = 7.0
