@@ -53,7 +53,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		pause_menu.show()
 	if Input.is_action_just_pressed("interact") && current_interactable: current_interactable.interact()
 	if Input.is_action_just_pressed("debug_spawn_distractions"):
-		play_death_scene()
+		pass
+		#play_death_scene()
 #		for room in Room.RoomName.values():
 #			if room == Room.RoomName.None: continue
 #			var spawn_group = Room.room_name_to_spawn_group(room)
