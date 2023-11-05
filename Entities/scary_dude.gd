@@ -236,9 +236,11 @@ func _on_path_finding_fix_timer_timeout() -> void:
 		return
 	pathfinding_fix_timer.start(path_finding_check_time)
 	if navigation_agent.is_navigation_finished():
+		position_at_last_timeout = global_position
 		return
 	if _positions_approx_equal():
 		if state == State.Hunting:
 			print("Stuck hunting! teleport to creep spot?")
 		elif state == State.InHouse:
 			print("Stuck in house, teleport behind player? This should be its own mode")
+	position_at_last_timeout = global_position
