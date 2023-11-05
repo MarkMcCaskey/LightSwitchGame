@@ -96,7 +96,7 @@ func _on_distraction_timer_timeout() -> void:
 	_start_distraction_timer()
 
 func _start_distraction_timer() -> void:
-	distraction_timer.start(randf_range(19.3, 79.3) / monster.monster_aggression)
+	distraction_timer.start(randf_range(24.3, 105.3) / monster.monster_aggression)
 
 # The player shouldn't be able to see anything anymore
 func _on_player_seeing_static() -> void:
