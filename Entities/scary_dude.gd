@@ -468,7 +468,10 @@ func _on_path_finding_fix_timer_timeout() -> void:
 			return
 	if _positions_approx_equal():
 		if state == State.Hunting:
-			print("Stuck hunting! teleport to creep spot?")
+			print("Just give up and go back to creeping")
+			creep_location = _find_closest_creep_spot()
+			state = State.MovingBetweenCreepSpots
+			_update_location_to_creep_spot(true)
 		elif state == State.InHouse:
 			print("Stuck in house, teleport behind player? This should be its own mode")
 			instant_kill_timer.start(randf_range(2.5, 39.6) / monster_aggression)
@@ -476,7 +479,8 @@ func _on_path_finding_fix_timer_timeout() -> void:
 			_update_location_to_creep_spot(false)
 			print("Stuck moving between creep spots!")
 		elif state == State.EnteringHouse:
-			print("Stuck entering house!")
+			print("Stuck entering house! Sorry if this happens the game broke, so you die.")
+			instant_kill_timer.start(randf_range(10.0, 100.0) / monster_aggression)
 		else:
 			assert(false, "stuck in state " + State.keys()[state])
 	position_at_last_timeout = global_position
