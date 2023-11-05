@@ -446,6 +446,10 @@ func _on_shoo_away_box_on_interact() -> void:
 	else:
 		# Tired, hard code position in the middle of the street
 		target_location = Vector3(-13, 0, 36)
+		var old_safety_level = MonsterCreepSpot.safety_rating(creep_location)
+		var new_safety_level = MonsterCreepSpot.safety_rating(MonsterCreepSpot.Location.ColDeSacMiddle)
+		if old_safety_level != new_safety_level:
+			emit_signal("ScaryDudeSafetyLevelChanged", old_safety_level, new_safety_level)
 	
 	sfx_audio.stream = shoo_away_sound
 	sfx_audio.max_db = -7
@@ -557,6 +561,8 @@ func _on_extreme_danger_warning_timer_timeout() -> void:
 			sfx_audio.volume_db = -10
 			sfx_audio.stream = door_knocking
 			sfx_audio.play()
+			# get it done!
+			_update_location_to_creep_spot(false)
 		_: assert(false, "unknown warning type " + WarningType.keys()[warning_type])
 
 func _on_instant_kill_timer_timeout() -> void:

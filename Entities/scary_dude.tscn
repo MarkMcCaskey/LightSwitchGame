@@ -25,7 +25,7 @@ transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-
 script = ExtResource("1_ohpp7")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="."]
-transform = Transform3D(-0.247399, -0.00838581, -0.0349766, -0.00369495, 0.24775, -0.0332637, 0.0357776, -0.0324007, -0.245296, -0.0621999, 1.55193, -0.0038136)
+transform = Transform3D(-0.247399, -0.00838581, -0.0349766, -0.00369496, 0.24775, -0.0332637, 0.0357775, -0.0324007, -0.245296, -0.0621999, 1.55193, -0.00381357)
 bone_name = "mixamorig_Head"
 bone_idx = 5
 use_external_skeleton = true

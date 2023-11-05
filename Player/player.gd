@@ -61,6 +61,10 @@ func _unhandled_input(event: InputEvent) -> void:
 #			for spawner in get_tree().get_nodes_in_group(spawn_group):
 #				spawner.spawn_object()
 
+# bugs to fix
+# light switch
+# distraction spawn
+
 func _physics_process(delta: float) -> void:
 	# HACK: this also disables physics which isn't necessarily clear by the name `has_control`
 	if !has_control:

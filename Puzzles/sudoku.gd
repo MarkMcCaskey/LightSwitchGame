@@ -140,6 +140,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("7"): num_input = 7
 	elif event.is_action_pressed("8"): num_input = 8
 	elif event.is_action_pressed("9"): num_input = 9
+	elif event.is_action_pressed("0"): num_input = 0
 	elif event.is_action("ui_cancel"): emit_signal("SudokuQuit")
 	
 	if num_input != -1:
