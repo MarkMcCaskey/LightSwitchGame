@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://p6gepe6e1r1"]
+[gd_scene load_steps=12 format=3 uid="uid://p6gepe6e1r1"]
 
 [ext_resource type="PackedScene" uid="uid://btlkno2qy2v7k" path="res://Levels/house.tscn" id="1_8ebf0"]
 [ext_resource type="Script" path="res://Levels/title_screen_background.gd" id="1_xcwc7"]
 [ext_resource type="PackedScene" uid="uid://dthmedsysxst2" path="res://Entities/creature_w_1_creeper_breathing.tscn" id="2_t6d3m"]
 [ext_resource type="PackedScene" uid="uid://dkg12a310ch6c" path="res://Levels/settings_menu.tscn" id="3_y5731"]
+[ext_resource type="PackedScene" uid="uid://ccufh8x16ryd1" path="res://Levels/how_to_play.tscn" id="4_d876g"]
 [ext_resource type="Environment" uid="uid://ciobn7dy7kvpe" path="res://Materials/title_environment.tres" id="5_bf2y8"]
 [ext_resource type="AudioStream" uid="uid://bk1c67j0edpfd" path="res://Assets/Audio/upside down grin2.ogg" id="6_6ndvq"]
 [ext_resource type="AudioStream" uid="uid://cpg6ingpay1n7" path="res://Assets/Audio/game_start.ogg" id="7_b5tq4"]
@@ -202,9 +203,12 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 15.0
+offset_top = 80.0
 offset_right = 15.0
+offset_bottom = 80.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/v_separation = 20
 alignment = 1
 
 [node name="Title" type="Label" parent="Camera3D/FlowContainer"]
@@ -217,28 +221,49 @@ layout_mode = 2
 alignment = 1
 
 [node name="StartButton" type="Button" parent="Camera3D/FlowContainer/HFlowContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 50)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Start"
 
-[node name="Spacer" type="Control" parent="Camera3D/FlowContainer/HFlowContainer"]
+[node name="HFlowContainer2" type="HFlowContainer" parent="Camera3D/FlowContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+alignment = 1
 
-[node name="SettingsButton" type="Button" parent="Camera3D/FlowContainer/HFlowContainer"]
+[node name="SettingsButton" type="Button" parent="Camera3D/FlowContainer/HFlowContainer2"]
 layout_mode = 2
 text = "Settings
 "
 
-[node name="Spacer2" type="Control" parent="Camera3D/FlowContainer/HFlowContainer"]
+[node name="Spacer3" type="Control" parent="Camera3D/FlowContainer/HFlowContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="QuitButton" type="Button" parent="Camera3D/FlowContainer/HFlowContainer"]
+[node name="AboutButton" type="Button" parent="Camera3D/FlowContainer/HFlowContainer2"]
+layout_mode = 2
+text = "How to Play"
+
+[node name="Spacer" type="Control" parent="Camera3D/FlowContainer/HFlowContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Credits" type="Button" parent="Camera3D/FlowContainer/HFlowContainer2"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Spacer2" type="Control" parent="Camera3D/FlowContainer/HFlowContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="QuitButton" type="Button" parent="Camera3D/FlowContainer/HFlowContainer2"]
 layout_mode = 2
 text = "Exit"
 
 [node name="SettingsMenu" parent="Camera3D" instance=ExtResource("3_y5731")]
+visible = false
+
+[node name="HowToPlay" parent="Camera3D" instance=ExtResource("4_d876g")]
+visible = false
 
 [node name="CameraTargetPosition" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.42624, 5.12728, 2.20308)
@@ -270,6 +295,9 @@ volume_db = -6.0
 pitch_scale = 0.5
 
 [connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer2/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer2/AboutButton" to="." method="_on_about_button_pressed"]
+[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer2/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Camera3D/FlowContainer/HFlowContainer2/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="SettingsClosed" from="Camera3D/SettingsMenu" to="." method="_on_settings_menu_settings_closed"]
+[connection signal="HowToPlayQuit" from="Camera3D/HowToPlay" to="." method="_on_how_to_play_how_to_play_quit"]

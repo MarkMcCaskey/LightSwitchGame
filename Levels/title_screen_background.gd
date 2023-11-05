@@ -5,12 +5,14 @@ extends Node3D
 @onready var camera: Camera3D = $Camera3D
 @onready var menu_bgm: AudioStreamPlayer = $MenuBGMPlayer
 @onready var menu_sfx: AudioStreamPlayer = $MenuSfxPlayer
+@onready var how_to_play = $Camera3D/HowToPlay
 
 const main_scene = "res://main.tscn"
 var settings_open: bool = false
 
 func _ready() -> void:
 	settings_menu.hide()
+	how_to_play.hide()
 	settings_open = false
 	animation_player.play("Idle")
 	camera.make_current()
@@ -46,3 +48,11 @@ func _on_settings_menu_settings_closed() -> void:
 	settings_open = false
 	settings_menu.hide()
 
+func _on_about_button_pressed() -> void:
+	how_to_play.show()
+
+func _on_credits_pressed() -> void:
+	pass # Replace with function body.
+
+func _on_how_to_play_how_to_play_quit() -> void:
+	how_to_play.hide()
