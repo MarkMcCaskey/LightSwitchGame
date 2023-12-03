@@ -1,4 +1,4 @@
-# Enigma of the Eldrith Elk ("Lightswitch Game")
+# Enigma of the Eldritch Elk ("Lightswitch Game")
 
 Built using Godot 4. First attempt at doing 3D in Godot.
 
